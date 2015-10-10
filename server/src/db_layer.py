@@ -17,9 +17,9 @@ class Model:
     def __init__(self):
         pass
 
-    @staticmethod
+    @classmethod
     @constant
-    def COLLECTION_NAME():
+    def COLLECTION_NAME(cls):
         return Model.__name__
 
     def to_doc(self):
@@ -30,9 +30,9 @@ class Post(Model):
     def __init__(self):
         Model.__init__(self)
 
-    @staticmethod
+    @classmethod
     @constant
-    def COLLECTION_NAME():
+    def COLLECTION_NAME(cls):
         return "posts"
 
     def to_doc(self):
@@ -52,9 +52,9 @@ class User(Model):
             self.phone_number = object_dict["phone_number"]
             self.password_hash = object_dict["password_hash"]
 
-    @staticmethod
+    @classmethod
     @constant
-    def COLLECTION_NAME():
+    def COLLECTION_NAME(cls):
         return "users"
 
     def to_doc(self):
@@ -62,9 +62,9 @@ class User(Model):
 
 
 class GideonDatabaseClient:
-    @staticmethod
+    @classmethod
     @constant
-    def DATABASE_NAME():
+    def DATABASE_NAME(cls):
         return "test-database"
 
     def __init__(self):
