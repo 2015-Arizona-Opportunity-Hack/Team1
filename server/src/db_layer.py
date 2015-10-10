@@ -41,11 +41,16 @@ class Post(Model):
 
 class User(Model):
 
-    def __init__(self, username, phone_number, password):
+    def __init__(self, object_dict=None, **kwargs):
         Model.__init__(self)
-        self.username = username
-        self.phone_number = phone_number
-        self.password_hash = generate_password_hash(password, "pbkdf2:sha256:10000")
+        if object_dict is None:
+            self.username = kwargs["username"]
+            self.phone_number = kwargs["phone_number"]
+            self.password_hash = generate_password_hash(kwargs["password_hash"], "pbkdf2:sha256:10000")
+        else:
+            self.username = object_dict["username"]
+            self.phone_number = object_dict["phone_number"]
+            self.password_hash = object_dict["password_hash"]
 
     @staticmethod
     @constant
@@ -72,8 +77,8 @@ class GideonDatabaseClient:
     def insert(self, model_inst):
         model_cls = model_inst.__class__
         collection = self.db.get_collection(model_cls)
-        return collection.insert_one(model_cls.to_doc()).inserted_id
+        return collection.insert_one(model_inst.to_doc()).inserted_id
 
     def find(self, inst_id, model_cls):
         collection = self.get_collection(model_cls)
-        return collection.find_one({"_id": inst_id})
+        return model_cls.__class__(collection.find_one({"_id": inst_id}))
