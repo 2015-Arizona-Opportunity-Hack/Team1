@@ -1,6 +1,7 @@
 from __init__ import app, db
 from flask import request
 
+
 @app.route("/")
 def index():
     return "Ayy lmao"
@@ -15,7 +16,7 @@ def register():
     errors = validate(obj, "username", "phone_number", "password")
 
     if errors:
-        "".join([error.__repr__() for error in errors])
+        return "".join([error.__repr__() for error in errors])
 
     return username + " " + phone + " " + password
 
@@ -28,9 +29,9 @@ def validate(obj, *args):
             errors = errors + ((required + " is required"),)
     return errors
 
+
 @app.route("/make_post", methods=['POST'])
 def make_post():
-
     req_json = request.json
 
     # Todo act on validation
@@ -46,9 +47,9 @@ def make_post():
     post_collection = db['posts']
 
     post = {
-        "author" : req_json["author"],
-        "post" : req_json["post"],
-        "category" : req_json["category"]
+        "author": req_json["author"],
+        "post": req_json["post"],
+        "category": req_json["category"]
         # event object?
     }
 
@@ -58,6 +59,7 @@ def make_post():
         print each
 
     return "{}".format(post_id.inserted_id), 200
+
 
 def authenticate(req):
     return True
