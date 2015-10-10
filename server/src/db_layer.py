@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 class Model:
     def __init__(self):
         pass
@@ -11,6 +12,7 @@ class Model:
 
     def to_doc(self):
         return {}
+
 
 class Post(Model):
     def __init__(self, obj_dict=None, **kwargs):
@@ -35,7 +37,6 @@ class Post(Model):
 
 
 class User(Model):
-
     def __init__(self, object_dict=None, **kwargs):
         Model.__init__(self)
         if object_dict is None:
@@ -54,8 +55,8 @@ class User(Model):
     def to_doc(self):
         return {"username": self.username, "phone_number": self.phone_number, "password_hash": self.password_hash}
 
-class GideonDatabaseClient:
 
+class GideonDatabaseClient:
     @classmethod
     def DATABASE_NAME(cls):
         return "test-database"
