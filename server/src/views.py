@@ -11,11 +11,15 @@ def index():
 def register():
     obj = request.get_json(force=True)
 
+    username, phone, password = obj["username"], obj["phone_number"], obj["password"]
+
     errors = validate(obj, "username", "phone_number", "password")
 
     if errors:
         print errors
         return "validation error", 401
+
+    return username + " " + phone + " " + password
 
 
 def validate(obj, *args):
