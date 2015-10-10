@@ -27,8 +27,18 @@ class Model:
 
 
 class Post(Model):
-    def __init__(self):
+    def __init__(self, obj_dict=None, **kwargs):
         Model.__init__(self)
+        if obj_dict is None:
+            self.author = kwargs["author"]
+            self.posts = kwargs["posts"]
+            self.categories = kwargs["categories"]
+            self.event = kwargs["event"]
+        else:
+            self.author = obj_dict["author"]
+            self.posts = kwargs["posts"]
+            self.categories = kwargs["categories"]
+            self.event = kwargs["event"]
 
     @classmethod
     @constant
