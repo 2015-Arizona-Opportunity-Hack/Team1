@@ -50,14 +50,16 @@ class User(Model):
             self.phone_number = kwargs["phone_number"]
             self.password_hash = generate_password_hash(kwargs["password"], "pbkdf2:sha256:10000")
             self.language_pref = kwargs["language_pref"]
-            self.token_secret = generate_secret(128)
+            self.auth_token_secret = generate_secret(128)
+            self.action_token_secret = generate_secret(128)
 
         else:
             self.username = object_dict["username"]
             self.phone_number = object_dict["phone_number"]
             self.password_hash = object_dict["password_hash"]
             self.language_pref = object_dict["language_pref"]
-            self.token_secret = object_dict["token_secret"]
+            self.auth_token_secret = object_dict["auth_token_secret"]
+            self.action_token_secret = object_dict["action_token_secret"]
 
     @classmethod
     def COLLECTION_NAME(cls):
@@ -69,7 +71,8 @@ class User(Model):
                     "phone_number": self.phone_number,
                     "password_hash": self.password_hash,
                     "language_pref": self.language_pref,
-                    "token_secret": self.token_secret
+                    "auth_token_secret": self.auth_token_secret,
+                    "action_token_secret": self.action_token_secret
                }
 
 
