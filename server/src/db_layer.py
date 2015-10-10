@@ -1,30 +1,16 @@
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
-# Magic decorator for defining constants
-def constant(f):
-    def fset(self, value):
-        raise TypeError
-
-    def fget(self):
-        return f()
-
-    return property(fget, fset)
-
-
 class Model:
     def __init__(self):
         pass
 
     @classmethod
-    @constant
     def COLLECTION_NAME(cls):
         return Model.__name__
 
     def to_doc(self):
         return {}
-
 
 class Post(Model):
     def __init__(self, obj_dict=None, **kwargs):
@@ -41,7 +27,6 @@ class Post(Model):
             self.event = kwargs["event"]
 
     @classmethod
-    @constant
     def COLLECTION_NAME(cls):
         return "posts"
 
@@ -63,17 +48,15 @@ class User(Model):
             self.password_hash = object_dict["password_hash"]
 
     @classmethod
-    @constant
     def COLLECTION_NAME(cls):
         return "users"
 
     def to_doc(self):
         return {"username": self.username, "phone_number": self.phone_number, "password_hash": self.password_hash}
 
-
 class GideonDatabaseClient:
+
     @classmethod
-    @constant
     def DATABASE_NAME(cls):
         return "test-database"
 
