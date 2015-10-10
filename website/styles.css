@@ -9,9 +9,45 @@ html, body {
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-	margin: 0 auto -50px;
+	margin: 0 auto -100px;
 }
 
 .footer .push {
-	height: 50px;
+	height: 100px;
+}
+
+.navbar {
+	background-color: #0668B3;
+}
+
+.navbar .nav > li > a {
+	color: #FFFFFF;
+}
+
+.navbar .navbar-header .navbar-brand {
+	color: #FFFFFF;
+}
+.navbar-default .navbar-nav > .dropdown > a:hover .caret,
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+    border-top-color: #EF3E33;
+    border-bottom-color: #EF3E33;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #DDD;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #DDD;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #CCC;
+}
+
+.footer {
+	background-color: grey;
+	height: 100px;
+}
+.footer .container p {
+	color: #FFFFFF;
 }

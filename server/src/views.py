@@ -1,8 +1,9 @@
 from __init__ import app, db
 from flask import request, json
 from db_layer import User, Post
+from util import validate, authenticate
 
-@app.route("/")
+@app.route("/", methods=["POST"])
 def index():
     return "Ayy lmao"
 
@@ -61,6 +62,7 @@ def validate(obj, *args):
 
 
 @app.route("/make_post", methods=['POST'])
+@authenticate
 def make_post():
     req_json = request.json
 
@@ -79,6 +81,3 @@ def make_post():
 
     return "Success", 200
 
-
-def authenticate(req):
-    return True
