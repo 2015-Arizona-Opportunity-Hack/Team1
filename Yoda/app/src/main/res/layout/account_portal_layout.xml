@@ -40,7 +40,7 @@
         android:layout_height="100dp"
         android:text="SIGN UP"
         android:textColor="@color/color1"
-        android:background="@color/color4"
+        android:background="@color/color2"
         android:textSize="35sp"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"

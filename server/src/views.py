@@ -1,6 +1,6 @@
 from __init__ import app, db
 from flask import request
-
+from db_layer import User, GideonDatabaseClient
 
 @app.route("/")
 def index():
@@ -14,12 +14,15 @@ def register():
     username, phone, password = obj["username"], obj["phone_number"], obj["password"]
 
     errors = validate(obj, "username", "phone_number", "password")
-
     if errors:
         print errors
         return "validation error", 401
 
-    return username + " " + phone + " " + password
+    new_user = User(request.json["username"], request.json["phone_number"], request.json["password"])
+    client = GideonDatabaseClient()
+    client.insert(new_user)
+
+    return username + " " + phone, 200
 
 
 def validate(obj, *args):
