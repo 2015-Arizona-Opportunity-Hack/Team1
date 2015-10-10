@@ -14,7 +14,8 @@ def register():
     errors = validate(obj, "username", "phone_number", "password")
 
     if errors:
-        return "".join([error.__repr__() for error in errors])
+        print errors
+        return "validation error", 401
 
 
 def validate(obj, *args):
