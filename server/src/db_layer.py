@@ -31,7 +31,12 @@ class Post(Model):
         return "posts"
 
     def to_doc(self):
-        Model.to_doc(self)
+        return {
+            "author": self.author,
+            "posts": self.posts,
+            "categories": self.categories,
+            "event": self.event
+        }
 
 
 class User(Model):
