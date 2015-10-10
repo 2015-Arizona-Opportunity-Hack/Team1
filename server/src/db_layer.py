@@ -41,7 +41,7 @@ class User(Model):
         if object_dict is None:
             self.username = kwargs["username"]
             self.phone_number = kwargs["phone_number"]
-            self.password_hash = generate_password_hash(kwargs["password_hash"], "pbkdf2:sha256:10000")
+            self.password_hash = generate_password_hash(kwargs["password"], "pbkdf2:sha256:10000")
         else:
             self.username = object_dict["username"]
             self.phone_number = object_dict["phone_number"]
@@ -69,7 +69,7 @@ class GideonDatabaseClient:
 
     def insert(self, model_inst):
         model_cls = model_inst.__class__
-        collection = self.db.get_collection(model_cls)
+        collection = self.get_collection(model_cls)
         return collection.insert_one(model_inst.to_doc()).inserted_id
 
     def find(self, inst_id, model_cls):
