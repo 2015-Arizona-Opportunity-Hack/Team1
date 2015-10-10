@@ -11,7 +11,8 @@ def index():
 def register():
     obj = request.get_json(force=True)
 
-    errors = validate(obj, "username", "phone_number", "")
+    errors = validate(obj, "username", "phone_number", "password")
+
     if errors:
         "".join([error.__repr__() for error in errors])
 
