@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
+from grumpy import verify_token, generate_secret, generate_token
 
 
 class Model:
@@ -34,11 +35,11 @@ class Post(Model):
 
     def to_doc(self):
         return {
-            "author": self.author,
-            "posts": self.posts,
-            "categories": self.categories,
-            "event": self.event
-        }
+                    "author": self.author,
+                    "posts": self.posts,
+                    "categories": self.categories,
+                    "event": self.event
+               }
 
 
 class User(Model):
@@ -48,17 +49,31 @@ class User(Model):
             self.username = kwargs["username"]
             self.phone_number = kwargs["phone_number"]
             self.password_hash = generate_password_hash(kwargs["password"], "pbkdf2:sha256:10000")
+            self.language_pref = kwargs["language_pref"]
+            self.auth_token_secret = generate_secret(128)
+            self.action_token_secret = generate_secret(128)
+
         else:
             self.username = object_dict["username"]
             self.phone_number = object_dict["phone_number"]
             self.password_hash = object_dict["password_hash"]
+            self.language_pref = object_dict["language_pref"]
+            self.auth_token_secret = object_dict["auth_token_secret"]
+            self.action_token_secret = object_dict["action_token_secret"]
 
     @classmethod
     def COLLECTION_NAME(cls):
         return "users"
 
     def to_doc(self):
-        return {"username": self.username, "phone_number": self.phone_number, "password_hash": self.password_hash}
+        return {
+                    "username": self.username,
+                    "phone_number": self.phone_number,
+                    "password_hash": self.password_hash,
+                    "language_pref": self.language_pref,
+                    "auth_token_secret": self.auth_token_secret,
+                    "action_token_secret": self.action_token_secret
+               }
 
 
 class GideonDatabaseClient:
