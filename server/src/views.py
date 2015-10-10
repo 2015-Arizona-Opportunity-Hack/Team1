@@ -1,5 +1,5 @@
 from __init__ import app, db
-from flask import request
+from flask import request, json
 from db_layer import User, Post
 
 @app.route("/")
@@ -9,21 +9,46 @@ def index():
 
 @app.route("/register", methods=["POST"])
 def register():
-    obj = request.json
+    obj = request.get_json(force=True)
 
     print obj
-
-    username, phone, password = obj["username"], obj["phone_number"], obj["password"]
 
     errors = validate(obj, "username", "phone_number", "password")
     if errors:
         print errors
         return "validation error", 401
 
+    username, phone, password = obj["username"], obj["phone_number"], obj["password"]
+
     new_user = User(username=username, phone_number=phone, password=password)
     db.insert(new_user)
 
     return username + " " + phone, 200
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    obj = request.get_json(force=True)
+
+    print obj
+
+    errors = validate(obj, "username", "password")
+    if errors:
+        print errors
+        return "validation error", 401
+
+    username, password = obj["username"], obj["password"]
+
+    user = db.findByField("username", username, User)
+
+    if not user:
+        return "Username not found", 401
+
+    if not user.verify_password(password):
+        return "Incorrect password", 401
+
+    else:
+        return json.dumps({"auth_token": user.generate_auth_token()})
 
 
 def validate(obj, *args):
