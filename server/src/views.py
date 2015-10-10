@@ -7,9 +7,11 @@ def index():
     return "Ayy lmao"
 
 
-@app.route("/register")
+@app.route("/register", methods=["POST"])
 def register():
-    obj = request.get_json(force=True)
+    obj = request.json
+
+    print obj
 
     username, phone, password = obj["username"], obj["phone_number"], obj["password"]
 
@@ -18,7 +20,7 @@ def register():
         print errors
         return "validation error", 401
 
-    new_user = User(request.json["username"], request.json["phone_number"], request.json["password"])
+    new_user = User(username=username, phone_number=phone, password=password)
     client = GideonDatabaseClient()
     client.insert(new_user)
 
