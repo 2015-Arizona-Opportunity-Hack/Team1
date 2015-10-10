@@ -18,6 +18,21 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".activities.Login"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activities.SignUp"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activities.Landing"
+            android:screenOrientation="portrait">
+        </activity>
+
     </application>
 
 </manifest>
