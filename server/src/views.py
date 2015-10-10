@@ -49,7 +49,11 @@ def make_post():
     }
 
     post_id = post_collection.insert_one(post)
-    return "{}".(post_id.inserted_id), 200
+
+    for each in post_collection.find():
+        print each
+
+    return "{}".format(post_id.inserted_id), 200
 
 def authenticate(req):
     return True
