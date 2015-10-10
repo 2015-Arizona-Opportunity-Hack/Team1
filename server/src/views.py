@@ -1,6 +1,6 @@
 from __init__ import app, db
 from flask import request
-from db_layer import User, GideonDatabaseClient
+from db_layer import User, Post
 
 @app.route("/")
 def index():
@@ -21,8 +21,7 @@ def register():
         return "validation error", 401
 
     new_user = User(username=username, phone_number=phone, password=password)
-    client = GideonDatabaseClient()
-    client.insert(new_user)
+    db.insert(new_user)
 
     return username + " " + phone, 200
 
@@ -41,7 +40,7 @@ def make_post():
     req_json = request.json
 
     # Todo act on validation
-    errors = validate(req_json, "post", "category", "event", "author", "auth")
+    errors = validate(req_json, "posts", "categories", "event", "author", "auth")
     if errors:
         print errors
         return "validation error", 401
@@ -50,21 +49,10 @@ def make_post():
     if not authenticate(req_json["auth"]):
         return "authentication error", 401
 
-    post_collection = db['posts']
+    new_post = Post(author=req_json["author"], posts=req_json["posts"], categories=req_json["categories"], event=req_json["event"])
+    db.insert(new_post)
 
-    post = {
-        "author": req_json["author"],
-        "post": req_json["post"],
-        "category": req_json["category"]
-        # event object?
-    }
-
-    post_id = post_collection.insert_one(post)
-
-    for each in post_collection.find():
-        print each
-
-    return "{}".format(post_id.inserted_id), 200
+    return "Success", 200
 
 
 def authenticate(req):
