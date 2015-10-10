@@ -32,6 +32,16 @@ class Post(Model):
         return "posts"
 
 
+class User(Model):
+    def __init__(self):
+        Model.__init__(self)
+
+    @staticmethod
+    @constant
+    def COLLECTION_NAME():
+        return "users"
+
+
 class GideonDatabaseClient:
     @staticmethod
     @constant
@@ -44,3 +54,4 @@ class GideonDatabaseClient:
 
     def get_collection(self, model_cls):
         return self.db[model_cls.COLLECTION_NAME()]
+
