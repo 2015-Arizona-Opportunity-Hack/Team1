@@ -1,5 +1,5 @@
 from __init__ import app, db
-from flask import request, json
+from flask import request, json, redirect, url_for, make_response
 from db_layer import User, Post, SuperUser
 from util import validate, authenticate
 from flask import render_template
@@ -21,25 +21,109 @@ def admin_login():
     return render_template('login.html',hover=hover)
 
 
+@app.route("/login_webapp", methods=["POST"])
+def login_webapp():
+    req_json = request.get_json(force=True)
+
+    errors = validate(req_json, "email", "password")
+    if errors:
+        print errors
+        return redirect(url_for("/login/"))
+
+    email = req_json["email"]
+    password = req_json["password"]
+
+    user = db.find_by_field("email", email, SuperUser)
+
+    if not user:
+        return redirect(url_for("/login/"))
+
+    if not user.verify_password(password):
+        return redirect(url_for("/login/"))
+
+    resp = make_response(redirect(url_for("/news-alerts/")))
+    resp.set_cookie("session", user.generate_auth_token())
+    return resp
+
+
 @app.route("/news-alerts/")
 def news_alerts():
+    session = request.cookies.get("session")
+    if not session:
+        return redirect(url_for("/login/"))
+
+    email = session.split(":")[1]
+
+    user = db.find_by_field("email", email, SuperUser)
+
+    if not user:
+        return redirect(url_for("/login/"))
+
+    if not user.verify_auth_token(session):
+        return redirect(url_for("/login/"))
+
+    new_session = user.generate_auth_token()
+
     hover = {"index":"","news-alerts":"","login":"","users":"","emergency":""}
     hover["news-alerts"] = "active"
-    return render_template('news-alerts.html',hover=hover)
+    resp = render_template(render_template('news-alerts.html',hover=hover))
+    resp.set_cookie("session", new_session)
+
+    return resp
 
 
 @app.route("/urgent-alerts/")
 def urgent_alerts():
+    session = request.cookies.get("session")
+    if not session:
+        return redirect(url_for("/login/"))
+
+    email = session.split(":")[1]
+
+    user = db.find_by_field("email", email, SuperUser)
+
+    if not user:
+        return redirect(url_for("/login/"))
+
+    if not user.verify_auth_token(session):
+        return redirect(url_for("/login/"))
+
+    new_session = user.generate_auth_token()
+
+
     hover = {"index":"","news-alerts":"","login":"","users":"","emergency":""}
     hover["urgent-alerts"] = "active"
-    return render_template('emergency-alerts.html',hover=hover)
+    resp = render_template(render_template('news-alerts.html',hover=hover))
+    resp.set_cookie("session", new_session)
+
+    return resp
 
 
 @app.route("/users/")
 def users():
+    session = request.cookies.get("session")
+    if not session:
+        return redirect(url_for("/login/"))
+
+    email = session.split(":")[1]
+
+    user = db.find_by_field("email", email, SuperUser)
+
+    if not user:
+        return redirect(url_for("/login/"))
+
+    if not user.verify_auth_token(session):
+        return redirect(url_for("/login/"))
+
+    new_session = user.generate_auth_token()
+
     hover = {"index":"","news-alerts":"","login":"","users":"","emergency":""}
     hover["users"] = "active"
-    return render_template('users.html',hover=hover)
+
+    resp = render_template(render_template('news-alerts.html',hover=hover))
+    resp.set_cookie("session", new_session)
+
+    return resp
 
 
 @app.route("/register_su", methods=["POST"])
