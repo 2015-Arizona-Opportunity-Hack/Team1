@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.bramblellc.yoda.data.SharedPreferencesLayer;
 import com.stevex86.napper.http.connection.ConnectionHandler;
 import com.stevex86.napper.http.elements.content.JsonBodyContent;
 import com.stevex86.napper.http.elements.method.Post;
@@ -30,7 +31,7 @@ public class LoginIntentService extends YodaIntentService {
             Request request = new Request(route, new Post());
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("username", intent.getStringExtra("username"));
+            jsonObject.put("email", intent.getStringExtra("email"));
             jsonObject.put("password", intent.getStringExtra("password"));
             JsonBodyContent content = new JsonBodyContent(jsonObject.toString());
 
@@ -44,7 +45,7 @@ public class LoginIntentService extends YodaIntentService {
                 String authToken = jsonObject.getString("auth_token");
                 Intent localIntent = new Intent(ActionConstants.LOGIN_ACTION);
                 localIntent.putExtra("successful", true);
-                localIntent.putExtra("auth_token", authToken);
+                SharedPreferencesLayer.getInstance().setAuthToken(authToken);
                 LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
             }
             else {
