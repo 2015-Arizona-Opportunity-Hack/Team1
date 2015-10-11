@@ -36,6 +36,9 @@ def verify_token(token, counter, expire_timedelta, secret):
     creation_datetime = datetime.utcfromtimestamp(int(creation_datetime_str))
     now = datetime.utcnow()
     if now - expire_timedelta <= creation_datetime:
-        return generate_token(user_identifier, creation_datetime_str, counter, secret) == token
+        print token
+        other_token = generate_token(user_identifier, creation_datetime_str, counter, secret)
+        print other_token
+        return other_token == token
     else:
         return False
