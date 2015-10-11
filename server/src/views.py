@@ -3,7 +3,8 @@ from flask import request, json
 from db_layer import User, Post
 from util import validate, authenticate
 
-@app.route("/", methods=["POST"])
+
+@app.route("/")
 def index():
     return "Ayy lmao"
 
@@ -14,14 +15,14 @@ def register():
 
     print obj
 
-    errors = validate(obj, "username", "phone_number", "password")
+    errors = validate(obj, "username", "phone_number", "password", "language_pref", "first_name", "last_name")
     if errors:
         print errors
         return "validation error", 401
 
-    username, phone, password = obj["username"], obj["phone_number"], obj["password"]
+    username, phone, password, language_pref, first_name, last_name = obj["username"], obj["phone_number"], obj["password"], obj["language_pref"], obj["first_name"], obj["last_name"]
 
-    new_user = User(username=username, phone_number=phone, password=password)
+    new_user = User(username=username, phone_number=phone, password=password, language_pref=language_pref, first_name=first_name, last_name=last_name)
     db.insert(new_user)
 
     return username + " " + phone, 200
@@ -76,4 +77,3 @@ def make_post():
     db.insert(new_post)
 
     return "Success", 200
-
