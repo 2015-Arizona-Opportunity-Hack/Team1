@@ -133,6 +133,3 @@ class GideonDatabaseClient:
             {"_id": model_inst.id},
             model_inst.to_doc()
         )
-
-
-
