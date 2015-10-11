@@ -23,7 +23,7 @@
       <br>
      <div class="container">
         <div class="row">
-            <form class="form" method="post" action="/users/new">
+            <form class="form" method="POST" action="/users/new">
                 <div class="col-sm-3 col-md-6">
              <div class="panel panel-default">
               <div class="panel-heading">
@@ -39,9 +39,9 @@
                     <textarea class="form-control" rows="1"
                     name="last_name"></textarea>
 
-                <button type="submit" class="btn btn-lg btn-block btn-primary">Save</button>
+                <input type="submit" value="Save" class="btn btn-lg btn-block btn-primary">
                 <br>
-                <button type="submit" class="btn btn-lg btn-block btn-danger">Delete User</button>
+                <input type="submit" value="Delete User" class="btn btn-lg btn-block btn-danger">
                 </div>
               </div>
             </div>
@@ -56,7 +56,7 @@
                   <label for="password">Password: </label>
                   <input type="password" class="form-control" rows="1" name="password"/>
                 </div>
-              <button type="submit" class="btn btn-lg btn-block btn-primary">Reset Password</button>
+              <input type="submit" value="Reset Password" class="btn btn-lg btn-block btn-primary">
             </div>
             </div>
             </div>
