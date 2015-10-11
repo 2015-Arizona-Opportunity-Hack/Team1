@@ -169,7 +169,7 @@ def usr_prop():
 
     print req_json["property"]
 
-    if not (req_json["property"] == "message_prefs" or req_json["property"] == "language_pref"):
+    if (req_json["property"] == "message_prefs" or req_json["property"] == "language_pref"):
         email = req_json["action_token"].split(":")[1]
         usr = db.find_by_field("email", email, User)
         if not usr:
