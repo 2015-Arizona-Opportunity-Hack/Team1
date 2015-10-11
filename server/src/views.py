@@ -255,6 +255,18 @@ def updatepass():
     db.update(user)
     return render_template("users.html", user=user)
 
+@app.route("/users/delusr", methods=["POST"])
+def delusr():
+    user = db.find_by_field("email", request.form['email'], User)
+
+    if not admin_auth(request.cookies.get("session")):
+        return redirect("/") # FAILED ATUH
+
+    if not User:
+        return render_template("users.html", user=None)  # TODO NO USER FOUND
+    db.remove(user)
+    return render_template("users.html", user=user)
+
 @app.route("/login/")
 def login():
     if request.cookies.get("session"):
