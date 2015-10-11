@@ -60,6 +60,7 @@ public class NewsIntentService extends YodaIntentService {
 
                     Intent localIntent = new Intent(ActionConstants.NEWS_ACTION);
                     localIntent.putExtra("successful", true);
+                    localIntent.putExtra("content", response.getBodyContent().toString());
                     SharedPreferencesLayer.getInstance().setAuthToken(jsonObject.getString("auth_token"));
                     LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
                 }
