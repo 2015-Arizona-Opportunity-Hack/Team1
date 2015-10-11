@@ -3,6 +3,8 @@ from flask import request, json, redirect, url_for, make_response
 from db_layer import User, Post, SuperUser
 from util import validate, authenticate
 from flask import render_template
+from threading import Thread
+from SMS import send_message_to_all_users
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -55,26 +57,53 @@ def news_alerts():
 
 @app.route("/urgent-alerts/")
 def urgent_alerts():
-    session = request.cookies.get("session")
-    if not session:
-        return redirect("/")
+    if request.method == "GET":
+        session = request.cookies.get("session")
+        if not session:
+            return redirect("/")
 
-    email = session.split(":")[1]
+        email = session.split(":")[1]
 
-    user = db.find_by_field("email", email, SuperUser)
+        user = db.find_by_field("email", email, SuperUser)
 
-    if not user:
-        return redirect("/")
+        if not user:
+            return redirect("/")
 
-    if not user.verify_auth_token(session):
-        return redirect("/")
+        if not user.verify_auth_token(session):
+            return redirect("/")
 
-    new_session = user.generate_auth_token()
+        new_session = user.generate_auth_token()
 
-    resp = make_response(render_template("emergency-alerts.html"))
-    resp.set_cookie("session", new_session)
+        resp = make_response(render_template("emergency-alerts.html"))
+        resp.set_cookie("session", new_session)
 
-    return resp
+        return resp
+
+    elif request.method == "POST":
+        session = request.cookies.get("session")
+        if not session:
+            return redirect("/")
+
+        email = session.split(":")[1]
+
+        user = db.find_by_field("email", email, SuperUser)
+
+        if not user:
+            return redirect("/")
+
+        if not user.verify_auth_token(session):
+            return redirect("/")
+
+        new_session = user.generate_auth_token()
+
+        text_english = request.form["message_english"]
+        text_spanish = request.form["message_spanish"]
+
+        post = Post(author=user, categories=[], event=None, posts=[{"lang": "en", "body": text_english}, {"lang": "es", "body": text_spanish}])
+
+        db.insert(post)
+
+        send_urgent_alert(post)
 
 
 @app.route("/users/new", methods=["GET", "POST"])
@@ -397,3 +426,8 @@ def request_action_token():
         return "User not found", 404
 
     return json.dumps({"action_token": user.generate_action_token(), "auth_token": user.generate_auth_token()})
+
+
+def send_urgent_alert(post):
+    thread = Thread(target=send_message_to_all_users(post))
+    thread.start()

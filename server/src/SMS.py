@@ -5,15 +5,14 @@ import twilio.twiml
 from db_layer import Update, User
 from werkzeug.security import generate_password_hash
 
-
-account = "" #ADD ACCOUNT
-token = "" #ADD TOKEN
-sender = "" #ADD SENDER
+account = ""  # ADD ACCOUNT
+token = ""  # ADD TOKEN
+sender = ""  # ADD SENDER
 client = TwilioRestClient(account, token)
 
-@app.route("/ChangePhoneNumber", methods=['GET','POST'])
+"""
+@app.route("/ChangePhoneNumber", methods=['GET', 'POST'])
 def change_of_phone():
-
     phone = request.values.get('From', None)
     body = request.values.get('Body', None)
     model = db.find_by_field("phone_number", phone, Update)
@@ -37,15 +36,23 @@ def change_of_phone():
     response.message(message)
 
     return str(response)
+"""
+
 
 def create_message(reciever, sender, message):
     send_message = client.messages.create(to=reciever, from_=sender, body=message)
 
+
 def send_message(user, post_array):
     message = None
     for post in post_array:
-        if post["lang"] == user["preferred_language"]:
+        if post["lang"] == user.language_pref:
             message = post["body"]
-            create_message(user["username"], sender, message)
+            create_message(user.phone_number, sender, message)
     if not message:
         print "ERROR, CAN'T FIND SPECIFIED LANGUAGE"
+
+
+def send_message_to_all_users(post):
+    for user in db.find_all(User):
+        send_message(user, post["posts"])
