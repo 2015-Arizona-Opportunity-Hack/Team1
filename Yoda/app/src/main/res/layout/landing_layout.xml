@@ -33,10 +33,172 @@
         android:id="@+id/alerts_button"
         android:onClick="alertsPressed"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="swag"
-        android:layout_centerInParent="true"/>
+        android:layout_below="@+id/settings_custom_actionbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/news1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title1"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="35sp"
+                    android:text="Title"/>
+
+                <com.bramblellc.yoda.layouts.SquareRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/title1"
+                    android:id="@+id/square1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/test_image"
+                        android:id="@+id/image1"/>
+
+                </com.bramblellc.yoda.layouts.SquareRelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_below="@+id/square1"
+                    android:text="@string/test"
+                    android:paddingBottom="5dp"
+                    android:id="@+id/text1"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/darkerGray"
+                    android:layout_alignParentBottom="true"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/button1"
+                    android:background="@color/transparent"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/news1"
+                android:id="@+id/news2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title2"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="35sp"
+                    android:text="Title"/>
+
+                <com.bramblellc.yoda.layouts.SquareRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/title2"
+                    android:id="@+id/square2">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/test_image"
+                        android:id="@+id/image2"/>
+
+                </com.bramblellc.yoda.layouts.SquareRelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:paddingBottom="5dp"
+                    android:layout_below="@+id/square2"
+                    android:text="@string/test"
+                    android:id="@+id/text2"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/darkerGray"
+                    android:layout_alignParentBottom="true"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/button2"
+                    android:background="@color/transparent"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/news2"
+                android:id="@+id/news3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title3"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="35sp"
+                    android:text="Title"/>
+
+                <com.bramblellc.yoda.layouts.SquareRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/title3"
+                    android:id="@+id/square3">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/test_image"
+                        android:id="@+id/image3"/>
+
+                </com.bramblellc.yoda.layouts.SquareRelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:paddingBottom="5dp"
+                    android:layout_below="@+id/square3"
+                    android:text="@string/test"
+                    android:id="@+id/text3"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/darkerGray"
+                    android:layout_alignParentBottom="true"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:id="@+id/button3"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
