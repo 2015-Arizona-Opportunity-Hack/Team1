@@ -17,6 +17,9 @@ def index():
 
         user = db.find_by_field("email", email, SuperUser)
 
+        if not user: # user lookup failed
+            return redirect("/")
+
         if not user.verify_password(password):
             return redirect("/")
 
@@ -242,7 +245,7 @@ def register_su():
 
     return json.dumps({"auth_token": new_su.generate_auth_token()})
 
-
+# THIS ROUTE IS NO LONGER BEING USED PER STEVE
 @app.route("/login_su", methods=["POST"])
 def login_su():
     obj = request.get_json(force=True)
@@ -258,10 +261,10 @@ def login_su():
     su = db.find_by_field("email", email, SuperUser)
 
     if not su:
-        print "su not found", 404
+        return "su not found", 404
 
     if not su.verify_password(password):
-        print "invalid username or password"
+        return "invalid password", 401
 
     return json.dumps({"auth_token": su.generate_auth_token()})
 
