@@ -69,9 +69,10 @@
       </div>
      </form>
 
-    {{ (user.to_doc()) }}
+
 
     {% if user is not none %}
+        {{ (user.to_doc()) }}
         <script>
         $(document).ready(function () {
             $("email").val({{ user.email }})
