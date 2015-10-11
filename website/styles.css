@@ -94,3 +94,5 @@ html, body {
 	left: -3px;
 
 }
+
+.page-header { border-bottom:none; }

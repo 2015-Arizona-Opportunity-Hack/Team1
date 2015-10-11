@@ -33,8 +33,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/news-alerts">News Alerts</a></li>
-            <li class="active"><a href="/urgent-alerts">Urgent Alerts</a></li>
+            <li class="active"><a href="/news-alerts">News Alerts</a></li>
+            <li><a href="/urgent-alerts">Urgent Alerts</a></li>
             <li><a href="/users#">Users</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -46,9 +46,63 @@
 
     <!-- Begin page content -->
     <div class="wrapper">
-
-    <div class="push"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3 col-md-6 col-md-offset-3">
+            <div class="page-header">
+              <h1>Create a Newsletter</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container urgent-drop">
+        <div class="row">
+          <div class="col-sm-2 col-md-6 col-md-offset-3">
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Pick a User Group
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">User</a></li>
+                <li><a href="#">Groups</a></li>
+                <li><a href="#">Go</a></li>
+                <li><a href="#">Here</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+          <div class="row">
+            <div class="col-sm-3 col-md-6 col-md-offset-3">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="form-group">
+                    <label for="title">Title:</label>
+                    <textarea class="form-control" rows="1" id="title"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="location">Location:</label>
+                    <textarea class="form-control" rows="1" id="location"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="message">Text:</label>
+                    <textarea class="form-control" rows="10" id="message"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
     </div>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-6  col-md-offset-3 cold-sm-3">
+            <button type="button" class="btn btn-lg btn-block btn-primary">Send!</button>
+          </div>
+      </div>
+      <br>
+      <br>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
