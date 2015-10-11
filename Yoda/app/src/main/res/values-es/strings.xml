@@ -15,16 +15,19 @@
     <string name="log_out">Cerrar sesion</string>
     <string name="change_phone_number">Número de teléfono de cambio</string>
     <string name="reset_password">Restablecer la contraseña</string>
+    <string name="news_feed">Noticias</string>
 
     <!-- log in error toasts -->
     <string name="log_in_empty_credentials">Introduzca su nombre de usuario o contraseña.</string>
     <string name="log_in_invalid_credentials">Usuario o contraseña invalido.</string>
 
     <!-- sign up error toasts -->
-    <string name="sign_up_credentials_empty_email_error">Por favor, introduzca su dirección de correo electrónico.</string>
+    <string name="sign_up_credentials_empty_username_error">Por favor, introduzca su nombre de usuario deseado.</string>
     <string name="sign_up_credentials_empty_password_error">Por favor, introduzca su contraseña deseada.</string>
     <string name="sign_up_credentials_empty_phone_number_error">Por favor, introduzca su número de teléfono móvil actual.</string>
-    <string name="sign_up_credentials_empty_username_error">Por favor, introduzca su nombre de usuario deseado.</string>
+    <string name="sign_up_credentials_empty_email_error">Por favor, introduzca su dirección de correo electrónico.</string>
+    <string name="sign_up_credentials_empty_first_name_error">Por favor, introduzca su nombre de pila.</string>
+    <string name="sign_up_credentials_empty_last_name_error">Por favor ingrese su apellido.</string>
     <string name="sign_up_credentials_invalid_email_error">Por favor, introduce una dirección de correo electrónico válida.</string>
     <string name="sign_up_credentials_invalid_password_characters_error">Las contraseñas sólo podrán contener letras, números y caracteres especiales !@#$%^&amp;*-_.</string>
     <string name="sign_up_credentials_invalid_password_length_error">Las contraseñas deben tener entre 6 y 20 caracteres de longitud.</string>

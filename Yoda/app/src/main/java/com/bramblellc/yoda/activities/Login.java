@@ -162,10 +162,6 @@ public class Login extends Activity {
                 Login.this.enableButtons();
             }
             else {
-                SharedPreferences.Editor editor = getSharedPreferences("ICAN", MODE_PRIVATE).edit();
-                editor.putString("username", username);
-                editor.putString("password", password);
-                editor.apply();
                 LocalBroadcastManager.getInstance(Login.this).unregisterReceiver(loginReceiver);
                 Intent startIntent = new Intent(Login.this, Landing.class);
                 startActivity(startIntent);
