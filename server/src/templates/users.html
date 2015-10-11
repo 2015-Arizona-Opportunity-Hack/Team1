@@ -68,10 +68,8 @@
         </div>
       </div>
      </form>
-    {{ user.email }}
-    {{ user.phone_number }}
-    {{ user.last_name }}
-    {{ user.first_name }}
+    
+    {{ str(user.to_doc()) }}
 
     {% if user is not none %}
         <script>
