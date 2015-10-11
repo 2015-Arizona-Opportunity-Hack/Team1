@@ -2,7 +2,7 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
-from email.mime.mutipart import MIMEMultipart
+from email.mime.multipart import MIMEMultipart
 
 class Email():
 
