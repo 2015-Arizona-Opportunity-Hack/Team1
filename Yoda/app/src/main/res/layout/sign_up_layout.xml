@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/list_activity_horizontal_margin"
     android:paddingRight="@dimen/list_activity_horizontal_margin"
     android:paddingBottom="@dimen/list_activity_vertical_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/list_activity_vertical_margin"
     android:background="@color/color1"
     tools:context="com.bramble.kickback.activities.SplashScreen"
     android:imeOptions="actionDone">
@@ -22,10 +22,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="32dp"
-            android:paddingBottom="52dp"
-            android:text="SIGN UP"
+            android:paddingBottom="32dp"
+            android:text="@string/sign_up"
             android:textColor="@color/color3"
-            android:textSize="45sp"
+            android:textSize="40sp"
             android:id="@+id/signUpTitle"
             android:layout_centerHorizontal="true"
             />
@@ -140,11 +140,10 @@
     <com.bramblellc.yoda.layouts.ButtonWithTypeface
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:text="SIGN UP"
+        android:text="@string/sign_up"
         android:textColor="@color/color1"
         android:background="@color/color3"
-        android:textSize="35sp"
-        android:textStyle="bold"
+        android:textSize="30sp"
         android:layout_alignParentBottom="true"
         android:id="@+id/buttonSignUp"
         android:onClick="continueSignUpPressed"/>

@@ -15,6 +15,13 @@
         app:backButtonColor="blue"
         app:upButton="false"/>
 
+    <ImageButton
+        android:layout_width="?android:attr/actionBarSize"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/settings"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
