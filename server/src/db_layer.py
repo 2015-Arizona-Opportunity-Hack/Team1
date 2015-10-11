@@ -3,6 +3,7 @@ import pymongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from grumpy import verify_token, generate_secret, generate_token
 from datetime import datetime, timedelta
+from flask import json
 
 
 class Model:
@@ -146,7 +147,8 @@ class User(Model):
             "auth_token_secret": self.auth_token_secret,
             "action_token_secret": self.action_token_secret
         }
-
+    def serialize(self):
+            json.dumps(self.to_doc())
 
 class Update(Model):
     def __init__(self, object_dict=None, id=None, **kwargs):

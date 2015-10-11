@@ -40,9 +40,9 @@
                   <label for="phone_number">Phone Number:</label>
                   <input class="form-control" rows="1" value="{{user.phone_number }}" name="phone_number"/>
                   <label for="first_name">First Name: </label>
-                  <input class="form-control" rows="1" name="first_name"/>
+                  <input class="form-control" rows="1" value="{{ user.first_name }}" name="first_name"/>
                   <label for="last_name">Last Name: </label>
-                    <input class="form-control" rows="1"name="last_name"/>
+                    <input class="form-control" rows="1"name="last_name" value="{{ user.last_name }}"/>
                  <br>
                 <input type="submit" value="Save" class="btn btn-lg btn-block btn-primary">
                 <br>
@@ -68,16 +68,17 @@
         </div>
       </div>
      </form>
-    {{ user.email }}
-    {{ user.phone_number }}
-    {{ user.last_name }}
-    {{ user.first_name }}
+
+
 
     {% if user is not none %}
+        {{ (user.email) }}
+        {{user.phone_number }}
+        {{ user.first_name }}
         <script>
         $(document).ready(function () {
-            $("email").val({{ user.email }})
-        });
+            $("email").val("{{ user.email }}");
+        })
         </script>
     {% endif %}
 {% endblock %}
