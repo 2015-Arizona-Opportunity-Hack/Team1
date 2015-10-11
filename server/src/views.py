@@ -151,6 +151,9 @@ def usr_prop():
         else:
             setattr(usr, req_json["property"], req_json["value"])
             db.update(usr)
+
+            print req_json["property"] + " " + req_json["value"]
+
             return "Success", 200
     else:
         return "bad property", 401
