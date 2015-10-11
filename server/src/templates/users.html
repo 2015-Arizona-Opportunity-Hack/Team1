@@ -67,7 +67,7 @@
     {% if user is not none %}
         <script>
         $(document).ready(function () {
-            $("email").val({% user.email %})
+            $("email").val({{ user.email }})
         })
         </script>
     {% endif %}
