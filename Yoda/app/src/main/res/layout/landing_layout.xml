@@ -33,6 +33,14 @@
         android:id="@+id/alerts_button"
         android:onClick="alertsPressed"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_news"
+        android:paddingTop="35dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/settings_custom_actionbar"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +53,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/news1">
+                android:id="@+id/news1"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -89,14 +98,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/button1"
-                    android:background="@color/transparent"/>
+                    android:background="@color/transparent"
+                    android:onClick="btn1"/>
 
             </RelativeLayout>
+
+            <!-- -->
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/news1"
+                android:visibility="gone"
                 android:id="@+id/news2">
 
                 <TextView
@@ -141,14 +154,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/button2"
-                    android:background="@color/transparent"/>
+                    android:background="@color/transparent"
+                    android:onClick="btn2"/>
 
             </RelativeLayout>
+
+            <!-- -->
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/news2"
+                android:visibility="gone"
                 android:id="@+id/news3">
 
                 <TextView
@@ -193,7 +210,120 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/transparent"
+                    android:onClick="btn3"
                     android:id="@+id/button3"/>
+
+            </RelativeLayout>
+
+            <!-- -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/news2"
+                android:visibility="gone"
+                android:id="@+id/news4">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title4"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="35sp"
+                    android:text="Title"/>
+
+                <com.bramblellc.yoda.layouts.SquareRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/title4"
+                    android:id="@+id/square4">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/test_image3"
+                        android:id="@+id/image4"/>
+
+                </com.bramblellc.yoda.layouts.SquareRelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:paddingBottom="5dp"
+                    android:layout_below="@+id/square4"
+                    android:text="@string/test"
+                    android:id="@+id/text4"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/darkerGray"
+                    android:layout_alignParentBottom="true"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:onClick="btn4"
+                    android:id="@+id/button4"/>
+
+            </RelativeLayout>
+
+            <!-- -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/news4"
+                android:visibility="gone"
+                android:id="@+id/news5">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title5"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="35sp"
+                    android:text="Title"/>
+
+                <com.bramblellc.yoda.layouts.SquareRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/title5"
+                    android:id="@+id/square5">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/test_image3"
+                        android:id="@+id/image5"/>
+
+                </com.bramblellc.yoda.layouts.SquareRelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:paddingBottom="5dp"
+                    android:layout_below="@+id/square5"
+                    android:text="@string/test"
+                    android:id="@+id/text5"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/darkerGray"
+                    android:layout_alignParentBottom="true"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:onClick="btn5"
+                    android:id="@+id/button5"/>
 
             </RelativeLayout>
 

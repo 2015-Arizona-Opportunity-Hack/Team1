@@ -15,4 +15,30 @@
         app:backButtonColor="blue"
         app:upButton="true"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/news_custom_actionbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.bramblellc.yoda.layouts.SquareRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/news_image"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/test_image"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/news_image"
+                android:id="@+id/text"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
 </RelativeLayout>

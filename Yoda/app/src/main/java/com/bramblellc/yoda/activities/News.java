@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.bramblellc.yoda.R;
 import com.bramblellc.yoda.layouts.CustomActionbar;
@@ -14,6 +15,7 @@ public class News extends Activity {
 
 
     private CustomActionbar newsCustomActionbar;
+    private TextView textView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,25 +23,11 @@ public class News extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         newsCustomActionbar = (CustomActionbar) findViewById(R.id.news_custom_actionbar);
-        int news = getIntent().getIntExtra("news", 0);
-        if (news == 1) {
-            //newsCustomActionbar.getTextView().setText();
-        }
-        else if (news == 2) {
-            //newsCustomActionbar.getTextView().setText();
-        }
-        else if (news == 3) {
-            //newsCustomActionbar.getTextView().setText();
-        }
-        else if (news == 4) {
-            //newsCustomActionbar.getTextView().setText();
-        }
-        else {
-            //newsCustomActionbar.getTextView().setText();
-        }
-
-        //newsCustomActionbar.getTextView().setText();
-        // shared prefs title
+        textView = (TextView) findViewById(R.id.text);
+        String title = getIntent().getStringExtra("title");
+        String text = getIntent().getStringExtra("text");
+        textView.setText(text);
+        newsCustomActionbar.getTextView().setText(title);
 
         newsCustomActionbar.getBackButton().setOnClickListener(new View.OnClickListener() {
             @Override
