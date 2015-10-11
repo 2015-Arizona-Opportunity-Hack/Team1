@@ -103,11 +103,11 @@ class Update(Model):
     def __init__(self, object_dict=None, id=None, **kwargs):
         Model.__init__(self)
         if object_dict is None:
-            self.author = kwargs["phone_number"]
-            self.posts = kwargs["username"]
+            self.phone_number = kwargs["phone_number"]
+            self.username = kwargs["username"]
         else:
-            self.author = object_dict["phone_number"]
-            self.posts = object_dict["username"]
+            self.phone_number = object_dict["phone_number"]
+            self.username = object_dict["username"]
             self.id = object_dict["_id"]
 
     @classmethod

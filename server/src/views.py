@@ -1,6 +1,6 @@
 from __init__ import app, db
 from flask import request, json
-from db_layer import User, Post, Update
+from db_layer import User, Post
 from util import validate, authenticate
 
 
