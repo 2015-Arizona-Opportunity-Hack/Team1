@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.bramblellc.yoda.R;
 import com.bramblellc.yoda.services.ActionConstants;
+import com.bramblellc.yoda.services.NewsIntentService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,6 +78,8 @@ public class Landing extends Activity {
         text5 = (TextView) findViewById(R.id.text5);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, intentFilter);
+        Intent localIntent = new Intent(this, NewsIntentService.class);
+        startService(localIntent);
     }
 
     public void settingsPressed(View v){
@@ -119,55 +122,55 @@ public class Landing extends Activity {
                         if (i == 0) {
                             if (postone) {
                                 title1.setText(post1.getString("title"));
-                                text1.setText(post1.getString("text"));
+                                text1.setText(post1.getString("body"));
                             }
                             else {
                                 title1.setText(post2.getString("title"));
-                                text1.setText(post2.getString("text"));
+                                text1.setText(post2.getString("body"));
                             }
                             news1.setVisibility(View.VISIBLE);
                         }
                         else if (i == 1) {
                             if (postone) {
                                 title2.setText(post1.getString("title"));
-                                text2.setText(post1.getString("text"));
+                                text2.setText(post1.getString("body"));
                             }
                             else {
                                 title2.setText(post2.getString("title"));
-                                text2.setText(post2.getString("text"));
+                                text2.setText(post2.getString("body"));
                             }
                             news2.setVisibility(View.VISIBLE);
                         }
                         else if (i == 2) {
                             if (postone) {
                                 title3.setText(post1.getString("title"));
-                                text3.setText(post1.getString("text"));
+                                text3.setText(post1.getString("body"));
                             }
                             else {
                                 title3.setText(post2.getString("title"));
-                                text3.setText(post2.getString("text"));
+                                text3.setText(post2.getString("body"));
                             }
                             news3.setVisibility(View.VISIBLE);
                         }
                         else if (i == 3) {
                             if (postone) {
                                 title4.setText(post1.getString("title"));
-                                text4.setText(post1.getString("text"));
+                                text4.setText(post1.getString("body"));
                             }
                             else {
                                 title4.setText(post2.getString("title"));
-                                text4.setText(post2.getString("text"));
+                                text4.setText(post2.getString("body"));
                             }
                             news4.setVisibility(View.VISIBLE);
                         }
                         else {
                             if (postone) {
                                 title5.setText(post1.getString("title"));
-                                text5.setText(post1.getString("text"));
+                                text5.setText(post1.getString("body"));
                             }
                             else {
                                 title5.setText(post2.getString("title"));
-                                text5.setText(post2.getString("text"));
+                                text5.setText(post2.getString("body"));
                             }
                             news5.setVisibility(View.VISIBLE);
                         }
