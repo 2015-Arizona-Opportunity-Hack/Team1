@@ -23,11 +23,13 @@ class Post(Model):
         Model.__init__(self)
         if object_dict is None:
             self.author = kwargs["author"]
+            self.title = kwargs["title"]
             self.posts = kwargs["posts"]
             self.categories = kwargs["categories"]
             self.event = kwargs["event"]
         else:
             self.author = object_dict["author"]
+            self.title = object_dict["title"]
             self.posts = object_dict["posts"]
             self.categories = object_dict["categories"]
             self.event = object_dict["event"]
@@ -147,8 +149,10 @@ class User(Model):
             "auth_token_secret": self.auth_token_secret,
             "action_token_secret": self.action_token_secret
         }
+
     def serialize(self):
             json.dumps(self.to_doc())
+
 
 class Update(Model):
     def __init__(self, object_dict=None, id=None, **kwargs):

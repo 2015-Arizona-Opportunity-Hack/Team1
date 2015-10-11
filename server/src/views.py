@@ -32,7 +32,7 @@ def index():
 
 @app.route("/example")
 def example():
-    return json.dumps([x.to_doc() for x in db.get_last_n_of_class(Post, 5)]), 200
+    return json.dumps({"news": [x.to_doc() for x in db.get_last_n_of_class(Post, 5)]}), 200
 
 
 @app.route("/news-alerts/")
@@ -338,13 +338,13 @@ def validate(obj, *args):
 def make_post():
     req_json = request.get_json(force=True)
 
-    errors = validate(req_json, "posts", "categories", "event", "author", "auth")
+    errors = validate(req_json, "posts", "title", "categories", "event", "author", "auth")
     if errors:
         print errors
         return "validation error", 401
 
     new_post = Post(author=req_json["author"], posts=req_json["posts"], categories=req_json["categories"],
-                    event=req_json["event"])
+                    event=req_json["event"], title=req_json["title"])
     db.insert(new_post)
 
     return "Success", 200
