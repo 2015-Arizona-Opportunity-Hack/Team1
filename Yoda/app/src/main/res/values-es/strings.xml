@@ -13,6 +13,7 @@
     <string name="spanish">Español</string>
     <string name="log_in">INICIAR SESIÓN</string>
     <string name="logging_in">INICIAR SESIÓN</string>
+    <string name="forgot_log_in">¿Olvidaste tu contraseña?</string>
     <string name="sign_up">CONTRATAR</string>
     <string name="signing_up">CONTRATAR</string>
     <string name="first_name">nombre de pila</string>
@@ -35,6 +36,8 @@
     <string name="receive_emails">Recibe mensajes de correo electrónico</string>
     <string name="receive_news_texts">Recibe textos sobre acontecimientos</string>
     <string name="msg_prefs_title">PREFERENCIAS DE NOTIFICACIÓN</string>
+    <string name="contact_ican_it">CONTACT ICAN IT</string>
+    <string name="contact_ican_text">Would you like to call an admin at ican in order to reset your password?</string>
 
     <string-array name="messeges_list">
         <item>@string/receive_emails</item>

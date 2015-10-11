@@ -68,6 +68,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/space_2"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/mediumGray"
+            android:id="@+id/login_textview"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textSize="11sp"
             android:layout_below="@+id/space_2"
             android:layout_centerHorizontal="true"
