@@ -75,9 +75,7 @@ def news_alerts():
         if not user.verify_auth_token(session):
             return redirect("/")
 
-
-
-
+        print request["title_english"]
 
         new_session = user.generate_auth_token()
 
