@@ -55,6 +55,6 @@ def send_message(user, post_array):
         print "ERROR, CAN'T FIND SPECIFIED LANGUAGE"
 
 
-def send_message_to_all_users(post):
+def send_sms_to_all_users(post):
     for user in db.find_all(User):
         send_message(user, post.posts)

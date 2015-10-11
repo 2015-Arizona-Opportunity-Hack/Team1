@@ -4,7 +4,8 @@ from db_layer import User, Post, SuperUser
 from util import validate, authenticate
 from flask import render_template
 from threading import Thread
-from SMS import send_message_to_all_users
+from SMS import send_sms_to_all_users
+from Email import send_message_to_all_users
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -95,7 +96,7 @@ def urgent_alerts():
             return redirect("/")
 
         if not user.verify_auth_token(session):
-            return redirect("/")
+            return redirect("/urgent-analysis/")
 
         new_session = user.generate_auth_token()
 
@@ -449,5 +450,7 @@ def request_action_token():
 
 
 def send_urgent_alert(post):
-    thread = Thread(target=send_message_to_all_users(post))
-    thread.start()
+    thread1 = Thread(target=send_sms_to_all_users(post))
+    thread2 = Thread(target=send_message_to_all_users(post))
+    thread1.start()
+    thread2.start()
