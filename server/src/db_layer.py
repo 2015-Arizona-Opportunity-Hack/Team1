@@ -99,6 +99,27 @@ class User(Model):
             "action_token_secret": self.action_token_secret
         }
 
+class Update(Model):
+    def __init__(self, object_dict=None, id=None, **kwargs):
+        Model.__init__(self)
+        if object_dict is None:
+            self.author = kwargs["phone_number"]
+            self.posts = kwargs["username"]
+        else:
+            self.author = object_dict["phone_number"]
+            self.posts = object_dict["username"]
+            self.id = object_dict["_id"]
+
+    @classmethod
+    def COLLECTION_NAME(cls):
+        return "updates"
+
+    def to_doc(self):
+        return {
+            "phone_number": self.author,
+            "username": self.posts
+        }
+
 
 class GideonDatabaseClient:
     @classmethod
