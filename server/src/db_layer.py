@@ -51,7 +51,7 @@ class SuperUser(Model):
             self.email = kwargs["email"]
             self.first_name = kwargs["first_name"]
             self.last_name = kwargs["last_name"]
-            self.password_hash = kwargs["password_hash"]
+            self.password_hash = generate_password_hash(kwargs["password"], "pbkdf2:sha256:10000")
             self.auth_token_secret = generate_secret(128)
             self.action_token_secret = generate_secret(128)
         else:
@@ -72,6 +72,21 @@ class SuperUser(Model):
             "auth_token_secret": self.auth_token_secret,
             "action_token_secret": self.action_token_secret
         }
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def generate_auth_token(self):
+        return generate_token(self.email, datetime.utcnow(), 0, str(self.auth_token_secret))
+
+    def generate_action_token(self):
+        return generate_token(self.email, datetime.utcnow(), 0, str(self.action_token_secret))
+
+    def verify_auth_token(self, token):
+        return generate_token(token, 0, timedelta(days=2), str(self.auth_token_secret))
+
+    def verify_action_token(self, token):
+        return generate_token(token, 0, timedelta(minutes=10), str(self.action_token_secret))
 
 
 class User(Model):

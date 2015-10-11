@@ -1,12 +1,30 @@
 from __init__ import app, db
 from flask import request, json
-from db_layer import User, Post
+from db_layer import User, Post, SuperUser
 from util import validate, authenticate
 
 
 @app.route("/")
 def index():
     return "Ayy lmao"
+
+
+@app.route("/register_su", methods=["POST"])
+def register_su():
+    obj = request.get_json(force=True)
+
+    print obj
+    errors = validate(obj, "email", "first_name", "last_name", "password")
+    if errors:
+        print errors
+        return "validation error", 401
+
+    email, first_name, last_name, password = obj["email"], obj["first_name"], obj["last_name"], obj["password"]
+
+    new_su = SuperUser(email=email, first_name=first_name, last_name=last_name, password=password)
+    db.insert(new_su)
+
+    return json.dumps({"auth_token": new_su.generate_auth_token()})
 
 
 @app.route("/register", methods=["POST"])
