@@ -4,6 +4,7 @@
     <string name="version_number">Versión 0.1.0 © Bramble LLC</string>
 
     <!-- labels -->
+    <string name="help">Ayuda</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="confirm">Confirmar</string>
@@ -38,6 +39,7 @@
     <string name="msg_prefs_title">PREFERENCIAS DE NOTIFICACIÓN</string>
     <string name="contact_ican_it">CONTACTO ICAN TI</string>
     <string name="contact_ican_text">¿Quieres llamar a un administrador en el ICAN con el fin de restablecer su contraseña?</string>
+    <string name="help_text">¿Quieres llamar a un ican asociado para ayudarte?</string>
 
     <string-array name="messeges_list">
         <item>@string/receive_emails</item>

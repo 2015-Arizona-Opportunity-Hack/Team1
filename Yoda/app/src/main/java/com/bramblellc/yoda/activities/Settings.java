@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.InputType;
@@ -26,6 +27,7 @@ public class Settings extends Activity {
     private FullWidthButton languageFullWidthButton;
     private FullWidthButton phoneFullWidthButton;
     private FullWidthButton msgFullWidthButton;
+    private FullWidthButton helpFullWidthButton;
     private FullWidthButton logoutFullWidthButton;
 
     private IntentFilter filter;
@@ -45,6 +47,7 @@ public class Settings extends Activity {
         languageFullWidthButton = (FullWidthButton) findViewById(R.id.change_language_full_width_button);
         phoneFullWidthButton = (FullWidthButton) findViewById(R.id.change_phone_number_full_width_button);
         msgFullWidthButton = (FullWidthButton) findViewById(R.id.message_prefs_full_width_button);
+        helpFullWidthButton = (FullWidthButton) findViewById(R.id.help_full_width_button);
         logoutFullWidthButton = (FullWidthButton) findViewById(R.id.logout_full_width_button);
         //testFullWidthButton = (FullWidthButton) findViewById(R.id.test_full_width_button);
         selected = new Integer[0];
@@ -78,6 +81,13 @@ public class Settings extends Activity {
             @Override
             public void onClick(View v) {
                 changeMessagePrefs();
+            }
+        });
+
+        helpFullWidthButton.getFullWidthButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHelp();
             }
         });
 
@@ -172,11 +182,9 @@ public class Settings extends Activity {
                     public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
                         if (which.length == 0) {
                             bitField = 0;
-                        }
-                        else if (which.length == 1) {
+                        } else if (which.length == 1) {
                             bitField = which[0] + 1;
-                        }
-                        else {
+                        } else {
                             bitField = which[0] + 1 | which[1] + 1;
                         }
 
@@ -185,6 +193,23 @@ public class Settings extends Activity {
                 })
                 .positiveText(R.string.confirm)
                 .negativeText(R.string.cancel)
+                .show();
+    }
+
+    public void getHelp() {
+        new MaterialDialog.Builder(this)
+                .title(getResources().getString(R.string.contact_ican_it))
+                .content(getResources().getString(R.string.help_text))
+                .positiveText(getResources().getString(R.string.yes))
+                .negativeText(getResources().getString(R.string.no))
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                        callIntent.setData(Uri.parse("tel:4808214207"));
+                        startActivity(callIntent);
+                    }
+                })
                 .show();
     }
 
