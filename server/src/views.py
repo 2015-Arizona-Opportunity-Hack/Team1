@@ -33,31 +33,57 @@ def index():
 
 @app.route("/example")
 def example():
-    return json.dumps([x.to_doc() for x in db.get_last_n_of_class(Post, 5)]), 200
+    return json.dumps({"news": [x.to_doc() for x in db.get_last_n_of_class(Post, 5)]}), 200
 
 
-@app.route("/news-alerts/")
+@app.route("/news-alerts/", methods=["GET", "POST"])
 def news_alerts():
-    session = request.cookies.get("session")
-    if not session:
-        return redirect("/")
+    if request.method == "GET":
+        session = request.cookies.get("session")
+        if not session:
+            return redirect("/")
 
-    email = session.split(":")[1]
+        email = session.split(":")[1]
 
-    user = db.find_by_field("email", email, SuperUser)
+        user = db.find_by_field("email", email, SuperUser)
 
-    if not user:
-        return redirect("/")
+        if not user:
+            return redirect("/")
 
-    if not user.verify_auth_token(session):
-        return redirect("/")
+        if not user.verify_auth_token(session):
+            return redirect("/")
 
-    new_session = user.generate_auth_token()
+        new_session = user.generate_auth_token()
 
-    resp = make_response(render_template("news-alerts.html"))
-    resp.set_cookie("session", new_session)
+        resp = make_response(render_template("news-alerts.html"))
+        resp.set_cookie("session", new_session)
 
-    return resp
+        return resp
+
+    elif request.method == "POST":
+        session = request.cookies.get("session")
+        if not session:
+            return redirect("/")
+
+        email = session.split(":")[1]
+
+        user = db.find_by_field("email", email, SuperUser)
+
+        if not user:
+            return redirect("/")
+
+        if not user.verify_auth_token(session):
+            return redirect("/")
+
+        print request.form["title_english"]
+
+        new_session = user.generate_auth_token()
+
+        resp = make_response(render_template("news-alerts.html"))
+        resp.set_cookie("session", new_session)
+
+        return resp
+
 
 
 @app.route("/urgent-alerts/", methods=["GET", "POST"])

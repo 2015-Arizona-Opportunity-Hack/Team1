@@ -55,8 +55,9 @@
               </div>
             </div>
             </div>
-        </div>
+
          </form>
+            <form class="form" method="POST" action="/users/updatepass">
             <div class="col-sm-3 col-md-6">
                 <div class="panel panel-default">
                   <div class="panel-heading">
@@ -64,6 +65,8 @@
                   </div>
                   <div class="panel-body">
                 <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input class="form-control" rows="1" value="{{ user.email }}" name="email">
                   <label for="password">Password: </label>
                   <input type="password" class="form-control" rows="1" name="password"/>
                 </div>
@@ -71,8 +74,10 @@
             </div>
             </div>
             </div>
+        </form>
         </div>
-      </div>
+
+    </div>
 
 
 
