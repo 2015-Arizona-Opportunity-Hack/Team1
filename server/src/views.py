@@ -7,7 +7,7 @@ from flask import render_template
 @app.route("/")
 def index():
     hover = {"index":"","news-alerts":"","login":"","users":"","emergency":""}
-    return render_template('index.html',hover=hover)  # :(
+    return render_template('login.html',hover=hover)  # :(
 
 
 @app.route("/example")
@@ -15,10 +15,10 @@ def example():
     return json.dumps([x.to_doc() for x in db.get_last_n_of_class(Post, 5)]), 200
 
 
-@app.route("/login/")
-def admin_login():
-    hover = {"index":"","news-alerts":"","login":"","users":"","emergency":""}
-    return render_template('login.html',hover=hover)
+#@app.route("/login/")
+#def admin_login():
+ #   hover = {"index":"","news-alerts":"","login":"","users":"","emergency":""}
+  #  return render_template('login.html',hover=hover)
 
 
 @app.route("/news-alerts/")
