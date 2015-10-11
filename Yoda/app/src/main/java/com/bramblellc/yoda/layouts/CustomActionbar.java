@@ -149,6 +149,10 @@ public class CustomActionbar extends RelativeLayout {
         return null;
     }
 
+    public TextView getTextView() {
+        return this.title;
+    }
+
     public ImageButton getSearchButton() {
         if(searchBar||searchButton)
             return this.customActionbarsearchButton;

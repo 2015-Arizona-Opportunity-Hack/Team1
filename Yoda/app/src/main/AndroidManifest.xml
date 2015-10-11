@@ -49,6 +49,11 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".activities.News"
+            android:screenOrientation="portrait">
+        </activity>
+
         <service android:name=".services.LoginIntentService"/>
 
         <service android:name=".services.SignUpIntentService"/>
