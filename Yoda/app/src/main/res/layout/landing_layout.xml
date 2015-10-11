@@ -33,14 +33,6 @@
         android:id="@+id/alerts_button"
         android:onClick="alertsPressed"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_news"
-        android:paddingTop="35dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/settings_custom_actionbar"/>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,7 +55,7 @@
                     android:paddingLeft="12dp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     android:text="Title"/>
 
                 <com.bramblellc.yoda.layouts.SquareRelativeLayout
@@ -119,7 +111,7 @@
                     android:paddingLeft="12dp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     android:text="Title"/>
 
                 <com.bramblellc.yoda.layouts.SquareRelativeLayout
@@ -175,7 +167,7 @@
                     android:paddingLeft="12dp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     android:text="Title"/>
 
                 <com.bramblellc.yoda.layouts.SquareRelativeLayout
@@ -231,7 +223,7 @@
                     android:paddingLeft="12dp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     android:text="Title"/>
 
                 <com.bramblellc.yoda.layouts.SquareRelativeLayout
@@ -287,7 +279,7 @@
                     android:paddingLeft="12dp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:textSize="35sp"
+                    android:textSize="25sp"
                     android:text="Title"/>
 
                 <com.bramblellc.yoda.layouts.SquareRelativeLayout

@@ -56,6 +56,15 @@ public class Landing extends Activity {
         setContentView(R.layout.landing_layout);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        boolean finish = getIntent().getBooleanExtra("finish", false);
+        if (finish) {
+            Intent intent = new Intent(this, AccountPortal.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // To clean up all activities
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         intentFilter = new IntentFilter(ActionConstants.NEWS_ACTION);
         receiver = new LandingBroadcastReceiver();
 

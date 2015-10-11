@@ -229,7 +229,11 @@ public class Settings extends Activity {
     }
 
     public void logout() {
-
+        Intent startIntent = new Intent(this, Landing.class);
+        startIntent.putExtra("finish", true);
+        startIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // To clean up all activities
+        startActivity(startIntent);
+        finish();
     }
 
     @Override
