@@ -82,8 +82,7 @@ def register():
 
     print obj
 
-    errors = validate(obj, "email", "phone_number", "password", "language_pref", "first_name", "last_name",
-                      "message_prefs")
+    errors = validate(obj, "email", "phone_number", "password", "language_pref", "first_name", "last_name")
     if errors:
         print errors
         return "validation error", 401
