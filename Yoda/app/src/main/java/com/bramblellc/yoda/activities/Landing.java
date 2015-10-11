@@ -23,6 +23,8 @@ public class Landing extends Activity {
     }
 
     public void alertsPressed(View v) {
-
+        Intent intent = new Intent(this, Alerts.class);
+        startActivity(intent);
+        finish();
     }
 }
