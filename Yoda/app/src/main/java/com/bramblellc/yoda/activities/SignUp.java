@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.bramblellc.yoda.R;
 import com.bramblellc.yoda.fragments.LoadingBar;
 import com.bramblellc.yoda.services.ActionConstants;
+import com.bramblellc.yoda.services.SignUpIntentService;
 
 public class SignUp extends Activity {
 
@@ -202,34 +203,38 @@ public class SignUp extends Activity {
             ft.add(R.id.loading_frame, loadingBar);
             ft.commit();
             continueButton.setText(getResources().getString(R.string.signing_up));
-            //Intent intent = new Intent(this, SignUpService.class);
-            //intent.putExtra("username", username);
-            //intent.putExtra("password", password);
-            //intent.putExtra("phone_number", phoneNumber);
-            //intent.putExtra("email", email);
-            //intent.putExtra("first_name", firstName);
-            //intent.putExtra("last_name", lastName);
-            //if (language)
-            //    intent.putExtra("language", "english");
-            //else
-            //    intent.putExtra("language", "spanish");
-            //startService(intent);
+            Intent intent = new Intent(this, SignUpIntentService.class);
+            intent.putExtra("username", email);
+            intent.putExtra("password", password);
+            intent.putExtra("phoneNumber", phoneNumber);
+            intent.putExtra("email", email);
+            intent.putExtra("firstName", firstName);
+            intent.putExtra("lastName", lastName);
+            if (language)
+                intent.putExtra("language", "en");
+            else
+                intent.putExtra("language", "es");
+            startService(intent);
         }
     }
 
     public void englishPressed(View view) {
-        if (language) {
-            language = false;
-            spanish.setChecked(true);
-            english.setChecked(false);
+        if (!language) {
+            language = true;
+            spanish.setEnabled(true);
+            spanish.setChecked(false);
+            english.setChecked(true);
+            english.setEnabled(false);
         }
     }
 
     public void spanishPressed(View view) {
-        if (!language) {
-            language = true;
-            spanish.setChecked(false);
-            english.setChecked(true);
+        if (language) {
+            language = false;
+            english.setEnabled(true);
+            spanish.setChecked(true);
+            english.setChecked(false);
+            spanish.setEnabled(false);
         }
     }
 

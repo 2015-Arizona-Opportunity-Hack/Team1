@@ -95,7 +95,7 @@
             android:paddingRight="@dimen/edittext_padding"
             android:maxLength="12"
             android:hint="@string/first_name"
-            android:inputType="phone"
+            android:inputType="text"
             android:layout_below="@+id/space_3"
             android:layout_centerHorizontal="true" />
 
@@ -114,7 +114,7 @@
             android:paddingRight="@dimen/edittext_padding"
             android:maxLength="12"
             android:hint="@string/last_name"
-            android:inputType="phone"
+            android:inputType="text"
             android:layout_below="@+id/space_5"
             android:layout_centerHorizontal="true" />
 
