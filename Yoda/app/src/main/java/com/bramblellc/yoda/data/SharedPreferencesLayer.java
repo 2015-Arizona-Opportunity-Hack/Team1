@@ -23,7 +23,7 @@ public class SharedPreferencesLayer {
         instance = new SharedPreferencesLayer(ctx);
     }
 
-    public SharedPreferencesLayer getInstance() {
+    public static SharedPreferencesLayer getInstance() {
         if (instance == null) {
             throw new IllegalStateException("SharedPreferencesLayer not initialized");
         }
