@@ -25,7 +25,7 @@ def register():
     new_user = User(email=email, phone_number=phone, password=password, language_pref=language_pref, first_name=first_name, last_name=last_name)
     db.insert(new_user)
 
-    return json.dumps(new_user.generate_auth_token()), 200
+    return json.dumps({"auth_token": new_user.generate_auth_token()}), 200
 
 
 @app.route("/login", methods=["POST"])
