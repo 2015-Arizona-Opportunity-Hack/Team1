@@ -95,8 +95,12 @@ class GideonDatabaseClient:
 
     def find(self, inst_id, model_cls):
         collection = self.get_collection(model_cls)
-        return model_cls.__class__(collection.find_one({"_id": inst_id}))
+        return model_cls(object_dict=collection.find_one({"_id": inst_id}))
 
     def findByField(self, inst_query_fieldname, inst_query_value, model_cls):
         collection = self.get_collection(model_cls)
-        return model_cls.__class__(collection.find_one({inst_query_fieldname: inst_query_value}))
+        return model_cls(object_dict=collection.find_one({inst_query_fieldname: inst_query_value}))
+
+    def update(self, model_inst):
+        print model_inst.inserted_id
+

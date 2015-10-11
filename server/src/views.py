@@ -37,12 +37,12 @@ def make_post():
         print errors
         return "validation error", 401
 
-    # Todo act on authentication
-    if not authenticate(req_json["auth"]):
-        return "authentication error", 401
-
     new_post = Post(author=req_json["author"], posts=req_json["posts"], categories=req_json["categories"], event=req_json["event"])
-    db.insert(new_post)
+    a = db.insert(new_post)
+
+    b = db.find(a, Post)
+    print b
+    db.update(b)
 
     return "Success", 200
 
