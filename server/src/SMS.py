@@ -3,6 +3,7 @@ from flask import Flask, request, redirect
 from twilio.rest import TwilioRestClient
 import twilio.twiml
 from db_layer import Update, User
+from werkzeug.security import generate_password_hash
 
 
 account = "" #ADD ACCOUNT
@@ -16,12 +17,23 @@ def change_of_phone():
     phone = request.values.get('From', None)
     body = request.values.get('Body', None)
     model = db.findByField("phone_number", phone, Update)
+
     if model:
         user = db.findByField("username", model.username, User)  # the body is probably a password
-        # user.password_hash now we need to compare user password hash to the password they gave us
+
+        hashed_body = generate_password_hash(body, "pbkdf2:sha256:10000")
+        if hashed_body == user.password_hash:
+            user.phone_number = phone
+            db.update(user)
+            # TODO John return a successful update response
+        else:
+            pass #TODO John return a bad password response
+
     else:
         user = db.findByField("phone_number", phone, User)
         db.insert(Update(phone_number=phone, username=user.username))
+
+    #TODO John everything below this
 
     response = twilio.twiml.Response()
 
