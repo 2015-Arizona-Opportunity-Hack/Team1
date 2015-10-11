@@ -223,3 +223,7 @@ class GideonDatabaseClient:
         collection.remove(
             {"_id": model_inst.id}
         )
+
+    def find_all(self, model_cls):
+        collection = self.get_collection(model_cls)
+        return collection.find()

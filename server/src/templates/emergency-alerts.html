@@ -27,7 +27,8 @@
           </div>
         </div>
       </div>
-      <div class="container">
+    <form class="form" method="POST" action="/urgent-alerts/">
+    <div class="container">
         <div class="row">
           <div class="col-sm-3 col-md-6">
             <div class="panel panel-default">
@@ -37,7 +38,7 @@
               <div class="panel-body">
                 <div class="form-group">
                   <label for="message">Text:</label>
-                  <textarea class="form-control" rows="10" id="message"></textarea>
+                  <input class="form-control" rows="10" name="message_english"/>
                 </div>
               </div>
             </div>
@@ -50,7 +51,7 @@
               <div class="panel-body">
                 <div class="form-group">
                   <label for="message">Texto:</label>
-                  <textarea class="form-control" rows="10" id="message"></textarea>
+                  <input class="form-control" rows="10" name="message_spanish"/>
                 </div>
               </div>
             </div>
@@ -60,10 +61,11 @@
        <div class="container">
         <div class="row">
           <div class="col-md-12 cold-sm-3">
-            <button type="button" class="btn btn-lg btn-block btn-primary">Send!</button>
+            <input type="submit" class="btn btn-lg btn-block btn-primary" value="Send"/>
           </div>
       </div>
    </div>
+    </form>
       <br>
       <br>
 {% endblock %}

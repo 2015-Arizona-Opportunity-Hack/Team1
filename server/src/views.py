@@ -3,6 +3,8 @@ from flask import request, json, redirect, url_for, make_response
 from db_layer import User, Post, SuperUser
 from util import validate, authenticate
 from flask import render_template
+from threading import Thread
+from SMS import send_message_to_all_users
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -14,6 +16,9 @@ def index():
         password = request.form["password"]
 
         user = db.find_by_field("email", email, SuperUser)
+
+        if not user: # user lookup failed
+            return redirect("/")
 
         if not user.verify_password(password):
             return redirect("/")
@@ -53,28 +58,56 @@ def news_alerts():
     return resp
 
 
-@app.route("/urgent-alerts/")
+@app.route("/urgent-alerts/", methods=["GET", "POST"])
 def urgent_alerts():
-    session = request.cookies.get("session")
-    if not session:
+    if request.method == "GET":
+        session = request.cookies.get("session")
+        if not session:
+            return redirect("/")
+
+        email = session.split(":")[1]
+
+        user = db.find_by_field("email", email, SuperUser)
+
+        if not user:
+            return redirect("/")
+
+        if not user.verify_auth_token(session):
+            return redirect("/")
+
+        new_session = user.generate_auth_token()
+
+        resp = make_response(render_template("emergency-alerts.html"))
+        resp.set_cookie("session", new_session)
+
+        return resp
+
+    elif request.method == "POST":
+        session = request.cookies.get("session")
+        if not session:
+            return redirect("/")
+
+        email = session.split(":")[1]
+
+        user = db.find_by_field("email", email, SuperUser)
+
+        if not user:
+            return redirect("/")
+
+        if not user.verify_auth_token(session):
+            return redirect("/")
+
+        new_session = user.generate_auth_token()
+
+        text_english = request.form["message_english"]
+        text_spanish = request.form["message_spanish"]
+
+        post = Post(author=user.to_doc(), categories=[], event=None, posts=[{"lang": "en", "body": text_english}, {"lang": "es", "body": text_spanish}])
+
+        db.insert(post)
+
+        send_urgent_alert(post)
         return redirect("/")
-
-    email = session.split(":")[1]
-
-    user = db.find_by_field("email", email, SuperUser)
-
-    if not user:
-        return redirect("/")
-
-    if not user.verify_auth_token(session):
-        return redirect("/")
-
-    new_session = user.generate_auth_token()
-
-    resp = make_response(render_template("emergency-alerts.html"))
-    resp.set_cookie("session", new_session)
-
-    return resp
 
 
 @app.route("/users/new", methods=["GET", "POST"])
@@ -185,6 +218,10 @@ def users(email):
 
         return render_template("users.html", user=user)
 
+@app.route("/users/emaillookup", methods=["POST"])
+def users():
+    user = db.find_by_field("email", request.form['email'], User)
+    return render_template("users.html", user=user)
 
 @app.route("/login/")
 def login():
@@ -213,7 +250,7 @@ def register_su():
 
     return json.dumps({"auth_token": new_su.generate_auth_token()})
 
-
+# THIS ROUTE IS NO LONGER BEING USED PER STEVE
 @app.route("/login_su", methods=["POST"])
 def login_su():
     obj = request.get_json(force=True)
@@ -229,10 +266,10 @@ def login_su():
     su = db.find_by_field("email", email, SuperUser)
 
     if not su:
-        print "su not found", 404
+        return "su not found", 404
 
     if not su.verify_password(password):
-        print "invalid username or password"
+        return "invalid password", 401
 
     return json.dumps({"auth_token": su.generate_auth_token()})
 
@@ -397,3 +434,8 @@ def request_action_token():
         return "User not found", 404
 
     return json.dumps({"action_token": user.generate_action_token(), "auth_token": user.generate_auth_token()})
+
+
+def send_urgent_alert(post):
+    thread = Thread(target=send_message_to_all_users(post))
+    thread.start()
