@@ -21,7 +21,11 @@ html, body {
 }
 
 .navbar .nav > li > a {
-	color: #FFFFFF;
+	color: #FFeFFF;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: #3886C2;
+    color: #FFFFFF;
 }
 
 .navbar .navbar-header .navbar-brand {
@@ -46,6 +50,8 @@ html, body {
 .navbar-default .navbar-nav > .dropdown > a:focus .caret {
     border-top-color: #3886C2;
     border-bottom-color: #3886C2;
+    color: #FFFFFF;
+    background-color: #3886C2;
 }
 
 .navbar-default .navbar-toggle {
