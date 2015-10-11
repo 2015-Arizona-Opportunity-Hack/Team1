@@ -182,7 +182,7 @@ public class SignUp extends Activity {
             ft = fm.beginTransaction();
             ft.add(R.id.loading_frame, loadingBar);
             ft.commit();
-            continueButton.setText("SIGNING UP");
+            continueButton.setText(getResources().getString(R.string.signing_up));
             //Intent intent = new Intent(this, SignUpService.class);
             //intent.putExtra("username", username);
             //intent.putExtra("password", password);
@@ -241,7 +241,7 @@ public class SignUp extends Activity {
                 SignUp.this.enableButtons();
             }
             else {
-                SharedPreferences.Editor editor = getSharedPreferences("GuardDog", MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor = getSharedPreferences("ICAN", MODE_PRIVATE).edit();
                 editor.putString("username", username);
                 editor.putString("password", password);
                 editor.apply();

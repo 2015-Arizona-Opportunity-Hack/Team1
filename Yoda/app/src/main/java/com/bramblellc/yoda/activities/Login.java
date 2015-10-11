@@ -51,13 +51,6 @@ public class Login extends Activity {
         disabled = false;
 
         usernameEditText = (EditText) findViewById(R.id.editTextLoginUsername);
-        SharedPreferences prefs = getSharedPreferences("GuardDog", MODE_PRIVATE);
-        String un = prefs.getString("old_username", null);
-        System.out.println(un);
-        if (un != null && !un.isEmpty()) {
-            //usernameEditText.setText(un);
-        }
-        //usernameEditText.setText(User.getUser().getUsername());
         passwordEditText = (EditText) findViewById(R.id.editTextPassword);
         loginButton = (Button) findViewById(R.id.buttonSignIn);
         buttonsEnabled = true;
@@ -129,7 +122,7 @@ public class Login extends Activity {
         username = usernameEditText.getText().toString();
         password = passwordEditText.getText().toString();
         if (username.equals("") || password.equals("")) {
-            Toast.makeText(this, "Enter your username or password please", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.log_in_empty_credentials), Toast.LENGTH_SHORT).show();
         }
         else if (username.equals("q") && password.equals("q")) {
             Intent startIntent = new Intent(Login.this, Landing.class);
@@ -141,7 +134,7 @@ public class Login extends Activity {
             ft = fm.beginTransaction();
             ft.add(R.id.loading_frame, loadingBar);
             ft.commit();
-            loginButton.setText("LOGGING IN");
+            loginButton.setText(getResources().getString(R.string.logging_in));
             //new LoginTask().execute(username, password);
             //Intent intent = new Intent(this, LoginService.class);
             //intent.putExtra("username", username);
@@ -163,13 +156,13 @@ public class Login extends Activity {
                 ft = fm.beginTransaction();
                 ft.remove(loadingBar);
                 ft.commit();
-                Toast.makeText(Login.this, "Invalid phone number or password", Toast.LENGTH_LONG).show();
-                loginButton.setText("LOG IN");
+                Toast.makeText(Login.this, getResources().getString(R.string.log_in_invalid_credentials), Toast.LENGTH_LONG).show();
+                loginButton.setText(getResources().getString(R.string.log_in));
                 Login.this.passwordEditText.setText("");
                 Login.this.enableButtons();
             }
             else {
-                SharedPreferences.Editor editor = getSharedPreferences("GuardDog", MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor = getSharedPreferences("ICAN", MODE_PRIVATE).edit();
                 editor.putString("username", username);
                 editor.putString("password", password);
                 editor.apply();
