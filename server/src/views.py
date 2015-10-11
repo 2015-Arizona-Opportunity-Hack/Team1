@@ -6,7 +6,7 @@ from util import validate, authenticate
 
 @app.route("/")
 def index():
-    return "Ayy lmao"
+    return json.dumps([x.to_doc() for x in db.get_last_n_of_class(Post, 10)]), 200
 
 
 @app.route("/register_su", methods=["POST"])

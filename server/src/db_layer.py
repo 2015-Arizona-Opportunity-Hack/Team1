@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+import pymongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from grumpy import verify_token, generate_secret, generate_token
 from datetime import datetime, timedelta
@@ -182,6 +183,14 @@ class GideonDatabaseClient:
         model_cls = model_inst.__class__
         collection = self.get_collection(model_cls)
         return collection.insert_one(model_inst.to_doc()).inserted_id
+
+    def get_last_n_of_class(self, model_cls, n):
+        collection = self.get_collection(model_cls)
+        model_data = collection.find().sort("_id", pymongo.DESCENDING).limit(n) # TODO IS IT ASCENDING OR DECENDING
+        mod = []
+        for each in model_data:
+            mod.append(model_cls(each))
+        return mod
 
     def find(self, inst_id, model_cls):
         collection = self.get_collection(model_cls)
