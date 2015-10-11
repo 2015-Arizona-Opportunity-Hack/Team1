@@ -167,7 +167,7 @@ def usr_prop():
         print errors
         return "validation error", 401
 
-    if req_json["property"] != "message_prefs" and req_json["property"] != "language_pref":
+    if req_json["property"] != u"message_prefs" and req_json["property"] != u"language_pref":
         email = req_json["action_token"].split(":")[1]
         usr = db.find_by_field("email", email, User)
         if not usr:
