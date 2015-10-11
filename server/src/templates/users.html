@@ -73,6 +73,8 @@
 
     {% if user is not none %}
         {{ (user.email) }}
+        {{user.phone_number }}
+        {{ user.first_name }}
         <script>
         $(document).ready(function () {
             $("email").val("{{ user.email }}");
