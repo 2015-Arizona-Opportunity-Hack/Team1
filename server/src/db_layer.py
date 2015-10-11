@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from grumpy import verify_token, generate_secret, generate_token
+from datetime import datetime, timedelta
 
 
 class Model:
@@ -35,11 +36,11 @@ class Post(Model):
 
     def to_doc(self):
         return {
-                    "author": self.author,
-                    "posts": self.posts,
-                    "categories": self.categories,
-                    "event": self.event
-               }
+            "author": self.author,
+            "posts": self.posts,
+            "categories": self.categories,
+            "event": self.event
+        }
 
 
 class User(Model):
@@ -61,19 +62,35 @@ class User(Model):
             self.auth_token_secret = object_dict["auth_token_secret"]
             self.action_token_secret = object_dict["action_token_secret"]
 
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def generate_auth_token(self):
+        return generate_token(self.username, datetime.utcnow(), 0, self.auth_token_secret)
+
+    def generate_action_token(self):
+        return generate_token(self.username, datetime.utcnow(), 0, self.action_token_secret)
+
+    def verify_auth_token(self, token):
+        return generate_token(token, 0, timedelta(days=120), self.auth_token_secret)
+
+    def verify_auth_token(self, token):
+        return generate_token(token, 0, timedelta(minutes=10), self.action_token_secret)
+
+
     @classmethod
     def COLLECTION_NAME(cls):
         return "users"
 
     def to_doc(self):
         return {
-                    "username": self.username,
-                    "phone_number": self.phone_number,
-                    "password_hash": self.password_hash,
-                    "language_pref": self.language_pref,
-                    "auth_token_secret": self.auth_token_secret,
-                    "action_token_secret": self.action_token_secret
-               }
+            "username": self.username,
+            "phone_number": self.phone_number,
+            "password_hash": self.password_hash,
+            "language_pref": self.language_pref,
+            "auth_token_secret": self.auth_token_secret,
+            "action_token_secret": self.action_token_secret
+        }
 
 
 class GideonDatabaseClient:
@@ -99,7 +116,12 @@ class GideonDatabaseClient:
 
     def findByField(self, inst_query_fieldname, inst_query_value, model_cls):
         collection = self.get_collection(model_cls)
-        return model_cls(object_dict=collection.find_one({inst_query_fieldname: inst_query_value}))
+        model_data = collection.find_one({inst_query_fieldname: inst_query_value})
+        if model_data:
+            return model_cls.__class__(model_data)
+        else:
+            return None
+
 
     def update(self, model_inst):
         print model_inst.inserted_id

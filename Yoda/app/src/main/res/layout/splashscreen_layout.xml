@@ -30,6 +30,6 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/darkGray"
         android:textSize="12sp"
-        android:text="Version 0.1.0 © Bramble LLC"/>
+        android:text="@string/version_number"/>
 
 </RelativeLayout>

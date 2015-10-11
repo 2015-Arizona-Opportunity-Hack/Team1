@@ -1,6 +1,26 @@
 <resources>
+    <!-- App Identifiers -->
     <string name="app_name">ICAN</string>
-    <string name="sign_up_credentials_empty_country_code_error">Please select your country code.</string>
+    <string name="version_number">Version 0.1.0 © Bramble LLC</string>
+
+    <!-- labels -->
+    <string name="log_in">LOG IN</string>
+    <string name="logging_in">LOGGING IN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="signing_up">SIGNING UP</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="phone_number">phone number</string>
+    <string name="settings">Settings</string>
+    <string name="log_out">Log out</string>
+    <string name="change_phone_number">Change phone number</string>
+    <string name="reset_password">Reset password</string>
+
+    <!-- log in error toasts -->
+    <string name="log_in_empty_credentials">Enter your username or password please</string>
+    <string name="log_in_invalid_credentials">Invalid username or password.</string>
+
+    <!-- sign up error toasts -->
     <string name="sign_up_credentials_empty_email_error">Please enter your email address.</string>
     <string name="sign_up_credentials_empty_password_error">Please enter your desired password.</string>
     <string name="sign_up_credentials_empty_phone_number_error">Please enter your current mobile phone number.</string>
