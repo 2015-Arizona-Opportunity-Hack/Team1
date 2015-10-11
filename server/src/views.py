@@ -75,7 +75,16 @@ def news_alerts():
         if not user.verify_auth_token(session):
             return redirect("/")
 
-        print request.form["title_english"]
+        title_english = request.form["title_english"]
+        title_spanish = request.form["title_spanish"]
+        message_english = request.form["message_english"]
+        message_spanish = request.form["message_spanish"]
+
+        post = Post(author=user.to_doc(), posts=[{"title": title_english, "body": message_english, "lang": "en"},
+                                                 {"title": title_spanish, "body": message_spanish, "lang": "es"}],
+                    categories=[], event=None)
+
+        db.insert(post)
 
         new_session = user.generate_auth_token()
 
@@ -130,7 +139,7 @@ def urgent_alerts():
         text_english = request.form["message_english"]
         text_spanish = request.form["message_spanish"]
 
-        post = Post(author=user.to_doc(), categories=[], event=None, posts=[{"lang": "en", "body": text_english}, {"lang": "es", "body": text_spanish}])
+        post = Post(author=user.to_doc(), categories=[], event=None, posts=[{"lang": "en", "body": text_english, "title": ""}, {"lang": "es", "body": text_spanish, "title": ""}])
 
         db.insert(post)
 
