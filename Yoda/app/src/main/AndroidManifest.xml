@@ -44,6 +44,11 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".activities.Alerts"
+            android:screenOrientation="portrait">
+        </activity>
+
         <service android:name=".services.LoginIntentService"/>
 
         <service android:name=".services.SignUpIntentService"/>
