@@ -118,22 +118,24 @@ def make_post():
 
     return "Success", 200
 
+
 @app.route("/usr_prop", methods=['POST'])
-@authenticate
 def usr_prop():
     req_json = request.get_json(force=True)
 
-    errors = validate(req_json, "property", "value", "token")
+    errors = validate(req_json, "property", "value", "action_token")
     if errors:
         print errors
         return "validation error", 401
-
-    # TODO STEVE TOKEN AUTH
 
     if req_json["property"] != "email" and req_json["property"] != "language_pref":
         usr = db.find_by_field("email", req_json["email"], User)
         if not usr:
             return "user not found", 404
+
+        elif not usr.verify_action_token(req_json["action_token"]):
+            return "action_token invalid", 401
+
         else:
             setattr(usr, req_json["property"], req_json["value"])
             db.update(usr)
