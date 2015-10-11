@@ -15,7 +15,7 @@ def example():
     return json.dumps([x.to_doc() for x in db.get_last_n_of_class(Post, 5)]), 200
 
 
-@app.route("/login_app/")
+@app.route("/login/")
 def admin_login():
     return render_template('login.html')
 
@@ -100,7 +100,7 @@ def register():
     return json.dumps({"auth_token": new_user.generate_auth_token()}), 200
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/login_app", methods=["POST"])
 def login():
     obj = request.get_json(force=True)
 
