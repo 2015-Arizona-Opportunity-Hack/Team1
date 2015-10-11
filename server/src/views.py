@@ -85,7 +85,6 @@ def validate(obj, *args):
 def make_post():
     req_json = request.get_json(force=True)
 
-    # Todo act on validation
     errors = validate(req_json, "posts", "categories", "event", "author", "auth")
     if errors:
         print errors
@@ -95,3 +94,30 @@ def make_post():
     db.insert(new_post)
 
     return "Success", 200
+
+@app.route("/usr_prop", methods=['POST'])
+@authenticate
+def usr_prop():
+    req_json = request.get_json(force=True)
+
+    errors = validate(req_json, "property", "value", "token")
+    if errors:
+        print errors
+        return "validation error", 401
+
+    # TODO STEVE TOKEN AUTH
+
+    if req_json["property"] != "email" and req_json["property"] != "language_pref":
+        usr = db.find_by_field("email", req_json["email"], User)
+        if not usr:
+            return "user not found", 404
+        else:
+            setattr(usr, req_json["property"], req_json["value"])
+            db.update(usr)
+            return "Success", 200
+    else:
+        return "bad property", 401
+
+
+
+
