@@ -29,6 +29,8 @@ public class ChangePropertyIntentService extends YodaIntentService {
             Route route = new Route("http://gideon.stevex86.com/usr_prop");
             Request request = new Request(route, new Post());
             String actionToken = SharedPreferencesLayer.getInstance().getActionToken();
+            String property = intent.getStringExtra("property");
+            String value = intent.getStringExtra("value");
             boolean repeated = intent.getBooleanExtra("repeated", false);
             if (repeated && intent.getBooleanExtra("connectionFailure", false)) {
                 sendFailBroadcast("connectionFailure", ActionConstants.CHANGE_PROPERTY);
@@ -40,6 +42,8 @@ public class ChangePropertyIntentService extends YodaIntentService {
                 JSONObject jsonObject = new JSONObject();
 
                 jsonObject.put("action_token", actionToken);
+                jsonObject.put("property", property);
+                jsonObject.put("value", value);
 
                 JsonBodyContent content = new JsonBodyContent(jsonObject.toString());
 
