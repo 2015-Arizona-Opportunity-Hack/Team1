@@ -12,7 +12,7 @@ client = TwilioRestClient(account, token)
 def change_of_phone():
 
     phone = request.values.get('From',None)
-    new_username = request.values.get('body',None)
+    new_username = request.values.get('Body',None)
 
     response = twilio.twiml.Response()
 
