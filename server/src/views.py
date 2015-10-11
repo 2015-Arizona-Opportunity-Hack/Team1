@@ -33,7 +33,9 @@ def index():
 
 @app.route("/example")
 def example():
-    return json.dumps({"news": [x.to_doc() for x in db.get_last_n_of_class(Post, 5)]}), 200
+    debug = json.dumps({"news": [x.to_doc() for x in db.get_last_n_of_class(Post, 5)]})
+    print str(debug)
+    return debug, 200
 
 
 @app.route("/news-alerts/", methods=["GET", "POST"])
