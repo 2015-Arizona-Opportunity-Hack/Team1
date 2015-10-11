@@ -4,20 +4,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.View;
 
 import com.bramblellc.yoda.R;
 
-public class Landing extends Activity {
+public class Settings extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.landing_layout);
+        setContentView(R.layout.settings_layout);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-    public void settingsPressed(View v){
-        Intent intent = new Intent(this, Settings.class);
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Landing.class);
         startActivity(intent);
         finish();
     }

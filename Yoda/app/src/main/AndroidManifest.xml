@@ -39,6 +39,11 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".activities.Settings"
+            android:screenOrientation="portrait">
+        </activity>
+
         <service android:name=".services.LoginIntentService"/>
 
     </application>
