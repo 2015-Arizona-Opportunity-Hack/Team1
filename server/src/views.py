@@ -184,6 +184,7 @@ def usr_prop():
 
             return "Success", 200
     else:
+        print "ASDF"
         return "bad property", 401
 
 
