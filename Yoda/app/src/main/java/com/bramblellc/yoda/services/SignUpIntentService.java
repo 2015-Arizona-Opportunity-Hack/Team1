@@ -27,7 +27,7 @@ public class SignUpIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         try {
             //route URL
-            Route route = new Route("http://gidion.stevex86.com/register");
+            Route route = new Route("http://gideon.stevex86.com/register");
             //makes request to the route ^^^
             Request request = new Request(route, new Post());
 
