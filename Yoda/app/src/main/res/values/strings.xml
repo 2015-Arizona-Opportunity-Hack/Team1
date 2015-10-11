@@ -12,6 +12,7 @@
     <string name="spanish">Español</string>
     <string name="log_in">LOG IN</string>
     <string name="logging_in">LOGGING IN</string>
+    <string name="forgot_log_in">Forgot your password?</string>
     <string name="sign_up">SIGN UP</string>
     <string name="signing_up">SIGNING UP</string>
     <string name="email">email</string>
@@ -35,6 +36,8 @@
     <string name="receive_emails">Receive emails</string>
     <string name="receive_news_texts">Receive texts about events</string>
     <string name="msg_prefs_title">NOTIFICATION PREFERENCES</string>
+    <string name="contact_ican_it">CONTACT ICAN IT</string>
+    <string name="contact_ican_text">Would you like to call an admin at ican in order to reset your password?</string>
 
     <string-array name="messeges_list">
         <item>@string/receive_emails</item>

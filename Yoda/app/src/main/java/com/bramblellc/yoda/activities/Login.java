@@ -9,8 +9,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -19,6 +24,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bramblellc.yoda.R;
 import com.bramblellc.yoda.fragments.LoadingBar;
 import com.bramblellc.yoda.services.ActionConstants;
@@ -53,24 +59,24 @@ public class Login extends Activity {
 
         emailEditText = (EditText) findViewById(R.id.editTextLoginUsername);
         passwordEditText = (EditText) findViewById(R.id.editTextPassword);
-        loginButton = (Button) findViewById(R.id.buttonSignIn);
-        buttonsEnabled = true;
 
-        /*
-        SpannableString ss = new SpannableString(getString(R.string.login_clickable_span_text));
+        SpannableString ss = new SpannableString(getString(R.string.forgot_log_in));
         ClickableSpan clickableSpan1 = new ClickableSpan() {
             @Override
             public void onClick(View textView) {
-                //showEmailRecoveryDialog();
+                callAdminDialog();
             }
         };
         ss.setSpan(clickableSpan1, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-
         TextView textView = (TextView) findViewById(R.id.login_textview);
         textView.setText(ss);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
-        */
+
+        loginButton = (Button) findViewById(R.id.buttonSignIn);
+        buttonsEnabled = true;
+
+
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
@@ -86,6 +92,23 @@ public class Login extends Activity {
         loginReceiver = new LoginReceiver();
         IntentFilter filter = new IntentFilter(ActionConstants.LOGIN_ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(loginReceiver, filter);
+    }
+
+    public void callAdminDialog() {
+        new MaterialDialog.Builder(this)
+                .title(getResources().getString(R.string.contact_ican_it))
+                .content(getResources().getString(R.string.contact_ican_text))
+                .positiveText(getResources().getString(R.string.yes))
+                .negativeText(getResources().getString(R.string.no))
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                        callIntent.setData(Uri.parse("tel:4808214207"));
+                        startActivity(callIntent);
+                    }
+                })
+                .show();
     }
 
     public void disableButtons() {
