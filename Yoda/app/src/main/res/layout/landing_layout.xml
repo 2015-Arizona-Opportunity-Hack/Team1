@@ -118,7 +118,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/test_image"
+                        android:background="@drawable/test_image2"
                         android:id="@+id/image2"/>
 
                 </com.bramblellc.yoda.layouts.SquareRelativeLayout>
@@ -170,7 +170,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/test_image"
+                        android:background="@drawable/test_image3"
                         android:id="@+id/image3"/>
 
                 </com.bramblellc.yoda.layouts.SquareRelativeLayout>
