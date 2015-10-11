@@ -47,6 +47,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/news1"
                 android:visibility="gone">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/button1"
+                    android:background="@color/transparent"
+                    android:onClick="btn1"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -86,12 +92,7 @@
                     android:background="@color/darkerGray"
                     android:layout_alignParentBottom="true"/>
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/button1"
-                    android:background="@color/transparent"
-                    android:onClick="btn1"/>
+
 
             </RelativeLayout>
 
@@ -103,6 +104,12 @@
                 android:layout_below="@id/news1"
                 android:visibility="gone"
                 android:id="@+id/news2">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/button2"
+                    android:background="@color/transparent"
+                    android:onClick="btn2"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -142,12 +149,7 @@
                     android:background="@color/darkerGray"
                     android:layout_alignParentBottom="true"/>
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/button2"
-                    android:background="@color/transparent"
-                    android:onClick="btn2"/>
+
 
             </RelativeLayout>
 
@@ -159,6 +161,14 @@
                 android:layout_below="@id/news2"
                 android:visibility="gone"
                 android:id="@+id/news3">
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:onClick="btn3"
+                    android:id="@+id/button3"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -198,12 +208,6 @@
                     android:background="@color/darkerGray"
                     android:layout_alignParentBottom="true"/>
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/transparent"
-                    android:onClick="btn3"
-                    android:id="@+id/button3"/>
 
             </RelativeLayout>
 
@@ -215,6 +219,13 @@
                 android:layout_below="@id/news2"
                 android:visibility="gone"
                 android:id="@+id/news4">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:onClick="btn4"
+                    android:id="@+id/button4"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -254,13 +265,6 @@
                     android:background="@color/darkerGray"
                     android:layout_alignParentBottom="true"/>
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/transparent"
-                    android:onClick="btn4"
-                    android:id="@+id/button4"/>
-
             </RelativeLayout>
 
             <!-- -->
@@ -271,6 +275,13 @@
                 android:layout_below="@id/news4"
                 android:visibility="gone"
                 android:id="@+id/news5">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:onClick="btn5"
+                    android:id="@+id/button5"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -309,13 +320,6 @@
                     android:layout_height="1dp"
                     android:background="@color/darkerGray"
                     android:layout_alignParentBottom="true"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/transparent"
-                    android:onClick="btn5"
-                    android:id="@+id/button5"/>
 
             </RelativeLayout>
 
