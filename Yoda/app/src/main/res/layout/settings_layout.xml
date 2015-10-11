@@ -42,10 +42,18 @@
         app:lowerLine="true" />
 
     <com.bramblellc.yoda.layouts.FullWidthButton
-        android:id="@+id/logout_full_width_button"
+        android:id="@+id/help_full_width_button"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/list_item_height"
         android:layout_below="@+id/message_prefs_full_width_button"
+        android:text="@string/help"
+        app:lowerLine="true" />
+
+    <com.bramblellc.yoda.layouts.FullWidthButton
+        android:id="@+id/logout_full_width_button"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_below="@+id/help_full_width_button"
         android:text="@string/log_out"
         app:lowerLine="true" />
 
