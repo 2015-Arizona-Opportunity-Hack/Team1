@@ -275,7 +275,7 @@ def updateuser():
     if request.form['SUB'] == "Delete User":
         user = db.find_by_field("email", request.form['email'], User)
         db.remove(user)
-        return render_template("users.html", user=user)
+        return render_template("users.html", user=None)
 
     usr.phone_number = request.form['phone_number']
     usr.first_name = request.form['first_name']
