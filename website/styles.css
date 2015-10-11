@@ -86,3 +86,11 @@ html, body {
 	float: left;
 	position: relative;
 }
+.navbar-brand img {
+	position: relative;
+	bottom: 8px;
+	width: 35px;
+	height: 35px;
+	left: -3px;
+
+}
