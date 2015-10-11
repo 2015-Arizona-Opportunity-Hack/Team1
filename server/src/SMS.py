@@ -48,7 +48,7 @@ def send_message(user, post_array):
     for post in post_array:
         if post["lang"] == user["language_pref"]:
             message = post["body"]
-            create_message(user.phone_number, message)
+            create_message(user["phone_number"], message)
     if not message:
         print "ERROR, CAN'T FIND SPECIFIED LANGUAGE"
 
