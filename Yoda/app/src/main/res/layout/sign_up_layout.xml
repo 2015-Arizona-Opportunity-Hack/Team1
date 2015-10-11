@@ -134,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="English"
+                android:text="@string/english"
                 android:button="@drawable/checkbox"
                 android:id="@+id/english_checkbox"
                 android:onClick="englishPressed"/>
@@ -143,7 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="Español"
+                android:text="@string/spanish"
                 android:button="@drawable/checkbox"
                 android:id="@+id/spanish_checkbox"
                 android:onClick="spanishPressed"/>

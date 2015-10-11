@@ -25,28 +25,18 @@ def change_of_phone():
         if hashed_body == user.password_hash:
             user.phone_number = phone
             db.update(user)
-            # TODO John return a successful update response
+            message = "Successfully Updated Phone Number"
         else:
-            pass #TODO John return a bad password response
-
+            message = "Phone Failed to be Updated due to conflicting password"
     else:
         user = db.find_by_field("phone_number", phone, User)
         db.insert(Update(phone_number=phone, username=user.username))
-
-    #TODO John everything below this
+        message = "Successfully Updated Phone Number"
 
     response = twilio.twiml.Response()
+    response.message(message)
 
-    '''
-    NEED TO CONSIDER DIFFERENT LANGUAGE RESPONSE
-    '''
-    
-    #If Phone Number is not in the table but the username is registered
-        #response.message("Enter Password")
-        #return str(response)
-    #Else if Phone number is associated with username and password is correct
-        #response.message("Profile Successfully Changed")
-        #return str(response)
+    return str(response)
 
 def create_message(reciever, sender, message):
     send_message = client.messages.create(to=reciever, from_=sender, body=message)

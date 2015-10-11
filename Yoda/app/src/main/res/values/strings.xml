@@ -4,6 +4,12 @@
     <string name="version_number">Version 0.1.0 © Bramble LLC</string>
 
     <!-- labels -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="english">English</string>
+    <string name="spanish">Español</string>
     <string name="log_in">LOG IN</string>
     <string name="logging_in">LOGGING IN</string>
     <string name="sign_up">SIGN UP</string>
@@ -16,8 +22,24 @@
     <string name="settings">Settings</string>
     <string name="log_out">Log out</string>
     <string name="change_phone_number">Change phone number</string>
-    <string name="reset_password">Reset password</string>
+    <string name="change_language_prefs">Change language preference</string>
     <string name="news_feed">News Feed</string>
+    <string name="message_prefs">Change notification preferences</string>
+
+    <!-- material dialog text -->
+    <string name="log_out_confirmation">Are you sure you would like to log out?</string>
+    <string name="change_phone">CHANGE PHONE NUMBER</string>
+    <string name="change_phone_text">Enter in your current phone number so we can text you if there is an urgent alert.</string>
+    <string name="change_language">CHANGE LANGUAGE</string>
+    <string name="change_languages_text">Choose your preferred language to receive notifications in.</string>
+    <string name="receive_emails">Receive emails</string>
+    <string name="receive_news_texts">Receive texts about events</string>
+    <string name="msg_prefs_title">NOTIFICATION PREFERENCES</string>
+
+    <string-array name="messeges_list">
+        <item>@string/receive_emails</item>
+        <item>@string/receive_news_texts</item>
+    </string-array>
 
     <!-- log in error toasts -->
     <string name="log_in_empty_credentials">Enter your email or password.</string>
