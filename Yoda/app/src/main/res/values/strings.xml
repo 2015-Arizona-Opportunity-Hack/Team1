@@ -8,10 +8,9 @@
     <string name="logging_in">LOGGING IN</string>
     <string name="sign_up">SIGN UP</string>
     <string name="signing_up">SIGNING UP</string>
-    <string name="username">username</string>
+    <string name="email">email</string>
     <string name="password">password</string>
     <string name="phone_number">phone number</string>
-    <string name="email">email</string>
     <string name="first_name">first name</string>
     <string name="last_name">last name</string>
     <string name="settings">Settings</string>
@@ -21,8 +20,8 @@
     <string name="news_feed">News Feed</string>
 
     <!-- log in error toasts -->
-    <string name="log_in_empty_credentials">Enter your username or password please</string>
-    <string name="log_in_invalid_credentials">Invalid username or password.</string>
+    <string name="log_in_empty_credentials">Enter your email or password.</string>
+    <string name="log_in_invalid_credentials">Invalid email or password.</string>
 
     <!-- sign up error toasts -->
     <string name="sign_up_credentials_empty_username_error">Please enter your desired username.</string>

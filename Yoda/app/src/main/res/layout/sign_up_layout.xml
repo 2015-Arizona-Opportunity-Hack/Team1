@@ -33,19 +33,19 @@
         <EditText
             android:layout_width="@dimen/edittext_width"
             android:layout_height="wrap_content"
-            android:id="@+id/editTextDesiredUsername"
+            android:id="@+id/editTextemail"
             android:background="@drawable/edit_text_basic"
             android:paddingLeft="@dimen/edittext_padding"
             android:paddingRight="@dimen/edittext_padding"
-            android:hint="@string/username"
+            android:hint="@string/email"
             android:layout_below="@+id/signUpTitle"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:layout_centerHorizontal="true"/>
 
         <Space
             android:layout_width="fill_parent"
             android:layout_height="@dimen/space_height"
-            android:layout_below="@+id/editTextDesiredUsername"
+            android:layout_below="@+id/editTextemail"
             android:id="@+id/space_1"/>
 
         <EditText
@@ -85,24 +85,6 @@
             android:layout_below="@+id/editTextPhoneNumber"
             android:id="@+id/space_3"/>
 
-        <EditText
-            android:layout_width="@dimen/edittext_width"
-            android:layout_height="wrap_content"
-            android:id="@+id/editTextEmail"
-            android:background="@drawable/edit_text_basic"
-            android:paddingLeft="@dimen/edittext_padding"
-            android:paddingRight="@dimen/edittext_padding"
-            android:maxLength="12"
-            android:hint="@string/email"
-            android:inputType="phone"
-            android:layout_below="@+id/space_3"
-            android:layout_centerHorizontal="true" />
-
-        <Space
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/space_height"
-            android:layout_below="@+id/editTextEmail"
-            android:id="@+id/space_4"/>
 
         <EditText
             android:layout_width="@dimen/edittext_width"
@@ -114,7 +96,7 @@
             android:maxLength="12"
             android:hint="@string/first_name"
             android:inputType="phone"
-            android:layout_below="@+id/space_4"
+            android:layout_below="@+id/space_3"
             android:layout_centerHorizontal="true" />
 
         <Space
@@ -135,7 +117,42 @@
             android:inputType="phone"
             android:layout_below="@+id/space_5"
             android:layout_centerHorizontal="true" />
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/space_height"
+            android:layout_below="@+id/editTextLastName"
+            android:id="@+id/space_6"/>
+
+        <RelativeLayout
+            android:layout_width="@dimen/edittext_width"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/space_6">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="English"
+                android:button="@drawable/checkbox"
+                android:id="@+id/english_checkbox"
+                android:onClick="englishPressed"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Español"
+                android:button="@drawable/checkbox"
+                android:id="@+id/spanish_checkbox"
+                android:onClick="spanishPressed"/>
+
+        </RelativeLayout>
+
     </RelativeLayout>
+
+
 
     <com.bramblellc.yoda.layouts.ButtonWithTypeface
         android:layout_width="fill_parent"

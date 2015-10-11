@@ -18,11 +18,10 @@
     <string name="news_feed">Noticias</string>
 
     <!-- log in error toasts -->
-    <string name="log_in_empty_credentials">Introduzca su nombre de usuario o contraseña.</string>
-    <string name="log_in_invalid_credentials">Usuario o contraseña invalido.</string>
+    <string name="log_in_empty_credentials">Ingrese su correo electrónico o contraseña.</string>
+    <string name="log_in_invalid_credentials">Correo electrónico o contraseña no válidos.</string>
 
     <!-- sign up error toasts -->
-    <string name="sign_up_credentials_empty_username_error">Por favor, introduzca su nombre de usuario deseado.</string>
     <string name="sign_up_credentials_empty_password_error">Por favor, introduzca su contraseña deseada.</string>
     <string name="sign_up_credentials_empty_phone_number_error">Por favor, introduzca su número de teléfono móvil actual.</string>
     <string name="sign_up_credentials_empty_email_error">Por favor, introduzca su dirección de correo electrónico.</string>

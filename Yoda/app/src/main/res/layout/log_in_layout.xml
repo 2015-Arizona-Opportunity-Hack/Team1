@@ -36,7 +36,7 @@
             android:background="@drawable/edit_text_basic"
             android:paddingLeft="@dimen/edittext_padding"
             android:paddingRight="@dimen/edittext_padding"
-            android:hint="username"
+            android:hint="@string/email"
             android:inputType="text"
             android:layout_below="@+id/signInTitle"
             android:layout_centerHorizontal="true" />

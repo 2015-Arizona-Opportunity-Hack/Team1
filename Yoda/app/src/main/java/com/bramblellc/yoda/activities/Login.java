@@ -28,11 +28,11 @@ import java.util.Set;
 
 public class Login extends Activity {
 
-    private EditText usernameEditText;
+    private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
     private boolean buttonsEnabled;
-    private String username;
+    private String email;
     private String password;
 
     private FragmentManager fm;
@@ -51,7 +51,7 @@ public class Login extends Activity {
         loadingBar = new LoadingBar();
         disabled = false;
 
-        usernameEditText = (EditText) findViewById(R.id.editTextLoginUsername);
+        emailEditText = (EditText) findViewById(R.id.editTextLoginUsername);
         passwordEditText = (EditText) findViewById(R.id.editTextPassword);
         loginButton = (Button) findViewById(R.id.buttonSignIn);
         buttonsEnabled = true;
@@ -80,7 +80,7 @@ public class Login extends Activity {
             }
         });
 
-        usernameEditText.requestFocus();
+        emailEditText.requestFocus();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         loginReceiver = new LoginReceiver();
@@ -91,7 +91,7 @@ public class Login extends Activity {
     public void disableButtons() {
         disabled = true;
         loginButton.setEnabled(false);
-        usernameEditText.setEnabled(false);
+        emailEditText.setEnabled(false);
         passwordEditText.setEnabled(false);
         buttonsEnabled = false;
     }
@@ -99,7 +99,7 @@ public class Login extends Activity {
     public void enableButtons() {
         disabled = false;
         loginButton.setEnabled(true);
-        usernameEditText.setEnabled(true);
+        emailEditText.setEnabled(true);
         passwordEditText.setEnabled(true);
         buttonsEnabled = true;
     }
@@ -120,12 +120,12 @@ public class Login extends Activity {
     }
 
     public void login() {
-        username = usernameEditText.getText().toString();
+        email = emailEditText.getText().toString();
         password = passwordEditText.getText().toString();
-        if (username.equals("") || password.equals("")) {
+        if (email.equals("") || password.equals("")) {
             Toast.makeText(this, getResources().getString(R.string.log_in_empty_credentials), Toast.LENGTH_SHORT).show();
         }
-        else if (username.equals("q") && password.equals("q")) {
+        else if (email.equals("q") && password.equals("q")) {
             Intent startIntent = new Intent(Login.this, Landing.class);
             startActivity(startIntent);
             finish();
@@ -137,7 +137,7 @@ public class Login extends Activity {
             ft.commit();
             loginButton.setText(getResources().getString(R.string.logging_in));
             Intent intent = new Intent(this, LoginIntentService.class);
-            intent.putExtra("username", username);
+            intent.putExtra("email", email);
             intent.putExtra("password", password);
             startService(intent);
         }

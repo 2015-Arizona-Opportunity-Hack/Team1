@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,12 +29,13 @@ import com.bramblellc.yoda.services.ActionConstants;
 
 public class SignUp extends Activity {
 
-    private EditText desiredNameEditText;
     private EditText desiredPasswordEditText;
     private EditText phoneNumberEditText;
     private EditText emailEditText;
     private EditText firstNameEditText;
     private EditText lastNameEditText;
+    private CheckBox english;
+    private CheckBox spanish;
     private Button continueButton;
 
     private FragmentManager fm;
@@ -41,12 +43,12 @@ public class SignUp extends Activity {
     private LoadingBar loadingBar;
     private boolean disabled;
 
-    private String username;
     private String password;
     private String phoneNumber;
     private String email;
     private String firstName;
     private String lastName;
+    private boolean language;
 
     private SignUpReceiver signUpReceiver;
 
@@ -59,12 +61,16 @@ public class SignUp extends Activity {
         loadingBar = new LoadingBar();
         disabled = false;
 
-        desiredNameEditText = (EditText) findViewById(R.id.editTextDesiredUsername);
         desiredPasswordEditText = (EditText) findViewById(R.id.editTextDesiredPassword);
         phoneNumberEditText = (EditText) findViewById(R.id.editTextPhoneNumber);
-        emailEditText = (EditText) findViewById(R.id.editTextEmail);
+        emailEditText = (EditText) findViewById(R.id.editTextemail);
         firstNameEditText = (EditText) findViewById(R.id.editTextFirstName);
         lastNameEditText = (EditText) findViewById(R.id.editTextLastName);
+        english = (CheckBox) findViewById(R.id.english_checkbox);
+        english.setChecked(true);
+        spanish = (CheckBox) findViewById(R.id.spanish_checkbox);
+        spanish.setChecked(false);
+        language = true;
         continueButton = (Button) findViewById(R.id.buttonSignUp);
 
         phoneNumberEditText.addTextChangedListener(new TextWatcher() {
@@ -149,7 +155,6 @@ public class SignUp extends Activity {
     public void disableButtons() {
         disabled = true;
         continueButton.setEnabled(false);
-        desiredNameEditText.setEnabled(false);
         desiredPasswordEditText.setEnabled(false);
         phoneNumberEditText.setEnabled(false);
     }
@@ -157,7 +162,6 @@ public class SignUp extends Activity {
     public void enableButtons() {
         disabled = false;
         continueButton.setEnabled(true);
-        desiredNameEditText.setEnabled(true);
         desiredPasswordEditText.setEnabled(true);
         phoneNumberEditText.setEnabled(true);
     }
@@ -168,24 +172,20 @@ public class SignUp extends Activity {
     }
 
     public void signUp() {
-        username = desiredNameEditText.getText().toString();
         password = desiredPasswordEditText.getText().toString();
         phoneNumber = phoneNumberEditText.getText().toString().replace("-", "");
         email = emailEditText.getText().toString();
         firstName = firstNameEditText.getText().toString();
         lastName = lastNameEditText.getText().toString();
         // native checks on inputs gathered
-        if (username.equals("")) {
-            Toast.makeText(this, getResources().getString(R.string.sign_up_credentials_empty_username_error), Toast.LENGTH_SHORT).show();
+        if(email.equals("")) {
+            Toast.makeText(this, getResources().getString(R.string.sign_up_credentials_empty_email_error), Toast.LENGTH_SHORT).show();
         }
         else if (password.equals("")) {
             Toast.makeText(this, getResources().getString(R.string.sign_up_credentials_empty_password_error), Toast.LENGTH_SHORT).show();
         }
         else if(phoneNumber.equals("")) {
             Toast.makeText(this, getResources().getString(R.string.sign_up_credentials_empty_phone_number_error), Toast.LENGTH_SHORT).show();
-        }
-        else if(email.equals("")) {
-            Toast.makeText(this, getResources().getString(R.string.sign_up_credentials_empty_email_error), Toast.LENGTH_SHORT).show();
         }
         else if(firstName.equals("")) {
             Toast.makeText(this, getResources().getString(R.string.sign_up_credentials_empty_first_name_error), Toast.LENGTH_SHORT).show();
@@ -209,7 +209,27 @@ public class SignUp extends Activity {
             //intent.putExtra("email", email);
             //intent.putExtra("first_name", firstName);
             //intent.putExtra("last_name", lastName);
+            //if (language)
+            //    intent.putExtra("language", "english");
+            //else
+            //    intent.putExtra("language", "spanish");
             //startService(intent);
+        }
+    }
+
+    public void englishPressed(View view) {
+        if (language) {
+            language = false;
+            spanish.setChecked(true);
+            english.setChecked(false);
+        }
+    }
+
+    public void spanishPressed(View view) {
+        if (!language) {
+            language = true;
+            spanish.setChecked(false);
+            english.setChecked(true);
         }
     }
 
@@ -222,20 +242,12 @@ public class SignUp extends Activity {
         }
     }
 
-    public String getDesiredUsernameString() {
-        return this.desiredNameEditText.getText().toString();
-    }
-
     public String getDesiredPasswordString() {
         return this.desiredPasswordEditText.getText().toString();
     }
 
     public String getPhoneNumberString() {
         return this.phoneNumberEditText.getText().toString();
-    }
-
-    public void setDesiredUsernameString(String desiredUsername) {
-        this.desiredNameEditText.setText(desiredUsername);
     }
 
     public void setDesiredPasswordString(String desiredPassword) {
