@@ -271,6 +271,10 @@ def updateuser():
 
     if not usr:
         return render_template("users.html", user=None) # TODO NO USER FOUND
+
+    if request.form['submit'] == "DEL":
+        return delusr()
+
     usr.phone_number = request.form['phone_number']
     usr.first_name = request.form['first_name']
     usr.last_name = request.form['last_name']
