@@ -7,24 +7,33 @@ from flask import render_template
 
 @app.route("/")
 def index():
-    return render_template('index.html') # :(
+    return render_template('index.html')  # :(
+
 
 @app.route("/example")
 def example():
     return json.dumps([x.to_doc() for x in db.get_last_n_of_class(Post, 5)]), 200
 
+
 @app.route("/login/")
 def admin_login():
     return render_template('login.html')
+
+
 @app.route("/news-alerts/")
 def news_alerts():
     return render_template('news-alerts.html')
+
+
 @app.route("/urgent-alerts/")
 def urgent_alerts():
     return render_template('emergency-alerts.html')
+
+
 @app.route("/users/")
 def users():
     return render_template('users.html')
+
 
 @app.route("/register_su", methods=["POST"])
 def register_su():
@@ -78,9 +87,12 @@ def register():
         print errors
         return "validation error", 401
 
-    email, phone, password, language_pref, first_name, last_name = obj["email"], obj["phone_number"], obj["password"], obj["language_pref"], obj["first_name"], obj["last_name"]
+    email, phone, password, language_pref, first_name, last_name = obj["email"], obj["phone_number"], obj["password"], \
+                                                                   obj["language_pref"], obj["first_name"], obj[
+                                                                       "last_name"]
 
-    new_user = User(email=email, phone_number=phone, password=password, language_pref=language_pref, first_name=first_name, last_name=last_name)
+    new_user = User(email=email, phone_number=phone, password=password, language_pref=language_pref,
+                    first_name=first_name, last_name=last_name)
     db.insert(new_user)
 
     return json.dumps({"auth_token": new_user.generate_auth_token()}), 200
@@ -130,7 +142,8 @@ def make_post():
         print errors
         return "validation error", 401
 
-    new_post = Post(author=req_json["author"], posts=req_json["posts"], categories=req_json["categories"], event=req_json["event"])
+    new_post = Post(author=req_json["author"], posts=req_json["posts"], categories=req_json["categories"],
+                    event=req_json["event"])
     db.insert(new_post)
 
     return "Success", 200
@@ -162,7 +175,3 @@ def usr_prop():
             return "Success", 200
     else:
         return "bad property", 401
-
-
-
-
