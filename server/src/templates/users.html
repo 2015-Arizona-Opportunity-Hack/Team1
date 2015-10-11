@@ -29,7 +29,7 @@
       </div>
     </form>
       <br>
-    < class="form" method="POST" action="/users/updateuser">
+    <form class="form" method="POST" action="/users/updateuser">
      <div class="container">
         <div class="row">
             <div class="col-sm-3 col-md-6">
@@ -39,8 +39,8 @@
               </div>
               <div class="panel-body">
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input class="form-control" rows="1"  name="email">
+                    <label for="email" style="display: none;">Email:</label>
+                    <input class="form-control"value="{{ user.email }}" style="display: none;" rows="1"  name="email">
                   <label for="phone_number">Phone Number:</label>
                   <input class="form-control" rows="1" value="{{user.phone_number }}" name="phone_number"/>
                   <label for="first_name">First Name: </label>
@@ -48,12 +48,11 @@
                   <label for="last_name">Last Name: </label>
                     <input class="form-control" rows="1"name="last_name" value="{{ user.last_name }}"/>
                  <br>
-                <input type="submit" value="Save" class="btn btn-lg btn-block btn-primary">
+                <input type="submit" name="SUB" value="Save" class="btn btn-lg btn-block btn-primary">
+                    <br>
+                <input type="submit" name="SUB" value="Delete User" onclick="" class="btn btn-lg btn-block btn-danger">
                 </form>
-                <br>
-                <form action="/users/delusr" method="POST">
-                <input type="submit" value="Delete User" onclick="" class="btn btn-lg btn-block btn-danger">
-                </form>
+
                 </div>
               </div>
             </div>
@@ -68,8 +67,8 @@
                   </div>
                   <div class="panel-body">
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input class="form-control" rows="1" name="email">
+                    <label for="email" style="display: none;">Email:</label>
+                    <input class="form-control" style="display: none;" value="{{ user.email }}" rows="1" name="email">
                   <label for="password">Password: </label>
                   <input type="password" class="form-control" rows="1" name="password"/>
                 </div>
