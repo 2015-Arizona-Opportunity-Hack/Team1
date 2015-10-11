@@ -75,8 +75,8 @@
         {{ (user.to_doc()) }}
         <script>
         $(document).ready(function () {
-            $("email").val({{ user.email }})
-        });
+            $("email").val("{{ user.email }}");
+        })
         </script>
     {% endif %}
 {% endblock %}
