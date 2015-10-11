@@ -39,6 +39,29 @@ def register_su():
     return json.dumps({"auth_token": new_su.generate_auth_token()})
 
 
+@app.route("/login_su", methods=["POST"])
+def login_su():
+    obj = request.get_json(force=True)
+
+    print obj
+    errors = validate(obj, "email", "password")
+    if errors:
+        print errors
+        return "validation_error", 401
+
+    email, password = obj["email"], obj["password"]
+
+    su = db.find_by_field("email", email, SuperUser)
+
+    if not su:
+        print "su not found", 404
+
+    if not su.verify_password(password):
+        print "invalid username or password"
+
+    return json.dumps({"auth_token": su.generate_auth_token()})
+
+
 @app.route("/register", methods=["POST"])
 def register():
     obj = request.get_json(force=True)
@@ -107,22 +130,24 @@ def make_post():
 
     return "Success", 200
 
+
 @app.route("/usr_prop", methods=['POST'])
-@authenticate
 def usr_prop():
     req_json = request.get_json(force=True)
 
-    errors = validate(req_json, "property", "value", "token")
+    errors = validate(req_json, "property", "value", "action_token")
     if errors:
         print errors
         return "validation error", 401
-
-    # TODO STEVE TOKEN AUTH
 
     if req_json["property"] != "email" and req_json["property"] != "language_pref":
         usr = db.find_by_field("email", req_json["email"], User)
         if not usr:
             return "user not found", 404
+
+        elif not usr.verify_action_token(req_json["action_token"]):
+            return "action_token invalid", 401
+
         else:
             setattr(usr, req_json["property"], req_json["value"])
             db.update(usr)

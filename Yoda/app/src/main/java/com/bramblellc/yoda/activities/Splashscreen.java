@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.bramblellc.yoda.R;
+import com.bramblellc.yoda.data.SharedPreferencesLayer;
 
 public class Splashscreen extends Activity {
 
@@ -17,6 +18,8 @@ public class Splashscreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen_layout);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        SharedPreferencesLayer.init(this);
 
         new Handler().postDelayed(new Runnable() {
             @Override
