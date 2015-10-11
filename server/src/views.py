@@ -71,14 +71,19 @@ def urgent_alerts():
 
     new_session = user.generate_auth_token()
 
-    resp = make_response(render_template("news-alerts.html"))
+    resp = make_response(render_template("emergency-alerts.html"))
     resp.set_cookie("session", new_session)
 
     return resp
 
 
-@app.route("/users/")
-def users():
+@app.route("/users/<string:email>")
+def users(email):
+
+    user = db.find_by_field("email", email, User)
+
+    print user.first_name
+
     session = request.cookies.get("session")
     if not session:
         return redirect("/")
@@ -95,10 +100,11 @@ def users():
 
     new_session = user.generate_auth_token()
 
-    resp = make_response(render_template("news-alerts.html"))
+    resp = make_response(render_template("users.html"))
     resp.set_cookie("session", new_session)
 
     return resp
+
 
 
 @app.route("/login/")
