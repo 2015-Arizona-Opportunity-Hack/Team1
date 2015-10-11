@@ -48,7 +48,7 @@ class User(Model):
     def __init__(self, object_dict=None, id=None, **kwargs):
         Model.__init__(self)
         if object_dict is None:
-            self.username = kwargs["username"]
+            self.email = kwargs["email"]
             self.first_name = kwargs["first_name"]
             self.last_name = kwargs["last_name"]
             self.phone_number = kwargs["phone_number"]
@@ -57,7 +57,7 @@ class User(Model):
             self.auth_token_secret = generate_secret(128)
             self.action_token_secret = generate_secret(128)
         else:
-            self.username = object_dict["username"]
+            self.email = object_dict["email"]
             self.first_name = object_dict["first_name"]
             self.last_name = object_dict["last_name"]
             self.phone_number = object_dict["phone_number"]
@@ -71,10 +71,10 @@ class User(Model):
         return check_password_hash(self.password_hash, password)
 
     def generate_auth_token(self):
-        return generate_token(self.username, datetime.utcnow(), 0, str(self.auth_token_secret))
+        return generate_token(self.email, datetime.utcnow(), 0, str(self.auth_token_secret))
 
     def generate_action_token(self):
-        return generate_token(self.username, datetime.utcnow(), 0, str(self.action_token_secret))
+        return generate_token(self.email, datetime.utcnow(), 0, str(self.action_token_secret))
 
     def verify_auth_token(self, token):
         return generate_token(token, 0, timedelta(days=120), str(self.auth_token_secret))
@@ -82,14 +82,13 @@ class User(Model):
     def verify_action_token(self, token):
         return generate_token(token, 0, timedelta(minutes=10), str(self.action_token_secret))
 
-
     @classmethod
     def COLLECTION_NAME(cls):
         return "users"
 
     def to_doc(self):
         return {
-            "username": self.username,
+            "email": self.email,
             "first_name": self.first_name,
             "last_name": self.last_name,
             "phone_number": self.phone_number,
@@ -99,15 +98,16 @@ class User(Model):
             "action_token_secret": self.action_token_secret
         }
 
+
 class Update(Model):
     def __init__(self, object_dict=None, id=None, **kwargs):
         Model.__init__(self)
         if object_dict is None:
             self.phone_number = kwargs["phone_number"]
-            self.username = kwargs["username"]
+            self.email = kwargs["email"]
         else:
             self.phone_number = object_dict["phone_number"]
-            self.username = object_dict["username"]
+            self.email = object_dict["email"]
             self.id = object_dict["_id"]
 
     @classmethod
@@ -117,7 +117,7 @@ class Update(Model):
     def to_doc(self):
         return {
             "phone_number": self.author,
-            "username": self.posts
+            "email": self.posts
         }
 
 

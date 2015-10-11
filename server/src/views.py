@@ -15,17 +15,17 @@ def register():
 
     print obj
 
-    errors = validate(obj, "username", "phone_number", "password", "language_pref", "first_name", "last_name")
+    errors = validate(obj, "email", "phone_number", "password", "language_pref", "first_name", "last_name")
     if errors:
         print errors
         return "validation error", 401
 
-    username, phone, password, language_pref, first_name, last_name = obj["username"], obj["phone_number"], obj["password"], obj["language_pref"], obj["first_name"], obj["last_name"]
+    email, phone, password, language_pref, first_name, last_name = obj["email"], obj["phone_number"], obj["password"], obj["language_pref"], obj["first_name"], obj["last_name"]
 
-    new_user = User(username=username, phone_number=phone, password=password, language_pref=language_pref, first_name=first_name, last_name=last_name)
+    new_user = User(email=email, phone_number=phone, password=password, language_pref=language_pref, first_name=first_name, last_name=last_name)
     db.insert(new_user)
 
-    return username + " " + phone, 200
+    return email + " " + phone, 200
 
 
 @app.route("/login", methods=["POST"])
@@ -34,17 +34,17 @@ def login():
 
     print obj
 
-    errors = validate(obj, "username", "password")
+    errors = validate(obj, "email", "password")
     if errors:
         print errors
         return "validation error", 401
 
-    username, password = obj["username"], obj["password"]
+    email, password = obj["email"], obj["password"]
 
-    user = db.findByField("username", username, User)
+    user = db.findByField("email", email, User)
 
     if not user:
-        return "Username not found", 401
+        return "email not found", 401
 
     if not user.verify_password(password):
         return "Incorrect password", 401
@@ -65,7 +65,7 @@ def validate(obj, *args):
 @app.route("/make_post", methods=['POST'])
 @authenticate
 def make_post():
-    req_json = request.json
+    req_json = request.get_json(force=True)
 
     # Todo act on validation
     errors = validate(req_json, "posts", "categories", "event", "author", "auth")
