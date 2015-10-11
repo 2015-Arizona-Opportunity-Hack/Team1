@@ -46,6 +46,8 @@
 
         <service android:name=".services.LoginIntentService"/>
 
+        <service android:name=".services.SignUpIntentService"/>
+
     </application>
 
 </manifest>

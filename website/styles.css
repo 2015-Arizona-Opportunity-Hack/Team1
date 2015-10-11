@@ -94,3 +94,10 @@ html, body {
 	left: -3px;
 
 }
+
+.page-header { border-bottom:none; }
+
+.image-button {
+	position: relative;
+	bottom: 5px;
+}

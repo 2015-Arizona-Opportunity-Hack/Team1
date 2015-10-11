@@ -32,13 +32,13 @@ public class SharedPreferencesLayer {
         }
     }
 
-    public String getUsername() {
+    public String getEmail() {
         return sharedPreferences.getString("username", "");
     }
 
-    public void setUsername(String username) {
+    public void setEmail(String email) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("username", username);
+        editor.putString("email", email);
         editor.apply();
     }
 
