@@ -68,8 +68,8 @@ public class Landing extends Activity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject item = jsonArray.getJSONObject(i);
                         JSONArray posts = item.getJSONArray("posts");
-                        JSONObject post1 = posts.get(0);
-                        JSONObject post2 = posts.get(1);
+                        JSONObject post1 = (JSONObject) posts.get(0);
+                        JSONObject post2 = (JSONObject) posts.get(1);
                     }
                 }
                 catch (JSONException e) {
