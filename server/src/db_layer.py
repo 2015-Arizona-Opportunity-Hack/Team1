@@ -23,13 +23,11 @@ class Post(Model):
         Model.__init__(self)
         if object_dict is None:
             self.author = kwargs["author"]
-            self.title = kwargs["title"]
             self.posts = kwargs["posts"]
             self.categories = kwargs["categories"]
             self.event = kwargs["event"]
         else:
             self.author = object_dict["author"]
-            self.title = object_dict["title"]
             self.posts = object_dict["posts"]
             self.categories = object_dict["categories"]
             self.event = object_dict["event"]
