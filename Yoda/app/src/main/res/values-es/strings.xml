@@ -4,6 +4,10 @@
     <string name="version_number">Versión 0.1.0 © Bramble LLC</string>
 
     <!-- labels -->
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="english">English</string>
+    <string name="spanish">Español</string>
     <string name="log_in">INICIAR SESIÓN</string>
     <string name="logging_in">INICIAR SESIÓN</string>
     <string name="sign_up">CONTRATAR</string>
@@ -16,6 +20,10 @@
     <string name="change_phone_number">Número de teléfono de cambio</string>
     <string name="reset_password">Restablecer la contraseña</string>
     <string name="news_feed">Noticias</string>
+
+    <!-- material dialog text -->
+    <string name="log_out_confirmation">¿Seguro que le gustaría cerrar la sesión?</string>
+    <string name="change_languages_text"></string>
 
     <!-- log in error toasts -->
     <string name="log_in_empty_credentials">Ingrese su correo electrónico o contraseña.</string>

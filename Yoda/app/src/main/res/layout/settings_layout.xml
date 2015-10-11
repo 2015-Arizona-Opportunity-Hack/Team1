@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="2dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color1">
+
+    <com.bramblellc.yoda.layouts.CustomActionbar
+        android:id="@+id/settings_custom_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:text="@string/settings"
+        android:textColor="@color/color1"
+        app:backgroundType="1"
+        app:backButtonColor="blue"
+        app:upButton="true"/>
+
+    <com.bramblellc.yoda.layouts.FullWidthButton
+        android:id="@+id/change_language_full_width_button"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_below="@+id/settings_custom_actionbar"
+        android:text="@string/change_language_prefs"
+        app:lowerLine="true" />
+
+    <com.bramblellc.yoda.layouts.FullWidthButton
+        android:id="@+id/change_phone_number_full_width_button"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_below="@+id/change_language_full_width_button"
+        android:text="@string/change_phone_number"
+        app:lowerLine="true" />
+
+    <com.bramblellc.yoda.layouts.FullWidthButton
+        android:id="@+id/message_prefs_full_width_button"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_below="@+id/change_phone_number_full_width_button"
+        android:text="@string/message_prefs"
+        app:lowerLine="true" />
+
+    <com.bramblellc.yoda.layouts.FullWidthButton
+        android:id="@+id/logout_full_width_button"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_below="@+id/message_prefs_full_width_button"
+        android:text="@string/log_out"
+        app:lowerLine="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/darkGray"
+        android:textSize="12sp"
+        android:text="@string/version_number"/>
 
 </RelativeLayout>

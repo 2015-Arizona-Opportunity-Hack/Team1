@@ -21,7 +21,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/settings"
-        android:id="@+id/settings_button"/>
+        android:id="@+id/settings_button"
+        android:onClick="settingsPressed"/>
 
     <ImageButton
         android:layout_width="?android:attr/actionBarSize"
@@ -29,7 +30,8 @@
         android:layout_toLeftOf="@+id/settings_button"
         android:layout_alignParentTop="true"
         android:background="@drawable/no_alert"
-        android:id="@+id/alerts_button"/>
+        android:id="@+id/alerts_button"
+        android:onClick="alertsPressed"/>
 
     <TextView
         android:layout_width="wrap_content"

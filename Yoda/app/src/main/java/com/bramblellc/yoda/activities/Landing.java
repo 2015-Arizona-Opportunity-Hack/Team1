@@ -21,4 +21,8 @@ public class Landing extends Activity {
         startActivity(intent);
         finish();
     }
+
+    public void alertsPressed(View v) {
+
+    }
 }
