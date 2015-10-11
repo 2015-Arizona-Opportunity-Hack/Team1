@@ -45,9 +45,6 @@ class Post(Model):
             "event": self.event
         }
 
-    def serialize(self):
-        json.dumps(self.to_doc())
-
 
 class SuperUser(Model):
     def __init__(self, object_dict=None, **kwargs):
@@ -150,7 +147,8 @@ class User(Model):
             "auth_token_secret": self.auth_token_secret,
             "action_token_secret": self.action_token_secret
         }
-
+    def serialize(self):
+            json.dumps(self.to_doc())
 
 class Update(Model):
     def __init__(self, object_dict=None, id=None, **kwargs):
