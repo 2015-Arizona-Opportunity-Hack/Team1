@@ -31,7 +31,7 @@ def index():
             return resp
 
 
-@app.route("/example")
+@app.route("/example", methods=["GET", "POST"])
 def example():
     debug = json.dumps({"news": [x.to_doc() for x in db.get_last_n_of_class(Post, 5)]})
     print str(debug)
