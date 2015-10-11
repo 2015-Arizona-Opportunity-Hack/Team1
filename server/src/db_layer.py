@@ -217,3 +217,9 @@ class GideonDatabaseClient:
             {"_id": model_inst.id},
             model_inst.to_doc()
         )
+
+    def remove(self, model_inst):
+        collection = self.get_collection(model_inst.__class__)
+        collection.remove(
+            {"_id": model_inst.id}
+        )
