@@ -68,11 +68,15 @@
         </div>
       </div>
      </form>
+    {{ user.email }}
+    {{ user.phone_number }}
+    {{ user.last_name }}
+    {{ user.first_name }}
 
     {% if user is not none %}
         <script>
         $(document).ready(function () {
-            $("email").val({{ user.email }});
+            $("email").val({{ user.email }})
         });
         </script>
     {% endif %}
