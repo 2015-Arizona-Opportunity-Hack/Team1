@@ -223,6 +223,17 @@ def lookup():
     user = db.find_by_field("email", request.form['email'], User)
     return render_template("users.html", user=user)
 
+@app.route("/users/updateuser", methods=["POST"])
+def updateuser():
+    user = db.find_by_field("email", request.form['email'], User)
+    if not User:
+        return render_template("users.html", user=None) # TODO NO USER FOUND
+    user.phone_number = request.form['phone_number']
+    user.first_name = request.form['first_name']
+    user.last_name = request.form['last_name']
+    db.update(user)
+    return render_template("users.html", user=user)
+
 @app.route("/login/")
 def login():
     if request.cookies.get("session"):
@@ -393,6 +404,7 @@ def user_lookup():
             return "Token invalid", 401
 
     usrdata = db.find_by_field("email", req_json["user"], User)
+
     return json.dumps(usrdata.to_doc())
 
 
