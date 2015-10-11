@@ -17,18 +17,19 @@ class Model:
 
 
 class Post(Model):
-    def __init__(self, obj_dict=None, **kwargs):
+    def __init__(self, object_dict=None, id=None, **kwargs):
         Model.__init__(self)
-        if obj_dict is None:
+        if object_dict is None:
             self.author = kwargs["author"]
             self.posts = kwargs["posts"]
             self.categories = kwargs["categories"]
             self.event = kwargs["event"]
         else:
-            self.author = obj_dict["author"]
-            self.posts = kwargs["posts"]
-            self.categories = kwargs["categories"]
-            self.event = kwargs["event"]
+            self.author = object_dict["author"]
+            self.posts = object_dict["posts"]
+            self.categories = object_dict["categories"]
+            self.event = object_dict["event"]
+            self.id = object_dict["_id"]
 
     @classmethod
     def COLLECTION_NAME(cls):
@@ -44,7 +45,7 @@ class Post(Model):
 
 
 class User(Model):
-    def __init__(self, object_dict=None, **kwargs):
+    def __init__(self, object_dict=None, id=None, **kwargs):
         Model.__init__(self)
         if object_dict is None:
             self.username = kwargs["username"]
@@ -53,7 +54,6 @@ class User(Model):
             self.language_pref = kwargs["language_pref"]
             self.auth_token_secret = generate_secret(128)
             self.action_token_secret = generate_secret(128)
-
         else:
             self.username = object_dict["username"]
             self.phone_number = object_dict["phone_number"]
@@ -61,6 +61,7 @@ class User(Model):
             self.language_pref = object_dict["language_pref"]
             self.auth_token_secret = object_dict["auth_token_secret"]
             self.action_token_secret = object_dict["action_token_secret"]
+            self.id = object_dict["_id"]
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -127,5 +128,11 @@ class GideonDatabaseClient:
             return None
 
     def update(self, model_inst):
-        print model_inst.inserted_id
+        collection = self.get_collection(model_inst.__class__)
+        collection.update(
+            {"_id": model_inst.id},
+            model_inst.to_doc()
+        )
+
+
 
