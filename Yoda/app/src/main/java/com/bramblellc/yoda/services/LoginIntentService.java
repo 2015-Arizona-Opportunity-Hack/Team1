@@ -27,7 +27,7 @@ public class LoginIntentService extends YodaIntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         try {
-            Route route = new Route("http://gideon.stevex86.com/login");
+            Route route = new Route("http://gideon.stevex86.com/login_app");
             Request request = new Request(route, new Post());
 
             JSONObject jsonObject = new JSONObject();

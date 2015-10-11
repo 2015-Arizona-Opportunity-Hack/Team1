@@ -15,7 +15,7 @@ def example():
     return json.dumps([x.to_doc() for x in db.get_last_n_of_class(Post, 5)]), 200
 
 
-@app.route("/login/")
+@app.route("/login_app/")
 def admin_login():
     return render_template('login.html')
 
