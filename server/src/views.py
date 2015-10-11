@@ -164,5 +164,21 @@ def usr_prop():
         return "bad property", 401
 
 
+@app.route("/user_lookup", methods=['POST'])
+def user_lookup():
+    req_json = request.get_json(force=True)
 
+    errors = validate(req_json, "user", "admin_token", "admin_email")
+    if errors:
+        print errors
+        return "validation error", 401
 
+    admin = db.find_by_field("email", req_json["admin"], SuperUser)
+    if not admin:
+        return "Superuser account invalid", 401
+    else:
+        if not admin.verify_auth_token(req_json["admin_token"]):
+            return "Token invalid", 401
+
+    usrdata = db.find_by_field("email", req_json["user"], User)
+    return json.dumps(usrdata.to_doc())
