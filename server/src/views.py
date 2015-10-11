@@ -220,7 +220,7 @@ def del_user():
     return "Success", 200
 
 
-@app.route("/request_action_token")
+@app.route("/request_action_token", methods=["POST"])
 def request_action_token():
     req_json = request.get_json(force=True)
 
