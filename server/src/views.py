@@ -82,17 +82,20 @@ def register():
 
     print obj
 
-    errors = validate(obj, "email", "phone_number", "password", "language_pref", "first_name", "last_name")
+    errors = validate(obj, "email", "phone_number", "password", "language_pref", "first_name", "last_name",
+                      "message_prefs")
     if errors:
         print errors
         return "validation error", 401
 
-    email, phone, password, language_pref, first_name, last_name = obj["email"], obj["phone_number"], obj["password"], \
-                                                                   obj["language_pref"], obj["first_name"], obj[
-                                                                       "last_name"]
+    email, phone, password, language_pref, first_name, last_name, message_prefs = obj["email"], obj["phone_number"], \
+                                                                                  obj["password"], \
+                                                                                  obj["language_pref"], obj[
+                                                                                      "first_name"], obj[
+                                                                                      "last_name"], "2"
 
     new_user = User(email=email, phone_number=phone, password=password, language_pref=language_pref,
-                    first_name=first_name, last_name=last_name)
+                    first_name=first_name, last_name=last_name, message_prefs=message_prefs)
     db.insert(new_user)
 
     return json.dumps({"auth_token": new_user.generate_auth_token()}), 200
