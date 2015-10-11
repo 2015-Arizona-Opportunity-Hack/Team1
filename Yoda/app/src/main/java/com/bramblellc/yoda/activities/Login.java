@@ -104,7 +104,7 @@ public class Login extends Activity {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                        callIntent.setData(Uri.parse("tel:6027520045"));
+                        callIntent.setData(Uri.parse("tel:4808214207"));
                         startActivity(callIntent);
                     }
                 })
