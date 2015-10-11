@@ -72,7 +72,7 @@
 
 
     {% if user is not none %}
-        {{ (user.to_doc()) }}
+        {{ (user.serializes()) }}
         <script>
         $(document).ready(function () {
             $("email").val("{{ user.email }}");
