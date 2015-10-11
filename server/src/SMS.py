@@ -55,4 +55,4 @@ def send_message(user, post_array):
 
 def send_message_to_all_users(post):
     for user in db.find_all(User):
-        send_message(user, post["posts"])
+        send_message(user, post.posts)
