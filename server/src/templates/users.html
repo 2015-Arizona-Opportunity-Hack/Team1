@@ -14,7 +14,7 @@
           <div class="col-sm-3 col-md-6">
             <div class="input-group">
               <input type="text" class="form-control" name="email" placeholder="Enter a user's email" aria-describedby="emailinput">
-              <button
+              <button type="submit"
               class="input-group-addon">Get</button>
             </div>
           </div>
@@ -31,11 +31,11 @@
               </div>
               <div class="panel-body">
                 <div class="form-group">
-                  <label for="phone#">Phone Number:</label>
+                  <label for="phone_number">Phone Number:</label>
                   <input class="form-control" rows="1" name="phone_number"/>
-                  <label for="first">First Name: </label>
+                  <label for="first_name">First Name: </label>
                   <input class="form-control" rows="1" name="first_name"/>
-                  <label for="last">Last Name: </label>
+                  <label for="last_name">Last Name: </label>
                     <textarea class="form-control" rows="1"
                     name="last_name"></textarea>
 
@@ -63,4 +63,12 @@
             </form>
         </div>
       </div>
+
+    {% if user %}
+        <script>
+        $(document).ready(function () {
+            $("email").val({% user.email %})
+        })
+        </script>
+    {% endif %}
 {% endblock %}
