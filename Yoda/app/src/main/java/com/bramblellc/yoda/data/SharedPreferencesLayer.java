@@ -19,7 +19,7 @@ public class SharedPreferencesLayer {
         sharedPreferences = ctx.getSharedPreferences(preferencesFile, Context.MODE_PRIVATE);
     }
 
-    public void init(Context ctx) {
+    public static void init(Context ctx) {
         instance = new SharedPreferencesLayer(ctx);
     }
 
