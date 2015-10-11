@@ -158,6 +158,11 @@ public class SignUp extends Activity {
         continueButton.setEnabled(false);
         desiredPasswordEditText.setEnabled(false);
         phoneNumberEditText.setEnabled(false);
+        emailEditText.setEnabled(false);
+        firstNameEditText.setEnabled(false);
+        lastNameEditText.setEnabled(false);
+        english.setEnabled(false);
+        spanish.setEnabled(false);
     }
 
     public void enableButtons() {
@@ -165,6 +170,13 @@ public class SignUp extends Activity {
         continueButton.setEnabled(true);
         desiredPasswordEditText.setEnabled(true);
         phoneNumberEditText.setEnabled(true);
+        emailEditText.setEnabled(true);
+        firstNameEditText.setEnabled(true);
+        lastNameEditText.setEnabled(true);
+        if (language)
+            spanish.setEnabled(true);
+        else
+            english.setEnabled(true);
     }
 
     // when the continue button is pressed (sign up)
