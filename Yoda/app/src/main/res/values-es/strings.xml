@@ -4,7 +4,8 @@
     <string name="version_number">Versión 0.1.0 © Bramble LLC</string>
 
     <!-- labels -->
-    <string name="notifications"></string>
+    <string name="news">Noticias</string>
+    <string name="notifications">Notificaciones</string>
     <string name="help">Ayuda</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
