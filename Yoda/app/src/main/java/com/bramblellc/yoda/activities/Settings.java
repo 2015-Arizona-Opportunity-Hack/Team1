@@ -143,7 +143,7 @@ public class Settings extends Activity {
                 .positiveText(getResources().getString(R.string.confirm))
                 .negativeText(getResources().getString(R.string.cancel))
                 .inputType(InputType.TYPE_CLASS_PHONE)
-                .input("phone number", "", new MaterialDialog.InputCallback() {
+                .input(getResources().getString(R.string.phone_number), "", new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         // change phone number of user on server

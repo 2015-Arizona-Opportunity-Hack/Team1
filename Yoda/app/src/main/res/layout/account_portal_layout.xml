@@ -26,7 +26,7 @@
     <com.bramblellc.yoda.layouts.ButtonWithTypeface
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:text="LOG IN"
+        android:text="@string/log_in"
         android:textColor="@color/color1"
         android:background="@color/color3"
         android:textSize="35sp"
@@ -38,7 +38,7 @@
     <com.bramblellc.yoda.layouts.ButtonWithTypeface
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:text="SIGN UP"
+        android:text="@string/sign_up"
         android:textColor="@color/color1"
         android:background="@color/color2"
         android:textSize="35sp"
