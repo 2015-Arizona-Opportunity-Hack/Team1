@@ -198,3 +198,23 @@ def user_lookup():
 
     usrdata = db.find_by_field("email", req_json["user"], User)
     return json.dumps(usrdata.to_doc())
+
+@app.route("/del_user", methods=['POST'])
+def del_user():
+    req_json = request.get_json(force=True)
+
+    errors = validate(req_json, "user", "admin_token", "admin_email")
+    if errors:
+        print errors
+        return "validation error", 401
+
+    admin = db.find_by_field("email", req_json["admin"], SuperUser)
+    if not admin:
+        return "Superuser account invalid", 401
+    else:
+        if not admin.verify_auth_token(req_json["admin_token"]):
+            return "Token invalid", 401
+
+    usrdata = db.find_by_field("email", req_json["user"], User)
+    db.remove(usrdata)
+    return "Success", 200
