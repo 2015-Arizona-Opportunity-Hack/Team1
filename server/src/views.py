@@ -167,7 +167,9 @@ def usr_prop():
         print errors
         return "validation error", 401
 
-    if req_json["property"] != u"message_prefs" and req_json["property"] != u"language_pref":
+    print req_json["property"]
+
+    if not (req_json["property"] == "message_prefs" or req_json["property"] == "language_pref"):
         email = req_json["action_token"].split(":")[1]
         usr = db.find_by_field("email", email, User)
         if not usr:
@@ -184,7 +186,6 @@ def usr_prop():
 
             return "Success", 200
     else:
-        print "ASDF"
         return "bad property", 401
 
 
