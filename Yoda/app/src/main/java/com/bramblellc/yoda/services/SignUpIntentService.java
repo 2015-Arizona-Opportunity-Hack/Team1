@@ -33,11 +33,12 @@ public class SignUpIntentService extends IntentService {
 
             //Builds JSON object
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("username", intent.getStringExtra("username"));
+            jsonObject.put("email", intent.getStringExtra("email"));
             jsonObject.put("password", intent.getStringExtra("password"));
-            jsonObject.put("first_name", intent.getStringExtra("first_name"));
-            jsonObject.put("last_name", intent.getStringExtra("last_name"));
-            jsonObject.put("phone_number", intent.getStringExtra("phone_number"));
+            jsonObject.put("first_name", intent.getStringExtra("firstName"));
+            jsonObject.put("last_name", intent.getStringExtra("lastName"));
+            jsonObject.put("phone_number", intent.getStringExtra("phoneNumber"));
+            jsonObject.put("language_pref", intent.getStringExtra("language"));
             //converts JSON object to JSON string
             JsonBodyContent content = new JsonBodyContent(jsonObject.toString());
 
@@ -49,12 +50,8 @@ public class SignUpIntentService extends IntentService {
             // retrieves response from connection to route formed by connection handler
             Response response = connectionHandler.getResponse();
 
-            if (response.getResponseCode() == 201) {
+            if (response.getResponseCode() == 200) {
                 jsonObject = new JSONObject(response.getBodyContent().getOutputString());
-                String username = jsonObject.getString("username");
-                String email = jsonObject.getString("email");
-                String phoneNumber = jsonObject.getString("phone_number");
-                String name = jsonObject.getString("name");
                 String authToken = jsonObject.getString("auth_token");
                 Intent localIntent = new Intent(ActionConstants.REGISTER_ACTION);
                 localIntent.putExtra("successful", true);
