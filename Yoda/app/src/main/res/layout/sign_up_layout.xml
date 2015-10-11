@@ -37,7 +37,7 @@
             android:background="@drawable/edit_text_basic"
             android:paddingLeft="@dimen/edittext_padding"
             android:paddingRight="@dimen/edittext_padding"
-            android:hint="username"
+            android:hint="@string/username"
             android:layout_below="@+id/signUpTitle"
             android:inputType="text"
             android:layout_centerHorizontal="true"/>
@@ -55,7 +55,7 @@
             android:background="@drawable/edit_text_basic"
             android:paddingLeft="@dimen/edittext_padding"
             android:paddingRight="@dimen/edittext_padding"
-            android:hint="password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:layout_below="@+id/space_1"
             android:layout_centerHorizontal="true"/>
@@ -74,9 +74,66 @@
             android:paddingLeft="@dimen/edittext_padding"
             android:paddingRight="@dimen/edittext_padding"
             android:maxLength="12"
-            android:hint="phone number"
+            android:hint="@string/phone_number"
             android:inputType="phone"
             android:layout_below="@+id/space_2"
+            android:layout_centerHorizontal="true" />
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/space_height"
+            android:layout_below="@+id/editTextPhoneNumber"
+            android:id="@+id/space_3"/>
+
+        <EditText
+            android:layout_width="@dimen/edittext_width"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextEmail"
+            android:background="@drawable/edit_text_basic"
+            android:paddingLeft="@dimen/edittext_padding"
+            android:paddingRight="@dimen/edittext_padding"
+            android:maxLength="12"
+            android:hint="@string/email"
+            android:inputType="phone"
+            android:layout_below="@+id/space_3"
+            android:layout_centerHorizontal="true" />
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/space_height"
+            android:layout_below="@+id/editTextEmail"
+            android:id="@+id/space_4"/>
+
+        <EditText
+            android:layout_width="@dimen/edittext_width"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextFirstName"
+            android:background="@drawable/edit_text_basic"
+            android:paddingLeft="@dimen/edittext_padding"
+            android:paddingRight="@dimen/edittext_padding"
+            android:maxLength="12"
+            android:hint="@string/first_name"
+            android:inputType="phone"
+            android:layout_below="@+id/space_4"
+            android:layout_centerHorizontal="true" />
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/space_height"
+            android:layout_below="@+id/editTextFirstName"
+            android:id="@+id/space_5"/>
+
+        <EditText
+            android:layout_width="@dimen/edittext_width"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextLastName"
+            android:background="@drawable/edit_text_basic"
+            android:paddingLeft="@dimen/edittext_padding"
+            android:paddingRight="@dimen/edittext_padding"
+            android:maxLength="12"
+            android:hint="@string/last_name"
+            android:inputType="phone"
+            android:layout_below="@+id/space_5"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
@@ -86,7 +143,7 @@
         android:text="SIGN UP"
         android:textColor="@color/color1"
         android:background="@color/color3"
-        android:textSize="40sp"
+        android:textSize="35sp"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:id="@+id/buttonSignUp"

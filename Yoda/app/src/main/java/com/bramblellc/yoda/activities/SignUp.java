@@ -31,6 +31,9 @@ public class SignUp extends Activity {
     private EditText desiredNameEditText;
     private EditText desiredPasswordEditText;
     private EditText phoneNumberEditText;
+    private EditText emailEditText;
+    private EditText firstNameEditText;
+    private EditText lastNameEditText;
     private Button continueButton;
 
     private FragmentManager fm;
@@ -41,10 +44,11 @@ public class SignUp extends Activity {
     private String username;
     private String password;
     private String phoneNumber;
+    private String email;
+    private String firstName;
+    private String lastName;
 
     private SignUpReceiver signUpReceiver;
-
-    private CharSequence[] countryCodeArray;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,9 @@ public class SignUp extends Activity {
         desiredNameEditText = (EditText) findViewById(R.id.editTextDesiredUsername);
         desiredPasswordEditText = (EditText) findViewById(R.id.editTextDesiredPassword);
         phoneNumberEditText = (EditText) findViewById(R.id.editTextPhoneNumber);
+        emailEditText = (EditText) findViewById(R.id.editTextEmail);
+        firstNameEditText = (EditText) findViewById(R.id.editTextFirstName);
+        lastNameEditText = (EditText) findViewById(R.id.editTextLastName);
         continueButton = (Button) findViewById(R.id.buttonSignUp);
 
         phoneNumberEditText.addTextChangedListener(new TextWatcher() {
@@ -123,7 +130,7 @@ public class SignUp extends Activity {
             }
         });
 
-        phoneNumberEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        lastNameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
                     signUp();
@@ -164,6 +171,9 @@ public class SignUp extends Activity {
         username = desiredNameEditText.getText().toString();
         password = desiredPasswordEditText.getText().toString();
         phoneNumber = phoneNumberEditText.getText().toString().replace("-", "");
+        email = emailEditText.getText().toString();
+        firstName = firstNameEditText.getText().toString();
+        lastName = lastNameEditText.getText().toString();
         // native checks on inputs gathered
         if (username.equals("")) {
             Toast.makeText(this, getResources().getString(R.string.sign_up_credentials_empty_username_error), Toast.LENGTH_SHORT).show();
@@ -173,6 +183,15 @@ public class SignUp extends Activity {
         }
         else if(phoneNumber.equals("")) {
             Toast.makeText(this, getResources().getString(R.string.sign_up_credentials_empty_phone_number_error), Toast.LENGTH_SHORT).show();
+        }
+        else if(email.equals("")) {
+            Toast.makeText(this, getResources().getString(R.string.sign_up_credentials_empty_email_error), Toast.LENGTH_SHORT).show();
+        }
+        else if(firstName.equals("")) {
+            Toast.makeText(this, getResources().getString(R.string.sign_up_credentials_empty_first_name_error), Toast.LENGTH_SHORT).show();
+        }
+        else if(lastName.equals("")) {
+            Toast.makeText(this, getResources().getString(R.string.sign_up_credentials_empty_last_name_error), Toast.LENGTH_SHORT).show();
         }
         else if(password.length() < 6 || password.length() > 20){
             Toast.makeText(this,  getResources().getString(R.string.sign_up_credentials_invalid_password_length_error), Toast.LENGTH_SHORT).show();
@@ -187,6 +206,9 @@ public class SignUp extends Activity {
             //intent.putExtra("username", username);
             //intent.putExtra("password", password);
             //intent.putExtra("phone_number", phoneNumber);
+            //intent.putExtra("email", email);
+            //intent.putExtra("first_name", firstName);
+            //intent.putExtra("last_name", lastName);
             //startService(intent);
         }
     }
@@ -241,10 +263,6 @@ public class SignUp extends Activity {
                 SignUp.this.enableButtons();
             }
             else {
-                SharedPreferences.Editor editor = getSharedPreferences("ICAN", MODE_PRIVATE).edit();
-                editor.putString("username", username);
-                editor.putString("password", password);
-                editor.apply();
                 LocalBroadcastManager.getInstance(SignUp.this).unregisterReceiver(signUpReceiver);
                 SignUp.this.enableButtons();
                 Intent startIntent = new Intent(SignUp.this, Landing.class);
