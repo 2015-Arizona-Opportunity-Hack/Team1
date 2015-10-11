@@ -107,6 +107,7 @@ def urgent_alerts():
         db.insert(post)
 
         send_urgent_alert(post)
+        return redirect("/")
 
 
 @app.route("/users/new", methods=["GET", "POST"])
