@@ -102,7 +102,7 @@ def urgent_alerts():
         text_english = request.form["message_english"]
         text_spanish = request.form["message_spanish"]
 
-        post = Post(author=user, categories=[], event=None, posts=[{"lang": "en", "body": text_english}, {"lang": "es", "body": text_spanish}])
+        post = Post(author=user.to_doc(), categories=[], event=None, posts=[{"lang": "en", "body": text_english}, {"lang": "es", "body": text_spanish}])
 
         db.insert(post)
 
