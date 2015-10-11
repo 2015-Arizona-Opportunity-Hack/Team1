@@ -263,31 +263,31 @@ def lookup():
 
 @app.route("/users/updateuser", methods=["POST"])
 def updateuser():
-    user = db.find_by_field("email", request.form['email'], User)
+    usr = db.find_by_field("email", request.form['email'], User)
 
     if not admin_auth(request.cookies.get("session")):
         return redirect("/") # FAILED ATUH
 
-    if not User:
+    if not usr:
         return render_template("users.html", user=None) # TODO NO USER FOUND
-    user.phone_number = request.form['phone_number']
-    user.first_name = request.form['first_name']
-    user.last_name = request.form['last_name']
-    db.update(user)
-    return render_template("users.html", user=user)
+    usr.phone_number = request.form['phone_number']
+    usr.first_name = request.form['first_name']
+    usr.last_name = request.form['last_name']
+    db.update(usr)
+    return render_template("users.html", user=usr)
 
 @app.route("/users/updatepass", methods=["POST"])
 def updatepass():
-    user = db.find_by_field("email", request.form['email'], User)
+    usr = db.find_by_field("email", request.form['email'], User)
 
     if not admin_auth(request.cookies.get("session")):
         return redirect("/") # FAILED ATUH
 
-    if not User:
+    if not usr:
         return render_template("users.html", user=None)  # TODO NO USER FOUND
-    user.password = generate_password_hash(request.form['password'], "pbkdf2:sha256:10000")
-    db.update(user)
-    return render_template("users.html", user=user)
+    usr.password_hash = generate_password_hash(request.form['password'], "pbkdf2:sha256:10000")
+    db.update(usr)
+    return render_template("users.html", user=usr)
 
 @app.route("/users/delusr", methods=["POST"])
 def delusr():
