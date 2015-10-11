@@ -218,3 +218,23 @@ def del_user():
     usrdata = db.find_by_field("email", req_json["user"], User)
     db.remove(usrdata)
     return "Success", 200
+
+
+@app.route("/request_action_token")
+def request_action_token():
+    req_json = request.get_json(force=True)
+
+    errors = validate(req_json, "auth_token")
+    if errors:
+        print errors
+        return "validation error", 401
+
+    email = req_json["auth_token"].split(":")[1]
+
+    user = db.find_by_field("email", email, User)
+
+    if not user:
+        return "User not found", 404
+
+    return json.dumps({"action_token": user.generate_action_token(), "auth_token": user.generate_auth_token()})
+
