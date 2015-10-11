@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash
 
 ACCOUNT_SID = "AC67473fa50b6b5f01e75e48a9389b882a"  # ADD ACCOUNT
 token = "25336919c955c11bec22e4185683f662"  # ADD TOKEN
-sender = "+1 415-599-2671"  # ADD SENDER
+sender = "+15204474279"  # ADD SENDER
 client = TwilioRestClient(ACCOUNT_SID, token)
 
 """
