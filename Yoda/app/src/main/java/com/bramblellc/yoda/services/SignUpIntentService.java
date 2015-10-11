@@ -3,6 +3,7 @@ package com.bramblellc.yoda.services;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.bramblellc.yoda.data.SharedPreferencesLayer;
 import com.stevex86.napper.http.connection.ConnectionHandler;
 import com.stevex86.napper.http.elements.content.JsonBodyContent;
 import com.stevex86.napper.http.elements.method.Post;
@@ -52,6 +53,7 @@ public class SignUpIntentService extends YodaIntentService {
             if (response.getResponseCode() == 200) {
                 jsonObject = new JSONObject(response.getBodyContent().getOutputString());
                 String authToken = jsonObject.getString("auth_token");
+                SharedPreferencesLayer.getInstance().setAuthToken(authToken);
                 Intent localIntent = new Intent(ActionConstants.REGISTER_ACTION);
                 localIntent.putExtra("successful", true);
                 localIntent.putExtra("authToken", authToken);

@@ -220,7 +220,7 @@ public class Settings extends Activity {
         public void onReceive(Context context, Intent intent) {
             boolean successful = intent.getBooleanExtra("successful", false);
             if (!successful) {
-                Log.d("Yoda", "Ayy lmao :(");
+                Log.d("Yoda", "" + intent.getBooleanExtra("authenticationFailure", false));
             }
             else {
                 Log.d("Yoda", "Ayy lmao :)");

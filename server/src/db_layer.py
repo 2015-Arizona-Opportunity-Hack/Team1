@@ -84,10 +84,10 @@ class SuperUser(Model):
         return generate_token(self.email, datetime.utcnow(), 0, str(self.action_token_secret))
 
     def verify_auth_token(self, token):
-        return generate_token(token, 0, timedelta(days=2), str(self.auth_token_secret))
+        return verify_token(token, 0, timedelta(days=2), str(self.auth_token_secret))
 
     def verify_action_token(self, token):
-        return generate_token(token, 0, timedelta(minutes=10), str(self.action_token_secret))
+        return verify_token(token, 0, timedelta(minutes=10), str(self.action_token_secret))
 
 
 class User(Model):
@@ -125,10 +125,10 @@ class User(Model):
         return generate_token(self.email, datetime.utcnow(), 0, str(self.action_token_secret))
 
     def verify_auth_token(self, token):
-        return generate_token(token, 0, timedelta(days=120), str(self.auth_token_secret))
+        return verify_token(token, 0, timedelta(days=120), str(self.auth_token_secret))
 
     def verify_action_token(self, token):
-        return generate_token(token, 0, timedelta(minutes=10), str(self.action_token_secret))
+        return verify_token(token, 0, timedelta(minutes=10), str(self.action_token_secret))
 
     @classmethod
     def COLLECTION_NAME(cls):

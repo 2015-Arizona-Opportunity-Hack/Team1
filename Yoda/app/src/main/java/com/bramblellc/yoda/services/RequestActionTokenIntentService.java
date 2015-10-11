@@ -33,7 +33,7 @@ public class RequestActionTokenIntentService extends IntentService {
             Request request = new Request(route, new Post());
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("auth_token", intent.getStringExtra("auth_token"));
+            jsonObject.put("auth_token", SharedPreferencesLayer.getInstance().getAuthToken());
             JsonBodyContent content = new JsonBodyContent(jsonObject.toString());
 
             request.setBodyContent(content);

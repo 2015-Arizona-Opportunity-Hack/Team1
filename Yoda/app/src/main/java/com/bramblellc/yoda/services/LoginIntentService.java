@@ -43,6 +43,7 @@ public class LoginIntentService extends YodaIntentService {
             if (response.getResponseCode() == 200) {
                 jsonObject = new JSONObject(response.getBodyContent().getOutputString());
                 String authToken = jsonObject.getString("auth_token");
+                SharedPreferencesLayer.getInstance().setAuthToken(authToken);
                 Intent localIntent = new Intent(ActionConstants.LOGIN_ACTION);
                 localIntent.putExtra("successful", true);
                 SharedPreferencesLayer.getInstance().setAuthToken(authToken);
