@@ -48,6 +48,10 @@
 
         <service android:name=".services.SignUpIntentService"/>
 
+        <service android:name=".services.ChangePropertyIntentService"/>
+
+        <service android:name=".services.RequestActionTokenIntentService"/>
+
     </application>
 
 </manifest>

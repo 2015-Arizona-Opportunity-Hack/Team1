@@ -100,6 +100,7 @@ class User(Model):
             self.phone_number = kwargs["phone_number"]
             self.password_hash = generate_password_hash(kwargs["password"], "pbkdf2:sha256:10000")
             self.language_pref = kwargs["language_pref"]
+            self.message_prefs = kwargs["message_prefs"]
             self.auth_token_secret = generate_secret(128)
             self.action_token_secret = generate_secret(128)
         else:
@@ -109,6 +110,7 @@ class User(Model):
             self.phone_number = object_dict["phone_number"]
             self.password_hash = object_dict["password_hash"]
             self.language_pref = object_dict["language_pref"]
+            self.message_prefs = object_dict["message_prefs"]
             self.auth_token_secret = object_dict["auth_token_secret"]
             self.action_token_secret = object_dict["action_token_secret"]
             self.id = object_dict["_id"]
@@ -140,6 +142,7 @@ class User(Model):
             "phone_number": self.phone_number,
             "password_hash": self.password_hash,
             "language_pref": self.language_pref,
+            "message_prefs": self.message_prefs,
             "auth_token_secret": self.auth_token_secret,
             "action_token_secret": self.action_token_secret
         }
@@ -213,4 +216,10 @@ class GideonDatabaseClient:
         collection.update(
             {"_id": model_inst.id},
             model_inst.to_doc()
+        )
+
+    def remove(self, model_inst):
+        collection = self.get_collection(model_inst.__class__)
+        collection.remove(
+            {"_id": model_inst.id}
         )

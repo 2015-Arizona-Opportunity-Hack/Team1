@@ -94,18 +94,20 @@ def register():
         print errors
         return "validation error", 401
 
-    email, phone, password, language_pref, first_name, last_name = obj["email"], obj["phone_number"], obj["password"], \
-                                                                   obj["language_pref"], obj["first_name"], obj[
-                                                                       "last_name"]
+    email, phone, password, language_pref, first_name, last_name, message_prefs = obj["email"], obj["phone_number"], \
+                                                                                  obj["password"], \
+                                                                                  obj["language_pref"], obj[
+                                                                                      "first_name"], obj[
+                                                                                      "last_name"], "2"
 
     new_user = User(email=email, phone_number=phone, password=password, language_pref=language_pref,
-                    first_name=first_name, last_name=last_name)
+                    first_name=first_name, last_name=last_name, message_prefs=message_prefs)
     db.insert(new_user)
 
     return json.dumps({"auth_token": new_user.generate_auth_token()}), 200
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/login_app", methods=["POST"])
 def login():
     obj = request.get_json(force=True)
 
@@ -165,8 +167,9 @@ def usr_prop():
         print errors
         return "validation error", 401
 
-    if req_json["property"] != "email" and req_json["property"] != "language_pref":
-        usr = db.find_by_field("email", req_json["email"], User)
+    if req_json["property"] != "message_prefs" and req_json["property"] != "language_pref":
+        email = req_json["action_token"].split(":")[1]
+        usr = db.find_by_field("email", email, User)
         if not usr:
             return "user not found", 404
 
@@ -182,3 +185,63 @@ def usr_prop():
             return "Success", 200
     else:
         return "bad property", 401
+
+
+@app.route("/user_lookup", methods=['POST'])
+def user_lookup():
+    req_json = request.get_json(force=True)
+
+    errors = validate(req_json, "user", "admin_token", "admin_email")
+    if errors:
+        print errors
+        return "validation error", 401
+
+    admin = db.find_by_field("email", req_json["admin"], SuperUser)
+    if not admin:
+        return "Superuser account invalid", 401
+    else:
+        if not admin.verify_auth_token(req_json["admin_token"]):
+            return "Token invalid", 401
+
+    usrdata = db.find_by_field("email", req_json["user"], User)
+    return json.dumps(usrdata.to_doc())
+
+@app.route("/del_user", methods=['POST'])
+def del_user():
+    req_json = request.get_json(force=True)
+
+    errors = validate(req_json, "user", "admin_token", "admin_email")
+    if errors:
+        print errors
+        return "validation error", 401
+
+    admin = db.find_by_field("email", req_json["admin"], SuperUser)
+    if not admin:
+        return "Superuser account invalid", 401
+    else:
+        if not admin.verify_auth_token(req_json["admin_token"]):
+            return "Token invalid", 401
+
+    usrdata = db.find_by_field("email", req_json["user"], User)
+    db.remove(usrdata)
+    return "Success", 200
+
+
+@app.route("/request_action_token", methods=["POST"])
+def request_action_token():
+    req_json = request.get_json(force=True)
+
+    errors = validate(req_json, "auth_token")
+    if errors:
+        print errors
+        return "validation error", 401
+
+    email = req_json["auth_token"].split(":")[1]
+
+    user = db.find_by_field("email", email, User)
+
+    if not user:
+        return "User not found", 404
+
+    return json.dumps({"action_token": user.generate_action_token(), "auth_token": user.generate_auth_token()})
+
