@@ -216,7 +216,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/news2"
+                android:layout_below="@id/news3"
                 android:visibility="gone"
                 android:id="@+id/news4">
 
@@ -246,7 +246,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/test_image3"
+                        android:background="@drawable/test_image4"
                         android:id="@+id/image4"/>
 
                 </com.bramblellc.yoda.layouts.SquareRelativeLayout>
@@ -302,7 +302,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/test_image3"
+                        android:background="@drawable/test_image5"
                         android:id="@+id/image5"/>
 
                 </com.bramblellc.yoda.layouts.SquareRelativeLayout>
