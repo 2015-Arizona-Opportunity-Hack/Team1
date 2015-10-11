@@ -64,7 +64,7 @@
         </div>
       </div>
 
-    {% if user %}
+    {% if user is not none %}
         <script>
         $(document).ready(function () {
             $("email").val({% user.email %})
