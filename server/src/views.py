@@ -4,10 +4,10 @@ from db_layer import User, Post, SuperUser
 from util import validate, authenticate
 from flask import render_template
 
-
 @app.route("/")
 def index():
-    return render_template('index.html')  # :(
+    hover = {"index":"","news-alerts":"","login":"","users":"","emergency":""}
+    return render_template('index.html',hover)  # :(
 
 
 @app.route("/example")
@@ -17,22 +17,29 @@ def example():
 
 @app.route("/login/")
 def admin_login():
+    hover = {"index":"","news-alerts":"","login":"","users":"","emergency":""}
     return render_template('login.html')
 
 
 @app.route("/news-alerts/")
 def news_alerts():
-    return render_template('news-alerts.html')
+    hover = {"index":"","news-alerts":"","login":"","users":"","emergency":""}
+    hover["news-alerts"] = "active"
+    return render_template('news-alerts.html',hover=hover)
 
 
 @app.route("/urgent-alerts/")
 def urgent_alerts():
-    return render_template('emergency-alerts.html')
+    hover = {"index":"","news-alerts":"","login":"","users":"","emergency":""}
+    hover["urgent-alerts"] = "active"
+    return render_template('emergency-alerts.html',hover=hover)
 
 
 @app.route("/users/")
 def users():
-    return render_template('users.html')
+    hover = {"index":"","news-alerts":"","login":"","users":"","emergency":""}
+    hover["users"] = "active"
+    return render_template('users.html',hover=hover)
 
 
 @app.route("/register_su", methods=["POST"])
