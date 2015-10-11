@@ -34,6 +34,7 @@ public class CustomActionbar extends RelativeLayout {
     private boolean searchButton;
     private boolean settingsButton;
     private boolean searchBar;
+    private boolean upButton;
 
     public CustomActionbar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -55,6 +56,7 @@ public class CustomActionbar extends RelativeLayout {
         this.searchButton = a.getBoolean(R.styleable.CustomActionbar_searchButton, false);
         this.settingsButton = a.getBoolean(R.styleable.CustomActionbar_settingsButton, false);
         this.searchBar = a.getBoolean(R.styleable.CustomActionbar_searchBar, false);
+        this.upButton = a.getBoolean(R.styleable.CustomActionbar_upButton,false);
         //Don't forget this
         a.recycle();
 
@@ -67,52 +69,58 @@ public class CustomActionbar extends RelativeLayout {
         wm.getDefaultDisplay().getMetrics(metrics);
         float logicalDensity = metrics.density;
 
-        this.backButton = new Button(context);
-        this.backButton.setWidth(75 * (int) logicalDensity);
-        this.backButton.setBackgroundColor(getResources().getColor(R.color.transparent));
+        if (upButton) {
+            this.backButton = new Button(context);
+            this.backButton.setWidth(75 * (int) logicalDensity);
+            this.backButton.setBackgroundColor(getResources().getColor(R.color.transparent));
 
-        LayoutParams backButtonParams = new LayoutParams
-                (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        backButtonParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+            LayoutParams backButtonParams = new LayoutParams
+                    (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            backButtonParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
 
-        this.addView(backButton, backButtonParams);
+            this.addView(backButton, backButtonParams);
 
-        backButtonImage = new ImageView(context);
-        if(backButtonColor.equals("blue")) {
-            this.backButtonImage.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.custom_white_up_button));
+            backButtonImage = new ImageView(context);
+            if (backButtonColor.equals("blue")) {
+                this.backButtonImage.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.custom_white_up_button));
+            } else if (backButtonColor.equals("purple")) {
+                this.backButtonImage.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.custom_white_up_button));
+            } else {
+                this.backButtonImage.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.custom_white_up_button));
+            }
+
+            LayoutParams backButtonImageParams = new LayoutParams
+                    ((int) (getResources().getDimension(R.dimen.up_button_side_lengths) * logicalDensity),
+                            (int) (getResources().getDimension(R.dimen.up_button_side_lengths) * logicalDensity));
+            this.backButtonImage.setLayoutParams(backButtonImageParams);
+            this.backButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            this.backButtonImage.setPadding((int) (logicalDensity * getResources().getDimension(R.dimen.up_button_padding)), 0,
+                    (int) (logicalDensity * getResources().getDimension(R.dimen.up_button_padding)), 0);
+            this.backButtonImage.setId(1);
+
+            LayoutParams upButtonImageParams = new LayoutParams
+                    (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            upButtonImageParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+            upButtonImageParams.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+
+            this.addView(backButtonImage, upButtonImageParams);
         }
-        else if (backButtonColor.equals("purple")) {
-            this.backButtonImage.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.custom_white_up_button));
-        }
-        else {
-            this.backButtonImage.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.custom_white_up_button));
-        }
-
-        LayoutParams backButtonImageParams = new LayoutParams
-                ((int) (getResources().getDimension(R.dimen.up_button_side_lengths)*logicalDensity),
-                        (int) (getResources().getDimension(R.dimen.up_button_side_lengths)*logicalDensity));
-        this.backButtonImage.setLayoutParams(backButtonImageParams);
-        this.backButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        this.backButtonImage.setPadding((int) (logicalDensity * getResources().getDimension(R.dimen.up_button_padding)), 0,
-                (int) (logicalDensity * getResources().getDimension(R.dimen.up_button_padding)), 0);
-        this.backButtonImage.setId(1);
-
-        LayoutParams upButtonImageParams = new LayoutParams
-                (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        upButtonImageParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-        upButtonImageParams.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
-
-        this.addView(backButtonImage, upButtonImageParams);
 
         LayoutParams textParams = new LayoutParams
                 (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        textParams.addRule(RelativeLayout.RIGHT_OF, backButtonImage.getId());
+        if (upButton)
+            textParams.addRule(RelativeLayout.RIGHT_OF, backButtonImage.getId());
+        else
+            textParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
         textParams.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
 
         this.title = new TextView (context);
         this.title.setText(text);
         this.title.setTextColor(textColor);
         this.title.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.action_bar_text_size));
+        if (!upButton)
+            this.title.setPadding((int) (logicalDensity * getResources().getDimension(R.dimen.up_button_padding)), 0,
+                    (int) (logicalDensity * getResources().getDimension(R.dimen.up_button_padding)), 0);
         this.addView(title,textParams);
     }
 

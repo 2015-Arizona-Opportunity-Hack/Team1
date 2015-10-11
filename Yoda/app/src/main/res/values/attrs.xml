@@ -36,6 +36,7 @@
         <attr name="searchButton" format="boolean"/>
         <attr name="settingsButton" format="boolean"/>
         <attr name="searchBar" format="boolean"/>
+        <attr name="upButton" format="boolean"/>
     </declare-styleable>
 
 </resources>
