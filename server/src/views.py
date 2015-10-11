@@ -84,6 +84,7 @@ def news_alerts():
                                                  {"title": title_spanish, "body": message_spanish, "lang": "es"}],
                     categories=[], event=None)
 
+        db.insert(post)
 
         new_session = user.generate_auth_token()
 
