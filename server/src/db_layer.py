@@ -45,7 +45,7 @@ class Post(Model):
 
 
 class User(Model):
-    def __init__(self, object_dict=None, id=None, **kwargs):
+    def __init__(self, object_dict=None, **kwargs):
         Model.__init__(self)
         if object_dict is None:
             self.email = kwargs["email"]
@@ -146,7 +146,7 @@ class GideonDatabaseClient:
         else:
             return None
 
-    def findByField(self, inst_query_fieldname, inst_query_value, model_cls):
+    def find_by_field(self, inst_query_fieldname, inst_query_value, model_cls):
         collection = self.get_collection(model_cls)
         model_data = collection.find_one({inst_query_fieldname: inst_query_value})
         if model_data:

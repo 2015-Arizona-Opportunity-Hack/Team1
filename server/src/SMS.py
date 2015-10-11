@@ -16,10 +16,10 @@ def change_of_phone():
 
     phone = request.values.get('From', None)
     body = request.values.get('Body', None)
-    model = db.findByField("phone_number", phone, Update)
+    model = db.find_by_field("phone_number", phone, Update)
 
     if model:
-        user = db.findByField("username", model.username, User)  # the body is probably a password
+        user = db.find_by_field("username", model.username, User)  # the body is probably a password
 
         hashed_body = generate_password_hash(body, "pbkdf2:sha256:10000")
         if hashed_body == user.password_hash:
@@ -30,7 +30,7 @@ def change_of_phone():
             pass #TODO John return a bad password response
 
     else:
-        user = db.findByField("phone_number", phone, User)
+        user = db.find_by_field("phone_number", phone, User)
         db.insert(Update(phone_number=phone, username=user.username))
 
     #TODO John everything below this

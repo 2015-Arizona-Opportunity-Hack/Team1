@@ -41,7 +41,7 @@ def login():
 
     email, password = obj["email"], obj["password"]
 
-    user = db.findByField("email", email, User)
+    user = db.find_by_field("email", email, User)
 
     if not user:
         return "email not found", 401
