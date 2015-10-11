@@ -77,34 +77,113 @@ def urgent_alerts():
     return resp
 
 
-@app.route("/users/<string:email>")
+@app.route("/users/new", methods=["GET", "POST"])
+def users_new():
+    if request.method == "GET":
+        session = request.cookies.get("session")
+        if not session:
+            return redirect("/")
+
+        email = session.split(":")[1]
+
+        su = db.find_by_field("email", email, SuperUser)
+
+        if not su:
+            return redirect("/")
+
+        if not su.verify_auth_token(session):
+            return redirect("/")
+
+        new_session = su.generate_auth_token()
+        resp = make_response(render_template("users.html", user=None))
+        resp.set_cookie("session", new_session)
+
+        return resp
+
+    elif request.method == "POST":
+        session = request.cookies.get("session")
+        if not session:
+            return redirect("/")
+
+        email = session.split(":")[1]
+
+        su = db.find_by_field("email", email, SuperUser)
+
+        if not su:
+            return redirect("/")
+
+        if not su.verify_auth_token(session):
+            return redirect("/")
+
+        errors = validate(request.form, "email", "password", "first_name", "last_name", "phone_number")
+        if errors:
+            new_session = su.generate_auth_token()
+            resp = make_response(render_template("users.html", user=None))
+            resp.set_cookie("session", new_session)
+            return resp
+
+        else:
+            email = request.form["email"]
+            if db.find_by_field("email", email, User):
+                new_session = su.generate_auth_token()
+                resp = make_response(render_template("users.html", user=None))
+                resp.set_cookie("session", new_session)
+                return resp
+            else:
+                user = User(email=email, password=request.form["password"], first_name=request.form["first_name"],
+                            last_name=request.form["last_name"], phone_number=request.form["phone_number"],
+                            language_pref="en", message_prefs="2")
+                db.insert(user)
+                new_session = su.generate_auth_token()
+                resp = make_response(redirect("/users/" + email))
+                resp.set_cookie("session", new_session)
+                return resp
+
+
+@app.route("/users/<string:email>", methods=["GET", "POST", "DELETE"])
 def users(email):
+    if request.method == "GET":
+        session = request.cookies.get("session")
+        if not session:
+            return redirect("/")
 
-    user = db.find_by_field("email", email, User)
+        su_email = session.split(":")[1]
 
-    print user.first_name
+        su = db.find_by_field("email", su_email, SuperUser)
 
-    session = request.cookies.get("session")
-    if not session:
-        return redirect("/")
+        if not su:
+            return redirect("/")
 
-    email = session.split(":")[1]
+        if not su.verify_auth_token(session):
+            return redirect("/")
 
-    user = db.find_by_field("email", email, SuperUser)
+        new_session = su.generate_auth_token()
 
-    if not user:
-        return redirect("/")
+        user = db.find_by_field("email", email, User)
 
-    if not user.verify_auth_token(session):
-        return redirect("/")
+        resp = make_response(render_template("users.html", user=user))
+        resp.set_cookie("session", new_session)
 
-    new_session = user.generate_auth_token()
+        return resp
 
-    resp = make_response(render_template("users.html"))
-    resp.set_cookie("session", new_session)
+    elif request.method == "POST":
+        session = request.cookies.get("session")
+        if not session:
+            return redirect("/")
 
-    return resp
+        su_email = session.split(":")[1]
 
+        su = db.find_by_field("email", su_email, SuperUser)
+
+        if not su:
+            return redirect("/")
+
+        if not su.verify_auth_token(session):
+            return redirect("/")
+
+        user = db.find_by_field("email", email, User)
+
+        return render_template("users.html", user=user)
 
 
 @app.route("/login/")
