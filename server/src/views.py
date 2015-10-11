@@ -3,7 +3,8 @@ from flask import request, json
 from db_layer import User, Post
 from util import validate, authenticate
 
-@app.route("/", methods=["POST"])
+
+@app.route("/")
 def index():
     return "Ayy lmao"
 
@@ -14,14 +15,14 @@ def register():
 
     print obj
 
-    errors = validate(obj, "username", "phone_number", "password")
+    errors = validate(obj, "username", "phone_number", "password", "language_pref", "first_name", "last_name")
     if errors:
         print errors
         return "validation error", 401
 
-    username, phone, password = obj["username"], obj["phone_number"], obj["password"]
+    username, phone, password, language_pref, first_name, last_name = obj["username"], obj["phone_number"], obj["password"], obj["language_pref"], obj["first_name"], obj["last_name"]
 
-    new_user = User(username=username, phone_number=phone, password=password)
+    new_user = User(username=username, phone_number=phone, password=password, language_pref=language_pref, first_name=first_name, last_name=last_name)
     db.insert(new_user)
 
     return username + " " + phone, 200
@@ -77,7 +78,12 @@ def make_post():
 
     b = db.find(a, Post)
     print b
-    db.update(b)
+    # Todo act on authentication
+    if not authenticate(req_json["auth"]):
+        return "authentication error", 401
+
+    new_post = Post(author=req_json["author"], posts=req_json["posts"], categories=req_json["categories"],
+                    event=req_json["event"])
+    db.insert(new_post)
 
     return "Success", 200
-

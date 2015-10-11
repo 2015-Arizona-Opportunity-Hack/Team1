@@ -48,6 +48,8 @@ class User(Model):
         Model.__init__(self)
         if object_dict is None:
             self.username = kwargs["username"]
+            self.first_name = kwargs["first_name"]
+            self.last_name = kwargs["last_name"]
             self.phone_number = kwargs["phone_number"]
             self.password_hash = generate_password_hash(kwargs["password"], "pbkdf2:sha256:10000")
             self.language_pref = kwargs["language_pref"]
@@ -56,6 +58,8 @@ class User(Model):
 
         else:
             self.username = object_dict["username"]
+            self.first_name = object_dict["first_name"]
+            self.last_name = object_dict["last_name"]
             self.phone_number = object_dict["phone_number"]
             self.password_hash = object_dict["password_hash"]
             self.language_pref = object_dict["language_pref"]
@@ -66,16 +70,16 @@ class User(Model):
         return check_password_hash(self.password_hash, password)
 
     def generate_auth_token(self):
-        return generate_token(self.username, datetime.utcnow(), 0, self.auth_token_secret)
+        return generate_token(self.username, datetime.utcnow(), 0, str(self.auth_token_secret))
 
     def generate_action_token(self):
-        return generate_token(self.username, datetime.utcnow(), 0, self.action_token_secret)
+        return generate_token(self.username, datetime.utcnow(), 0, str(self.action_token_secret))
 
     def verify_auth_token(self, token):
-        return generate_token(token, 0, timedelta(days=120), self.auth_token_secret)
+        return generate_token(token, 0, timedelta(days=120), str(self.auth_token_secret))
 
-    def verify_auth_token(self, token):
-        return generate_token(token, 0, timedelta(minutes=10), self.action_token_secret)
+    def verify_action_token(self, token):
+        return generate_token(token, 0, timedelta(minutes=10), str(self.action_token_secret))
 
 
     @classmethod
@@ -85,6 +89,8 @@ class User(Model):
     def to_doc(self):
         return {
             "username": self.username,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
             "phone_number": self.phone_number,
             "password_hash": self.password_hash,
             "language_pref": self.language_pref,
