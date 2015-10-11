@@ -71,3 +71,12 @@ html, body {
 	position: relative;
 	top: -30px;
 }
+
+.emergency-drop .dropdown {
+	position: relative;
+	top: -20px;
+}
+.submit-button {
+	float: left;
+	position: relative;
+}
