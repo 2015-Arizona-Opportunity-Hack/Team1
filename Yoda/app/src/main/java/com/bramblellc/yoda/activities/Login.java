@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.bramblellc.yoda.R;
 import com.bramblellc.yoda.fragments.LoadingBar;
 import com.bramblellc.yoda.services.ActionConstants;
+import com.bramblellc.yoda.services.LoginIntentService;
 
 import java.util.Set;
 
@@ -135,11 +136,10 @@ public class Login extends Activity {
             ft.add(R.id.loading_frame, loadingBar);
             ft.commit();
             loginButton.setText(getResources().getString(R.string.logging_in));
-            //new LoginTask().execute(username, password);
-            //Intent intent = new Intent(this, LoginService.class);
-            //intent.putExtra("username", username);
-            //intent.putExtra("password", password);
-            //startService(intent);
+            Intent intent = new Intent(this, LoginIntentService.class);
+            intent.putExtra("username", username);
+            intent.putExtra("password", password);
+            startService(intent);
         }
     }
 
