@@ -44,6 +44,36 @@ class Post(Model):
         }
 
 
+class SuperUser(Model):
+    def __init__(self, object_dict=None, **kwargs):
+        Model.__init__(self)
+        if object_dict is None:
+            self.email = kwargs["email"]
+            self.first_name = kwargs["first_name"]
+            self.last_name = kwargs["last_name"]
+            self.password_hash = kwargs["password_hash"]
+            self.auth_token_secret = generate_secret(128)
+            self.action_token_secret = generate_secret(128)
+        else:
+            self.email = object_dict["email"]
+            self.first_name = object_dict["first_name"]
+            self.last_name = object_dict["last_name"]
+            self.password_hash = object_dict["password_hash"]
+            self.auth_token_secret = object_dict["auth_token_secret"]
+            self.action_token_secret = object_dict["action_token_secret"]
+            self.id = object_dict["_id"]
+
+    def to_doc(self):
+        return {
+            "email": self.email,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "password_hash": self.password_hash,
+            "auth_token_secret": self.auth_token_secret,
+            "action_token_secret": self.action_token_secret
+        }
+
+
 class User(Model):
     def __init__(self, object_dict=None, **kwargs):
         Model.__init__(self)
