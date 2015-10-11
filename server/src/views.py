@@ -219,7 +219,7 @@ def users(email):
         return render_template("users.html", user=user)
 
 @app.route("/users/emaillookup", methods=["POST"])
-def users():
+def lookup():
     user = db.find_by_field("email", request.form['email'], User)
     return render_template("users.html", user=user)
 
