@@ -167,9 +167,7 @@ def usr_prop():
         print errors
         return "validation error", 401
 
-    print req_json["property"]
-
-    if (req_json["property"] == "message_prefs" or req_json["property"] == "language_pref"):
+    if req_json["property"] == "message_prefs" or req_json["property"] == "language_pref":
         email = req_json["action_token"].split(":")[1]
         usr = db.find_by_field("email", email, User)
         if not usr:
@@ -182,9 +180,7 @@ def usr_prop():
             setattr(usr, req_json["property"], req_json["value"])
             db.update(usr)
 
-            print req_json["property"] + " " + req_json["value"]
-
-            return "Success", 200
+            return json.dumps({"action_token": usr.generate_action_token()})
     else:
         return "bad property", 401
 
