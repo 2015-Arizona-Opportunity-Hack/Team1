@@ -46,7 +46,7 @@ def create_message(receiver, message):
 def send_message(user, post_array):
     message = None
     for post in post_array:
-        if post["lang"] == user.language_pref:
+        if post["lang"] == user["language_pref"]:
             message = post["body"]
             create_message(user.phone_number, message)
     if not message:
