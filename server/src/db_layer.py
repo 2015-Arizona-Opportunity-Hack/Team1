@@ -3,6 +3,7 @@ import pymongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from grumpy import verify_token, generate_secret, generate_token
 from datetime import datetime, timedelta
+from flask import json
 
 
 class Model:
@@ -43,6 +44,9 @@ class Post(Model):
             "categories": self.categories,
             "event": self.event
         }
+
+    def serialize(self):
+        json.dumps(self.to_doc())
 
 
 class SuperUser(Model):
