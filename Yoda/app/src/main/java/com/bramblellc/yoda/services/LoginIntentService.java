@@ -13,7 +13,7 @@ import com.stevex86.napper.response.Response;
 
 import org.json.JSONObject;
 
-public class LoginIntentService extends IntentService {
+public class LoginIntentService extends YodaIntentService {
 
     public LoginIntentService() {
         this("LoginIntentService");
@@ -55,6 +55,7 @@ public class LoginIntentService extends IntentService {
         }
         catch (Exception e) {
             e.printStackTrace();
+            sendFailBroadcast("connectionFailure", ActionConstants.LOGIN_ACTION);
         }
     }
 

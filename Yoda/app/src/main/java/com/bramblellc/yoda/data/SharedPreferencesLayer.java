@@ -19,11 +19,11 @@ public class SharedPreferencesLayer {
         sharedPreferences = ctx.getSharedPreferences(preferencesFile, Context.MODE_PRIVATE);
     }
 
-    public void init(Context ctx) {
+    public static void init(Context ctx) {
         instance = new SharedPreferencesLayer(ctx);
     }
 
-    public SharedPreferencesLayer getInstance() {
+    public static SharedPreferencesLayer getInstance() {
         if (instance == null) {
             throw new IllegalStateException("SharedPreferencesLayer not initialized");
         }

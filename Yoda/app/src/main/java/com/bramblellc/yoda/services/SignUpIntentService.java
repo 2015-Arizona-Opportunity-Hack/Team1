@@ -1,6 +1,5 @@
 package com.bramblellc.yoda.services;
 
-import android.app.IntentService;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -13,7 +12,7 @@ import com.stevex86.napper.response.Response;
 
 import org.json.JSONObject;
 
-public class SignUpIntentService extends IntentService {
+public class SignUpIntentService extends YodaIntentService {
 
     public SignUpIntentService(String name) {
         super(name);
@@ -67,6 +66,7 @@ public class SignUpIntentService extends IntentService {
         }
         catch (Exception e) {
             e.printStackTrace();
+            sendFailBroadcast("connectionFailure", ActionConstants.CHANGE_PROPERTY);
         }
     }
 
