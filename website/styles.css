@@ -96,3 +96,8 @@ html, body {
 }
 
 .page-header { border-bottom:none; }
+
+.image-button {
+	position: relative;
+	bottom: 5px;
+}
