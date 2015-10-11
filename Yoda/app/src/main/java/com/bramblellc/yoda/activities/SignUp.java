@@ -219,18 +219,22 @@ public class SignUp extends Activity {
     }
 
     public void englishPressed(View view) {
-        if (language) {
-            language = false;
-            spanish.setChecked(true);
-            english.setChecked(false);
+        if (!language) {
+            language = true;
+            spanish.setEnabled(true);
+            spanish.setChecked(false);
+            english.setChecked(true);
+            english.setEnabled(false);
         }
     }
 
     public void spanishPressed(View view) {
-        if (!language) {
-            language = true;
-            spanish.setChecked(false);
-            english.setChecked(true);
+        if (language) {
+            language = false;
+            english.setEnabled(true);
+            spanish.setChecked(true);
+            english.setChecked(false);
+            spanish.setEnabled(false);
         }
     }
 
