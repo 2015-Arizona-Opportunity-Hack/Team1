@@ -7,7 +7,7 @@ from flask import render_template
 @app.route("/")
 def index():
     hover = {"index":"","news-alerts":"","login":"","users":"","emergency":""}
-    return render_template('index.html',hover,hover)  # :(
+    return render_template('index.html',hover=hover)  # :(
 
 
 @app.route("/example")
