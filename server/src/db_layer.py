@@ -46,6 +46,34 @@ class Post(Model):
         }
 
 
+class UrgentPost(Model):
+    def __init__(self, object_dict=None, id=None, **kwargs):
+        Model.__init__(self)
+        if object_dict is None:
+            self.author = kwargs["author"]
+            self.posts = kwargs["posts"]
+            self.categories = kwargs["categories"]
+            self.event = kwargs["event"]
+        else:
+            self.author = object_dict["author"]
+            self.posts = object_dict["posts"]
+            self.categories = object_dict["categories"]
+            self.event = object_dict["event"]
+            self.id = object_dict["_id"]
+
+    @classmethod
+    def COLLECTION_NAME(cls):
+        return "urgent_posts"
+
+    def to_doc(self):
+        return {
+            "author": self.author,
+            "posts": self.posts,
+            "categories": self.categories,
+            "event": self.event
+        }
+
+
 class SuperUser(Model):
     def __init__(self, object_dict=None, **kwargs):
         Model.__init__(self)

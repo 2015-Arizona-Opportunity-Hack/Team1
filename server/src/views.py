@@ -1,6 +1,6 @@
 from __init__ import app, db
 from flask import request, json, redirect, url_for, make_response
-from db_layer import User, Post, SuperUser
+from db_layer import User, Post, SuperUser, UrgentPost
 from util import validate, authenticate
 from flask import render_template
 from threading import Thread
@@ -19,7 +19,7 @@ def index():
 
         user = db.find_by_field("email", email, SuperUser)
 
-        if not user: # user lookup failed
+        if not user:  # user lookup failed
             return redirect("/")
 
         if not user.verify_password(password):
@@ -96,7 +96,6 @@ def news_alerts():
         return resp
 
 
-
 @app.route("/urgent-alerts/", methods=["GET", "POST"])
 def urgent_alerts():
     if request.method == "GET":
@@ -141,7 +140,9 @@ def urgent_alerts():
         text_english = request.form["message_english"]
         text_spanish = request.form["message_spanish"]
 
-        post = Post(author=user.to_doc(), categories=[], event=None, posts=[{"lang": "en", "body": text_english, "title": ""}, {"lang": "es", "body": text_spanish, "title": ""}])
+        post = UrgentPost(author=user.to_doc(), categories=[], event=None,
+                          posts=[{"lang": "en", "body": text_english, "title": ""},
+                                 {"lang": "es", "body": text_spanish, "title": ""}])
 
         db.insert(post)
 
@@ -257,22 +258,24 @@ def users(email):
 
         return render_template("users.html", user=user)
 
+
 @app.route("/users/emaillookup", methods=["POST"])
 def lookup():
     if not admin_auth(request.cookies.get("session")):
-        return redirect("/") # FAILED ATUH
+        return redirect("/")  # FAILED ATUH
     user = db.find_by_field("email", request.form['email'], User)
     return render_template("users.html", user=user)
+
 
 @app.route("/users/updateuser", methods=["POST"])
 def updateuser():
     usr = db.find_by_field("email", request.form['email'], User)
 
     if not admin_auth(request.cookies.get("session")):
-        return redirect("/") # FAILED ATUH
+        return redirect("/")  # FAILED ATUH
 
     if not usr:
-        return render_template("users.html", user=None) # TODO NO USER FOUND
+        return render_template("users.html", user=None)  # TODO NO USER FOUND
 
     if request.form['SUB'] == "Delete User":
         user = db.find_by_field("email", request.form['email'], User)
@@ -285,12 +288,13 @@ def updateuser():
     db.update(usr)
     return render_template("users.html", user=usr)
 
+
 @app.route("/users/updatepass", methods=["POST"])
 def updatepass():
     usr = db.find_by_field("email", request.form['email'], User)
 
     if not admin_auth(request.cookies.get("session")):
-        return redirect("/") # FAILED ATUH
+        return redirect("/")  # FAILED ATUH
 
     if not usr:
         return render_template("users.html", user=None)  # TODO NO USER FOUND
@@ -298,17 +302,19 @@ def updatepass():
     db.update(usr)
     return render_template("users.html", user=usr)
 
+
 @app.route("/users/delusr", methods=["POST"])
 def delusr():
     user = db.find_by_field("email", request.form['email'], User)
 
     if not admin_auth(request.cookies.get("session")):
-        return redirect("/") # FAILED ATUH
+        return redirect("/")  # FAILED ATUH
 
     if not User:
         return render_template("users.html", user=None)  # TODO NO USER FOUND
     db.remove(user)
     return render_template("users.html", user=user)
+
 
 @app.route("/login/")
 def login():
@@ -336,6 +342,7 @@ def register_su():
     db.insert(new_su)
 
     return json.dumps({"auth_token": new_su.generate_auth_token()})
+
 
 # THIS ROUTE IS NO LONGER BEING USED PER STEVE
 @app.route("/login_su", methods=["POST"])
