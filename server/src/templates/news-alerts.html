@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{%  block content %}
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3 col-md-6 col-md-offset-4">
+            <div class="page-header">
+              <h1>Create a Newsletter</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container urgent-drop">
+        <div class="row">
+          <div class="col-sm-2 col-md-6">
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Pick a User Group
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">User</a></li>
+                <li><a href="#">Groups</a></li>
+                <li><a href="#">Go</a></li>
+                <li><a href="#">Here</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3 col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">English Message</h3>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="title">Title:</label>
+                  <textarea class="form-control" rows="1" id="title"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="location">Location:</label>
+                  <textarea class="form-control" rows="1" id="location"></textarea>
+                </div>
+                <button type="button" class="btn btn-default image-button">Image Upload</button>
+                <div class="form-group">
+                  <label for="message">Text:</label>
+                  <textarea class="form-control" rows="10" id="message"></textarea>
+                </div>
+                <p>Will contain text input for english message </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Mensaje Español</h3>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="title">Título:</label>
+                  <textarea class="form-control" rows="1" id="title"></textarea>
+                </div>
+                 <div class="form-group">
+                  <label for="location">localización:</label>
+                  <textarea class="form-control" rows="1" id="location"></textarea>
+                </div>
+                <button type="button" class="btn btn-default image-button">Carga De Imágenes</button>
+                <div class="form-group">
+                  <label for="message">Texto:</label>
+                  <textarea class="form-control" rows="10" id="message"></textarea>
+                </div>
+                <p>Will contain text input for spanish message </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12 cod-sm-3">
+            <button type="button" class="btn btn-lg btn-block btn-primary">Send!</button>
+          </div>
+      </div>
+    </div>
+      <br>
+      <br>
+{% endblock %}

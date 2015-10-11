@@ -2,12 +2,24 @@ from __init__ import app, db
 from flask import request, json
 from db_layer import User, Post, SuperUser
 from util import validate, authenticate
+from flask import render_template
 
 
 @app.route("/")
 def index():
-    return "Ayy lmao"
-
+    return render_template('index.html')
+@app.route("/login/")
+def admin_login():
+    return render_template('login.html')
+@app.route("/news-alerts/")
+def news_alerts():
+    return render_template('news-alerts.html')
+@app.route("/urgent-alerts/")
+def urgent_alerts():
+    return render_template('emergency-alerts.html')
+@app.route("/users/")
+def users():
+    return render_template('users.html')
 
 @app.route("/register_su", methods=["POST"])
 def register_su():
