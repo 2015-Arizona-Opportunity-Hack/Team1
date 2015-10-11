@@ -1,16 +1,24 @@
 package com.bramblellc.yoda.activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bramblellc.yoda.R;
 import com.bramblellc.yoda.layouts.CustomActionbar;
 import com.bramblellc.yoda.layouts.FullWidthButton;
+import com.bramblellc.yoda.services.ActionConstants;
+import com.bramblellc.yoda.services.ChangePropertyIntentService;
+import com.bramblellc.yoda.services.LoginIntentService;
 
 public class Settings extends Activity {
 
@@ -19,6 +27,11 @@ public class Settings extends Activity {
     private FullWidthButton phoneFullWidthButton;
     private FullWidthButton msgFullWidthButton;
     private FullWidthButton logoutFullWidthButton;
+
+    private IntentFilter filter;
+    private BroadcastReceiver receiver;
+
+    private int bitField;
 
     private Integer[] selected;
 
@@ -38,6 +51,8 @@ public class Settings extends Activity {
         //selected = new Integer[2];
         //selected[0] = 0;
         //selected[1] = 1;
+
+        bitField = 0;
 
         settingsCustomActionbar.getBackButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,11 +98,29 @@ public class Settings extends Activity {
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        //change language to english
+                        Intent localIntent = new Intent(Settings.this, ChangePropertyIntentService.class);
+                        localIntent.putExtra("property", "language_pref");
+                        localIntent.putExtra("value", "en");
+
+                        filter = new IntentFilter(ActionConstants.CHANGE_PROPERTY);
+                        receiver = new SettingsBroadcastReceiver();
+                        LocalBroadcastManager.getInstance(Settings.this).registerReceiver(receiver, filter);
+
+                        startService(localIntent);
+
                     }
+
                     @Override
                     public void onNegative(MaterialDialog dialog) {
-                        //change language to spanish
+                        Intent localIntent = new Intent(Settings.this, ChangePropertyIntentService.class);
+                        localIntent.putExtra("property", "language_pref");
+                        localIntent.putExtra("value", "es");
+
+                        filter = new IntentFilter(ActionConstants.CHANGE_PROPERTY);
+                        receiver = new SettingsBroadcastReceiver();
+                        LocalBroadcastManager.getInstance(Settings.this).registerReceiver(receiver, filter);
+
+                        startService(localIntent);
                     }
                 })
                 .show();
@@ -113,9 +146,40 @@ public class Settings extends Activity {
         new MaterialDialog.Builder(this)
                 .title(R.string.msg_prefs_title)
                 .items(R.array.messeges_list)
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        Intent localIntent = new Intent(Settings.this, ChangePropertyIntentService.class);
+                        localIntent.putExtra("property", "message_prefs");
+
+                        localIntent.putExtra("value", bitField + "");
+
+                        filter = new IntentFilter(ActionConstants.CHANGE_PROPERTY);
+                        receiver = new SettingsBroadcastReceiver();
+                        LocalBroadcastManager.getInstance(Settings.this).registerReceiver(receiver, filter);
+
+                        startService(localIntent);
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        super.onNegative(dialog);
+                    }
+
+                })
                 .itemsCallbackMultiChoice(selected, new MaterialDialog.ListCallbackMultiChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
+                        if (which.length == 0) {
+                            bitField = 0;
+                        }
+                        else if (which.length == 1) {
+                            bitField = which[0] + 1;
+                        }
+                        else {
+                            bitField = which[0] + 1 | which[1] + 1;
+                        }
+
                         return true;
                     }
                 })
@@ -149,4 +213,21 @@ public class Settings extends Activity {
         startActivity(intent);
         finish();
     }
+
+    private class SettingsBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean successful = intent.getBooleanExtra("successful", false);
+            if (!successful) {
+                Log.d("Yoda", "" + intent.getBooleanExtra("authenticationFailure", false));
+            }
+            else {
+                Log.d("Yoda", "Ayy lmao :)");
+            }
+        }
+
+
+    }
+
 }

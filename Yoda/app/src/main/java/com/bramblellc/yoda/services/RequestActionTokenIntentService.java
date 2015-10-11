@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.bramblellc.yoda.data.SharedPreferencesLayer;
 import com.stevex86.napper.http.connection.ConnectionHandler;
 import com.stevex86.napper.http.elements.content.JsonBodyContent;
 import com.stevex86.napper.http.elements.method.Post;
@@ -32,7 +33,7 @@ public class RequestActionTokenIntentService extends IntentService {
             Request request = new Request(route, new Post());
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("auth_token", intent.getStringExtra("auth_token"));
+            jsonObject.put("auth_token", SharedPreferencesLayer.getInstance().getAuthToken());
             JsonBodyContent content = new JsonBodyContent(jsonObject.toString());
 
             request.setBodyContent(content);
@@ -44,6 +45,8 @@ public class RequestActionTokenIntentService extends IntentService {
                 jsonObject = new JSONObject(response.getBodyContent().getOutputString());
                 String authToken = jsonObject.getString("auth_token");
                 String actionToken = jsonObject.getString("action_token");
+                SharedPreferencesLayer.getInstance().setAuthToken(authToken);
+                SharedPreferencesLayer.getInstance().setActionToken(actionToken);
                 Intent localIntent = new Intent(this, callerClass);
                 localIntent.putExtras(callerExtras);
                 localIntent.putExtra("successful", true);

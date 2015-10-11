@@ -216,7 +216,6 @@ public class SignUp extends Activity {
             ft.commit();
             continueButton.setText(getResources().getString(R.string.signing_up));
             Intent intent = new Intent(this, SignUpIntentService.class);
-            intent.putExtra("username", email);
             intent.putExtra("password", password);
             intent.putExtra("phoneNumber", phoneNumber);
             intent.putExtra("email", email);

@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+import pymongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from grumpy import verify_token, generate_secret, generate_token
 from datetime import datetime, timedelta
@@ -83,10 +84,10 @@ class SuperUser(Model):
         return generate_token(self.email, datetime.utcnow(), 0, str(self.action_token_secret))
 
     def verify_auth_token(self, token):
-        return generate_token(token, 0, timedelta(days=2), str(self.auth_token_secret))
+        return verify_token(token, 0, timedelta(days=2), str(self.auth_token_secret))
 
     def verify_action_token(self, token):
-        return generate_token(token, 0, timedelta(minutes=10), str(self.action_token_secret))
+        return verify_token(token, 0, timedelta(minutes=10), str(self.action_token_secret))
 
 
 class User(Model):
@@ -99,6 +100,7 @@ class User(Model):
             self.phone_number = kwargs["phone_number"]
             self.password_hash = generate_password_hash(kwargs["password"], "pbkdf2:sha256:10000")
             self.language_pref = kwargs["language_pref"]
+            self.message_prefs = kwargs["message_prefs"]
             self.auth_token_secret = generate_secret(128)
             self.action_token_secret = generate_secret(128)
         else:
@@ -108,6 +110,7 @@ class User(Model):
             self.phone_number = object_dict["phone_number"]
             self.password_hash = object_dict["password_hash"]
             self.language_pref = object_dict["language_pref"]
+            self.message_prefs = object_dict["message_prefs"]
             self.auth_token_secret = object_dict["auth_token_secret"]
             self.action_token_secret = object_dict["action_token_secret"]
             self.id = object_dict["_id"]
@@ -122,10 +125,10 @@ class User(Model):
         return generate_token(self.email, datetime.utcnow(), 0, str(self.action_token_secret))
 
     def verify_auth_token(self, token):
-        return generate_token(token, 0, timedelta(days=120), str(self.auth_token_secret))
+        return verify_token(token, 0, timedelta(days=120), str(self.auth_token_secret))
 
     def verify_action_token(self, token):
-        return generate_token(token, 0, timedelta(minutes=10), str(self.action_token_secret))
+        return verify_token(token, 0, timedelta(minutes=10), str(self.action_token_secret))
 
     @classmethod
     def COLLECTION_NAME(cls):
@@ -139,6 +142,7 @@ class User(Model):
             "phone_number": self.phone_number,
             "password_hash": self.password_hash,
             "language_pref": self.language_pref,
+            "message_prefs": self.message_prefs,
             "auth_token_secret": self.auth_token_secret,
             "action_token_secret": self.action_token_secret
         }
@@ -183,6 +187,14 @@ class GideonDatabaseClient:
         collection = self.get_collection(model_cls)
         return collection.insert_one(model_inst.to_doc()).inserted_id
 
+    def get_last_n_of_class(self, model_cls, n):
+        collection = self.get_collection(model_cls)
+        model_data = collection.find().sort("_id", pymongo.DESCENDING).limit(n) # TODO IS IT ASCENDING OR DECENDING
+        mod = []
+        for each in model_data:
+            mod.append(model_cls(each))
+        return mod
+
     def find(self, inst_id, model_cls):
         collection = self.get_collection(model_cls)
         model_data = collection.find_one({"_id": inst_id})
@@ -204,4 +216,10 @@ class GideonDatabaseClient:
         collection.update(
             {"_id": model_inst.id},
             model_inst.to_doc()
+        )
+
+    def remove(self, model_inst):
+        collection = self.get_collection(model_inst.__class__)
+        collection.remove(
+            {"_id": model_inst.id}
         )
