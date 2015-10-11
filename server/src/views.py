@@ -58,7 +58,7 @@ def news_alerts():
     return resp
 
 
-@app.route("/urgent-alerts/")
+@app.route("/urgent-alerts/", methods=["GET", "POST"])
 def urgent_alerts():
     if request.method == "GET":
         session = request.cookies.get("session")
